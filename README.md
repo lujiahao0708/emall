@@ -12,5 +12,13 @@
 ## 网络拓补图
 ![网络拓补图.jpg](https://ooo.0o0.ooo/2016/11/07/5820a2bc0964e.jpg)
 
+## 技术要点
+1. Maven分模块
+2. RESTful
+3. Redis集群
+4. Solr集群
+5. MySql读写分离
+6. Nginx负载均衡
+
 ## Tips
 本项目视频来自网络,感谢他人分享
