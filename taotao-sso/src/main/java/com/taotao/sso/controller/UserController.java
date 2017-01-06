@@ -29,14 +29,15 @@ public class UserController {
     /**
      * 校验数据是否可用
      *
-     * @param param
-     * @param type
-     * @param callback
+     * @param param 需要校验的数据内容
+     * @param type 数据类型
+     * callback    是个回调地址,就是这个进入这个页面之前访问的地址
      * @return
      */
     @RequestMapping(value = "/check/{param}/{type}")
     @ResponseBody
-    public Object checkData(@PathVariable String param, @PathVariable Integer type, String callback) {
+    public Object checkData(@PathVariable String param, @PathVariable Integer type,HttpServletRequest request) {
+        String callback = request.getParameter("callback");
         TaotaoResult result = null;
         // 参数有效性校验
         if (StringUtils.isBlank(param)) {
