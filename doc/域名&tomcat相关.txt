@@ -1,0 +1,2 @@
+项目                  域名                 根目录
+taotao-manager      localhost:8080        /
