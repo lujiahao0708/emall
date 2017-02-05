@@ -11,22 +11,6 @@ public class TbItemDesc {
 
     private String itemDesc;
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
-
-    public void setItemDesc(String itemDesc) {
-        this.itemDesc = itemDesc;
-    }
-
 
     public Long getItemId() {
         return itemId;
@@ -42,5 +26,21 @@ public class TbItemDesc {
 
     public String getItemDesc() {
         return itemDesc;
+    }
+
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
+    public void setItemDesc(String itemDesc) {
+        this.itemDesc = itemDesc;
     }
 }

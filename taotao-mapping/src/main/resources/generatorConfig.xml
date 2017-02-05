@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <!-- !!!! Driver Class Path !!!! -->
-    <!--<classPathEntry location="D:\develop\javaee\m2_ipms\repository\mysql\mysql-connector-java\5.1.32\mysql-connector-java-5.1.32.jar"/>-->
-    <classPathEntry location="C:\Users\lujiahao\Desktop\mysql-connector-java-5.1.22-bin.jar"/>
+    <classPathEntry location="D:\develop\javaee\m2_ipms\repository\mysql\mysql-connector-java\5.1.32\mysql-connector-java-5.1.32.jar"/>
+    <!--<classPathEntry location="C:\Users\lujiahao\Desktop\mysql-connector-java-5.1.22-bin.jar"/>-->
     <context id="testTables" targetRuntime="MyBatis3">
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
@@ -42,7 +42,7 @@
         </javaModelGenerator>
 
         <!-- Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 targetProject:mapper映射文件生成的位置 -->
-        <sqlMapGenerator targetPackage="com.lujiahao.mapping.mapping" targetProject="src/main/java">
+        <sqlMapGenerator targetPackage="com.lujiahao.mapping.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 

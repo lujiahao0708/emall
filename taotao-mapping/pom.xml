@@ -12,7 +12,7 @@
     <groupId>com.lujiahao</groupId>
     <artifactId>taotao-mapping</artifactId>
     <version>0.0.2</version>
-    <packaging>jar</packaging>
+    <!--<packaging>jar</packaging>-->
 
     <dependencies>
         <!-- Mybatis -->
@@ -45,8 +45,7 @@
     </dependencies>
 
     <build>
-        <finalName>taotao-manager</finalName>
-        <plugins>
+        <!--<plugins>-->
             <!--<plugin>-->
                 <!--&lt;!&ndash;用maven mybatis插件-->
                 <!--如果不在plugin里面添加依赖包得引用的话，会找不到相关得jar包，-->
@@ -70,7 +69,7 @@
                     <!--</execution>-->
                 <!--</executions>-->
             <!--</plugin>-->
-        </plugins>
+        <!--</plugins>-->
 
         <!-- 如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->
         <resources>
@@ -78,13 +77,13 @@
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.properties</include>
-                    <include>**/mapping/*.xml</include>
+                    <include>**/mapper/*.xml</include>
                 </includes>
                 <filtering>false</filtering>
             </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+            <!--</resource>-->
         </resources>
     </build>
 

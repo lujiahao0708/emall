@@ -25,47 +25,17 @@ public class TbContent {
 
     private String content;
 
-    public void setId(Long id) {
+    public TbContent(Long id, Long categoryId, String title, String subTitle, String titleDesc, String url, String pic, String pic2, Date created, Date updated, String content) {
         this.id = id;
-    }
-
-    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setSubTitle(String subTitle) {
         this.subTitle = subTitle;
-    }
-
-    public void setTitleDesc(String titleDesc) {
         this.titleDesc = titleDesc;
-    }
-
-    public void setUrl(String url) {
         this.url = url;
-    }
-
-    public void setPic(String pic) {
         this.pic = pic;
-    }
-
-    public void setPic2(String pic2) {
         this.pic2 = pic2;
-    }
-
-    public void setCreated(Date created) {
         this.created = created;
-    }
-
-    public void setUpdated(Date updated) {
         this.updated = updated;
-    }
-
-    public void setContent(String content) {
         this.content = content;
     }
 

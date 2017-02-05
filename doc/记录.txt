@@ -1,3 +1,18 @@
 2017年1月10日19:24:11
 创建taotao-mapping项目  将原来的taotao-manager中的mapper和pojo两个项目合起来弄,这样方便后面使用
 因为原来的taotao-manager分包太过臃肿了  所以进行了这样的精简
+
+2017年2月4日19:04:20
+ssm框架整合
+    dao:mybatis   创建SqlMapConfig.xml
+    service:
+    表现层:
+
+spring和springmvc父子容器关系  笔记里面有个图
+
+测试整合结果
+    dao
+    service
+    controller
+
+    典型错误:找不到mapper映射文件
