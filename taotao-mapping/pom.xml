@@ -12,7 +12,7 @@
     <groupId>com.lujiahao</groupId>
     <artifactId>taotao-mapping</artifactId>
     <version>0.0.2</version>
-    <!--<packaging>jar</packaging>-->
+    <packaging>jar</packaging>
 
     <dependencies>
         <!-- Mybatis -->
@@ -45,6 +45,7 @@
     </dependencies>
 
     <build>
+        <!--这个插件有问题,不知道是不是我不会用-->
         <!--<plugins>-->
             <!--<plugin>-->
                 <!--&lt;!&ndash;用maven mybatis插件-->

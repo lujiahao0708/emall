@@ -2,11 +2,13 @@ package com.lujiahao.mapping.mapper;
 
 import com.lujiahao.mapping.pojo.TbItemCat;
 import com.lujiahao.mapping.pojo.TbItemCatExample;
-import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface TbItemCatMapper {
-    long countByExample(TbItemCatExample example);
+    int countByExample(TbItemCatExample example);
 
     int deleteByExample(TbItemCatExample example);
 

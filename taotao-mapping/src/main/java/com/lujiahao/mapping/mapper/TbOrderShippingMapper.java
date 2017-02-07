@@ -2,11 +2,13 @@ package com.lujiahao.mapping.mapper;
 
 import com.lujiahao.mapping.pojo.TbOrderShipping;
 import com.lujiahao.mapping.pojo.TbOrderShippingExample;
-import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface TbOrderShippingMapper {
-    long countByExample(TbOrderShippingExample example);
+    int countByExample(TbOrderShippingExample example);
 
     int deleteByExample(TbOrderShippingExample example);
 

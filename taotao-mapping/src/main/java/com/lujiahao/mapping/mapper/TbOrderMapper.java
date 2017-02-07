@@ -2,11 +2,13 @@ package com.lujiahao.mapping.mapper;
 
 import com.lujiahao.mapping.pojo.TbOrder;
 import com.lujiahao.mapping.pojo.TbOrderExample;
-import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface TbOrderMapper {
-    long countByExample(TbOrderExample example);
+    int countByExample(TbOrderExample example);
 
     int deleteByExample(TbOrderExample example);
 

@@ -2,11 +2,13 @@ package com.lujiahao.mapping.mapper;
 
 import com.lujiahao.mapping.pojo.TbContent;
 import com.lujiahao.mapping.pojo.TbContentExample;
-import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface TbContentMapper {
-    long countByExample(TbContentExample example);
+    int countByExample(TbContentExample example);
 
     int deleteByExample(TbContentExample example);
 
