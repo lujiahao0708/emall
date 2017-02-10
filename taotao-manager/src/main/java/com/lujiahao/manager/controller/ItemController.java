@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * 商品管理controller
+ * 后台管理系统
+ * 商品信息管理接口
  * @author lujiahao
  *
  */
@@ -21,7 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ItemController {
 	@Autowired
 	private ItemService itemService;
-	
+
+	/**
+	 * 根据商品id查询商品信息
+	 */
 	// 这是支持restfull的url接口 
 	// @PathVariable:把url模板参数({itemId})取出来绑定到它注解的形参上
 	@RequestMapping(value="/item/{itemId}")

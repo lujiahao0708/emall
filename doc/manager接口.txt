@@ -1,0 +1,18 @@
+商城管理系统的UI设计来自从UI中国上面搜索的http://www.ui.cn/detail/168467.html# 万分感谢
+
+ItemController
+
+    通过id查询商品信息
+    GET     http://localhost:8080/item/{itemId}
+
+    商品列表查询
+    GET     http://localhost:8080/item/list?page=1&rows=30
+
+
+-----------------------------------------------------------------------------------------------------
+2017年2月10日18:59:44
+淘淘商城第二天的知识点就是PageHelper插件的使用
+pagehelper插件的使用有一点要注意就是PageHelper.startPage()方法要在你查询出来的那个List上面写 要紧挨着  IPMS中遇到过凯豪告诉我的
+PageHelper.startPage(page, rows);
+List<TbItem> list = itemMapper.selectByExample(example);
+
