@@ -1,0 +1,10 @@
+<#ftl strip_whitespace=true>
+
+<#macro m code>${springMacroRequestContext.getMessage(code)}</#macro> 
+<#macro mt code, text>${springMacroRequestContext.getMessage(code, text)}</#macro>
+<#macro ma code, args>${springMacroRequestContext.getMessage(code, args)}</#macro>
+<#macro mat code, args, text>${springMacroRequestContext.getMessage(code, args, text)}</#macro>
+<#macro theme code>${springMacroRequestContext.getThemeMessage(code)}</#macro>
+<#macro themeText code, text>${springMacroRequestContext.getThemeMessage(code, text)}</#macro>
+<#macro themeArgs code, args>${springMacroRequestContext.getThemeMessage(code, args)}</#macro>
+<#macro themeArgsText code, args, text>${springMacroRequestContext.getThemeMessage(code, args, text)}</#macro>
