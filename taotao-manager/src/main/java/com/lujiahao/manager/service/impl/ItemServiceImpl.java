@@ -49,6 +49,21 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	/**
+	 * 获取所有的商品信息
+	 * @param page 页码
+	 * @param rows 每页显示行数
+	 * @return
+	 */
+	@Override
+	public List<TbItem> getAllItem(int page, int rows) {
+	    TbItemExample example = new TbItemExample();
+	    PageHelper.startPage(page,rows);
+        List<TbItem> tbItemList = itemMapper.selectByExample(example);
+        PageInfo<TbItem> pageInfo = new PageInfo<TbItem>(tbItemList);
+        return tbItemList;
+	}
+
+	/**
 	 * 返回商品列表-带分页的
 	 */
 	@Override

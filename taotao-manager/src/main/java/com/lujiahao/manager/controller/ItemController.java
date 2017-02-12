@@ -7,10 +7,14 @@ import com.lujiahao.mapping.pojo.TbItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * 后台管理系统
@@ -35,8 +39,17 @@ public class ItemController {
 		return itemById;
 	}
 
+	@RequestMapping(value = "/itemlist")
+	public String showItemList(@RequestParam(defaultValue = "1") Integer page,
+                               @RequestParam(defaultValue = "15") Integer rows, ModelMap modelMap){
+        List<TbItem> allItem = itemService.getAllItem(page, rows);
+        modelMap.put("allItem",allItem);
+        return "itemlist";
+	}
+
 	/**
-	 * 获得商品列表
+     * 废弃了  上面是新的html界面显示的
+	 * EasyUI获得商品列表
      */
 	@RequestMapping(value="/item/list")
 	@ResponseBody

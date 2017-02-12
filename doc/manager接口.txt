@@ -8,6 +8,28 @@ ItemController
     商品列表查询
     GET     http://localhost:8080/item/list?page=1&rows=30
 
+------------------------------------------------------------------------------------------------------
+表中字段含义  单独整理一个excel来展示所有表的字段属性
+
+CREATE TABLE `tb_item` (
+  `id` bigint(20) NOT NULL COMMENT '商品id，同时也是商品编号',
+  `title` varchar(100) NOT NULL COMMENT '商品标题',
+  `sell_point` varchar(500) DEFAULT NULL COMMENT '商品卖点',
+  `price` bigint(20) NOT NULL COMMENT '商品价格，单位为：分',
+  `num` int(10) NOT NULL COMMENT '库存数量',
+  `barcode` varchar(30) DEFAULT NULL COMMENT '商品条形码',
+  `image` varchar(500) DEFAULT NULL COMMENT '商品图片',
+  `cid` bigint(10) NOT NULL COMMENT '所属类目，叶子类目',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '商品状态，1-正常，2-下架，3-删除',
+  `created` datetime NOT NULL COMMENT '创建时间',
+  `updated` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `cid` (`cid`),
+  KEY `status` (`status`),
+  KEY `updated` (`updated`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表'
+
+
 
 -----------------------------------------------------------------------------------------------------
 2017年2月10日18:59:44
@@ -16,3 +38,21 @@ pagehelper插件的使用有一点要注意就是PageHelper.startPage()方法要
 PageHelper.startPage(page, rows);
 List<TbItem> list = itemMapper.selectByExample(example);
 
+
+
+----------------------------------------------------------------------------------------------------
+TODO 整理一下如何导入freemarker到工程里面
+导入freemarker出错
+Caused by: org.springframework.beans.factory.CannotLoadBeanClassException: Error loading class
+[org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer] for bean with name
+'freemarkerConfig' defined in class path resource [spring/springmvc.xml]: problem with class
+file or dependent class; nested exception is java.lang.NoClassDefFoundError:
+org/springframework/ui/freemarker/FreeMarkerConfigurationFactory
+
+出错的原因是没有导入一个包
+            <!--导入freemarker需要导入这个包-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
