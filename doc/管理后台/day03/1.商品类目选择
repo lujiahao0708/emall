@@ -1,0 +1,56 @@
+manager后台管理系统中
+商品管理
+    新增商品
+        选择类目按钮
+
+接口:
+http://localhost:8080/item/cat/list?id=2
+GET请求
+请求参数:
+    id  商品类目父节点id
+返回值:
+TODO 因为页面中的js直接使用了,所以没有使用TaoTaoResult包装起来,后面更改一下改成使用这个包装起来这样其他的调用端也能用
+还有,如果根据id没有查出数据来也应该有个状态,不能只让json串返回空字符串(具体的这种类型的逻辑处理应该放在service还是controller?)
+[
+    {
+        "id": 3,
+        "text": "电子书",
+        "state": "open"
+    },
+    {
+        "id": 4,
+        "text": "网络原创",
+        "state": "open"
+    },
+    {
+        "id": 5,
+        "text": "数字杂志",
+        "state": "open"
+    },
+    {
+        "id": 6,
+        "text": "多媒体图书",
+        "state": "open"
+    }
+]
+
+ItemCatMapper--->ItemCatService--->ItemCatController
+
+数据库表结构:
+id  parent_id   name    status  sort_order  is_parent   created                 updated
+3	2	        电子书	1	    1	        0	        2014-10-15 18:31:55	    2014-10-15 18:31:55
+
+DDL语句:
+CREATE TABLE `tb_item_cat` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类目ID',
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '父类目ID=0时，代表的是一级的类目',
+  `name` varchar(50) DEFAULT NULL COMMENT '类目名称',
+  `status` int(1) DEFAULT '1' COMMENT '状态。可选值:1(正常),2(删除)',
+  `sort_order` int(4) DEFAULT NULL COMMENT '排列序号，表示同级类目的展现次序，如数值相等则按名称次序排列。取值范围:大于零的整数',
+  `is_parent` tinyint(1) DEFAULT '1' COMMENT '该类目是否为父类目，1为true，0为false',
+  `created` datetime DEFAULT NULL COMMENT '创建时间',
+  `updated` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`parent_id`,`status`) USING BTREE,
+  KEY `sort_order` (`sort_order`)
+) ENGINE=InnoDB AUTO_INCREMENT=1183 DEFAULT CHARSET=utf8 COMMENT='商品类目';

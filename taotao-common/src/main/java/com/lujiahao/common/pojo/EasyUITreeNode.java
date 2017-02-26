@@ -3,7 +3,6 @@ package com.lujiahao.common.pojo;
 /**
  * @author lujiahao
  * @version V1.0
- * @email jiahao.lu@qtparking.com
  * @create 2016-09-11 16:09
  */
 public class EasyUITreeNode {
