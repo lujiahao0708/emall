@@ -1,0 +1,23 @@
+TODO 对应的docker还没有添加上来  明天抽时间弄一下  放到Azure云上面
+1.dao层
+    上传图片并不需要操作数据库
+
+2.service层
+    功能 : 接收controller传递过来的参数,一个文件MultiPartFile对象,将文件上传到ftp服务器
+           生成新的文件名称,返回文件的url路径(需要包装成一个json格式)  图片插件需要的格式
+    实现 : Map
+            key     value
+            error   1/0(fail/success)
+            url     图片的url(成功时)
+            message 错误信息
+    读取配置文件 : 使用spring提供的方法
+
+3.controller层
+    注意这个插件chrome和firefox不兼容的问题就行了
+
+
+接口
+    /pic/upload
+        返回值 参考service层中的注释
+
+TODO 更改成统一的接口  status/msg/data   然后在controller中在单独更改成这个插件需要的json格式  这样兼容性好
