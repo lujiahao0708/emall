@@ -50,6 +50,8 @@ public class FtpUtil {
 				ftp.disconnect();
 				return result;
 			}
+			// 设置编码
+			ftp.setControlEncoding("UTF-8");
 			//切换到上传目录
 			if (!ftp.changeWorkingDirectory(basePath+filePath)) {
 				//如果目录不存在创建目录
@@ -59,7 +61,7 @@ public class FtpUtil {
 					if (null == dir || "".equals(dir)) continue;
 					tempPath += "/" + dir;
 					if (!ftp.changeWorkingDirectory(tempPath)) {
-						if (!ftp.makeDirectory(tempPath)) {
+						if (!ftp.makeDirectory(new String(tempPath.getBytes("ISO-8859-1"),"UTF-8"))) {
 							return result;
 						} else {
 							ftp.changeWorkingDirectory(tempPath);
@@ -69,8 +71,11 @@ public class FtpUtil {
 			}
 			//设置上传文件的类型为二进制类型
 			ftp.setFileType(FTP.BINARY_FILE_TYPE);
+			ftp.enterLocalActiveMode();
+			ftp.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
 			//上传文件
-			if (!ftp.storeFile(filename, input)) {
+            boolean flag = ftp.storeFile(new String(filename.getBytes("ISO-8859-1"),"UTF-8"), input);
+			if (!flag) {
 				return result;
 			}
 			input.close();
@@ -143,8 +148,8 @@ public class FtpUtil {
 	
 	public static void main(String[] args) {
 		try {  
-	        FileInputStream in=new FileInputStream(new File("D:\\temp\\image\\gaigeming.jpg"));  
-	        boolean flag = uploadFile("192.168.25.133", 21, "ftpuser", "ftpuser", "/home/ftpuser/www/images","/2015/01/21", "gaigeming.jpg", in);  
+	        FileInputStream in=new FileInputStream(new File("D:\\temp\\image\\gaigeming.jpg"));
+	        boolean flag = uploadFile("192.168.25.133", 21, "ftpuser", "ftpuser", "/home/ftpuser/www/images","/2015/01/21", "gaigeming.jpg", in);
 	        System.out.println(flag);  
 	    } catch (FileNotFoundException e) {  
 	        e.printStackTrace();  
