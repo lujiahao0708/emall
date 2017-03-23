@@ -48,7 +48,7 @@ public class PictureServiceImpl implements PictureService {
             // 返回结果
             if (!result) {
                 resultMap.put("error",1);
-                resultMap.put("message","文件上传失败");
+                resultMap.put("message","file upload fail");
                 return resultMap;
             }
             resultMap.put("error",0);
@@ -56,7 +56,7 @@ public class PictureServiceImpl implements PictureService {
             return resultMap;
         } catch (Exception e) {
             resultMap.put("error",1);
-            resultMap.put("message","文件上传失败");
+            resultMap.put("message","file upload exception");
             return resultMap;
         }
     }
