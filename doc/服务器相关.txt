@@ -1,0 +1,30 @@
+该文档用于记录项目用到的docker工程
+2017年3月26日10:32:31
+0.taotao
+    项目名称            备注              端口      根目录
+    taotao-manager  淘淘商城管理后台      8080        /
+    taotao-rest     服务层               8081        /rest
+    taotao-portal   门户系统             8082
+
+
+    运行一个tomcat容器
+        docker run --name taotao_tomcat7 -p 8080:8080 -d -v /docker/workspace/:/usr/local/tomcat7/webapps/ --privileged=true lujiahao/tomcat7 ./catalina.sh run
+            https://segmentfault.com/q/1010000002880271/a-1020000002880425
+
+1.taotao-mysql  mysql数据库服务器
+    主机名 : taotao_mysql.t1.daoapp.io
+    端口 : 61045
+    用户名 : root
+    密码 : 123456
+
+    运行一个mysql容器
+        docker run --name taotao_mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql
+            run            运行一个容器
+            --name         后面是这个镜像的名称
+            -p 3306:3306   表示在这个容器中使用3306端口(第二个)映射到本机的端口号也为3306(第一个)
+            -d             表示使用守护进程运行，即服务挂在后台
+
+2.taotao-ftp-img    图片服务器
+
+
+3.taotao-redis-single   redis单点服务器

@@ -25,7 +25,7 @@
 		<property name="suffix" value=".html" />
 	</bean>
 
-    <!-- 资源映射 加载静态资源 -->
+    <!-- 只有当web.xml中配置为/的时候才会拦截静态资源, 资源映射 加载静态资源 -->
     <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
     <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
 

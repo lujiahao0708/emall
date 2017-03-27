@@ -11,6 +11,8 @@
         <module>taotao-common</module>
         <module>taotao-manager</module>
         <module>taotao-mapping</module>
+        <module>taotao-rest</module>
+        <module>taotao-portal</module>
     </modules>
     <packaging>pom</packaging>
 
