@@ -64,6 +64,11 @@
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-solrj</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.lujiahao</groupId>
+            <artifactId>taotao-common</artifactId>
+            <version>0.0.2</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>taotao-rest</finalName>

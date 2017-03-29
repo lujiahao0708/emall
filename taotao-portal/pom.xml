@@ -15,6 +15,11 @@
             <artifactId>taotao-common</artifactId>
             <version>0.0.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.lujiahao</groupId>
+            <artifactId>taotao-mapping</artifactId>
+            <version>0.0.2</version>
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -52,6 +57,7 @@
             <artifactId>jsp-api</artifactId>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
     <build>
         <finalName>taotao-portal</finalName>
