@@ -1,0 +1,32 @@
+
+安装docker
+
+http://chiahaolu.github.io/2017/02/23/Docker%E6%95%99%E7%A8%8B-%E4%BA%8C-%E5%AE%89%E8%A3%85Docker/
+
+yum remove docker*  卸载所有的相关的
+
+[root@localhost ~]# yum list docker --showduplicates
+Loaded plugins: fastestmirror, langpacks
+Loading mirror speeds from cached hostfile
+ * base: mirrors.neusoft.edu.cn
+ * extras: mirrors.aliyun.com
+ * updates: mirrors.aliyun.com
+Installed Packages
+docker.x86_64                  2:1.12.5-14.el7.centos           @extras
+Available Packages
+docker.x86_64                  2:1.10.3-59.el7.centos           extras
+docker.x86_64                  2:1.12.5-14.el7.centos           extras
+docker.x86_64                  2:1.12.6-11.el7.centos           extras
+
+yum install -y docker-1.12.5-14.el7.centos.x86_64
+
+
+
+1.DaoCloud加速器
+    https://www.daocloud.io/mirror#accelerator-doc
+    root权限运行 : curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://1e6be4c9.m.daocloud.io
+    之后重启docker : systemctl restart docker
+
+2.拉取需要用到的镜像
+    docker pull centos
+    docker pull mysql
