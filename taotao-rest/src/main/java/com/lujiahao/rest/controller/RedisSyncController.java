@@ -1,7 +1,7 @@
 package com.lujiahao.rest.controller;
 
 import com.lujiahao.common.pojo.TaotaoResult;
-import com.lujiahao.rest.service.RedisService;
+import com.lujiahao.rest.service.RedisSyncService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,15 +15,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/cache/sync")
-public class RedisController {
+public class RedisSyncController {
 
     @Autowired
-    private RedisService redisService;
+    private RedisSyncService redisSyncService;
 
-    @RequestMapping("/content/{contentCid}")
+    /**
+     * 同步首页广告轮播图缓存
+     * @param contentCategoryId
+     * @return
+     */
+    @RequestMapping("/content/{contentCategoryId}")
     @ResponseBody
-    public TaotaoResult contentCacheSync(@PathVariable Long contentCid){
-        TaotaoResult result = redisService.syncContent(contentCid);
+    public TaotaoResult contentCacheSync(@PathVariable Long contentCategoryId){
+        TaotaoResult result = redisSyncService.syncContent(contentCategoryId);
         return result;
     }
 }

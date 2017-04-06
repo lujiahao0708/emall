@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author lujiahao
  * @version V1.0
- * @email jiahao.lu@qtparking.com
+ * @email xinruodingshui@gmail.com
  * @create 2016-09-12 15:39
  */
 @Controller
@@ -27,12 +27,21 @@ public class ContentController {
     @Autowired
     private ContentService contentService;
 
+    /**
+     * 根据内容分类id查询首页广告轮播图信息
+     * @param contentCategoryId
+     * @return
+     */
     @RequestMapping(value = "/list/{contentCategoryId}")
     @ResponseBody
     public TaotaoResult getContentCategoryList(@PathVariable Long contentCategoryId) {
         try {
             List<TbContent> contentList = contentService.getContentList(contentCategoryId);
-            return TaotaoResult.ok(contentList);
+            if (contentList != null && contentList.size() > 0) {
+                return TaotaoResult.ok(contentList);
+            } else {
+                return TaotaoResult.build(404,"无数据");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));

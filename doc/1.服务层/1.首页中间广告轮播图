@@ -1,0 +1,21 @@
+rest层
+eg : contentCategoryId = 89
+1.获取首页广告轮播图
+    http://localhost:8081/rest/content/list/{contentCategoryId}
+    contentCategoryId  为分类id(TbContent表)
+
+    {
+        "status": 404,
+        "msg": "无数据",
+        "data": null
+    }
+2.redis中的缓存同步
+    http://localhost:8081/rest/cache/sync/content/{contentCategoryId}
+
+3.manager管理中管理首页广告轮播图
+    这个跳过了  到时候在看看怎么写的
+    manager中有添加的功能  把这个功能转移到rest层里面  让rest层来充当最核心的东西
+
+
+
+
