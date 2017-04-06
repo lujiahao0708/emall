@@ -1,0 +1,72 @@
+-- data     总的挂载卷目录
+ |-- mysql  mysql数据存储
+ |-- tomcat
+ |---- taotao-manager
+ |---- taotao-rest
+ |---- taotao-portal
+0.创建mysql容器并导入数据
+    运行一个mysql容器
+        docker run --name taotao_mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -v /data/mysql:/var/lib/mysql --privileged -d mysql
+            run            运行一个容器
+            --name         后面是这个镜像的名称
+            -p 3306:3306   表示在这个容器中使用3306端口(第二个)映射到本机的端口号也为3306(第一个)
+            -d             表示使用守护进程运行，即服务挂在后台
+            --privileged   这个有关卷  有时间了查一查
+
+1.创建taotao-manager的tomcat容器
+
+    docker run --name taotao_manager -p 8080:8080 -d -v /data/tomcat/taotao-manager/:/usr/local/tomcat7/webapps/ROOT/ --privileged=true lujiahao/tomcat7 ./catalina.sh run
+        https://segmentfault.com/q/1010000002880271/a-1020000002880425
+    docker run --name taotao_manager -p 8080:8080 -d -v /data/tomcat/taotao-manager/:/usr/local/tomcat/webapps/ROOT/ --link testnginx:testnginx --privileged=true docker.io/tomcat ./bin/catalina.sh run
+
+2.创建taotao-rest的tomcat容器
+
+    docker run --name taotao_rest -p 8081:8080 -d -v /data/tomcat/taotao-rest/:/usr/local/tomcat7/webapps/ROOT/ --privileged=true lujiahao/tomcat7 ./catalina.sh run
+
+3.创建taotao-portal的tomcat容器
+
+    docker run --name taotao_portal -p 8082:8080 -d -v /data/tomcat/taotao-portal/:/usr/local/tomcat7/webapps/ROOT/ --privileged=true lujiahao/tomcat7 ./catalina.sh run
+
+    docker run --name taotao_portal -p 8082:8080 -d -v /data/tomcat/taotao-portal/:/usr/local/tomcat/webapps/ROOT/ --privileged=true docker.io/tomcat ./bin/catalina.sh run
+
+
+遇到一个问题 java.net.NoRouteToHostException: No route to host
+
+解决方案:关闭防火墙
+    启动一个服务：systemctl start firewalld.service
+    关闭一个服务：systemctl stop firewalld.service
+    重启一个服务：systemctl restart firewalld.service
+    显示一个服务的状态：systemctl status firewalld.service
+    在开机时启用一个服务：systemctl enable firewalld.service
+    在开机时禁用一个服务：systemctl disable firewalld.service
+    查看服务是否开机启动：systemctl is-enabled firewalld.service;echo $?
+    查看已启动的服务列表：systemctl list-unit-files|grep enabled
+
+4.创建redis容器
+    容器的内部ip重启之后会发生变化
+
+5.搭建redis集群
+    容器互联
+    主节点关掉之后所有的节点都需要重新连接一下   这个好像不太好  查一下看看
+
+    docker run -d --name redis_master -p 6370:6379 docker.io/redis
+                                                容器名称 : 容器别名                                             容器别名
+    docker run -d --name redis_slave1 --link redis_master:redis_master docker.io/redis redis-server --slaveof redis_master 6379
+
+6.Docker监控工具shipyard
+
+7.Docker监控工具DockerUI
+    http://dockone.io/article/225
+    dockerUI 仓库
+    docker run -d -p 9000:9000 --privileged -v /var/run/docker.sock:/var/run/docker.sock uifd/ui-for-docker
+
+8.Docker监控工具
+
+    docker run -d -p 9000:9000 --privileged -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+9.Nginx
+    docker run --name taotao_nginx -d --privileged -p 80:80 docker.io/nginx
+    docker run --name taotao_nginx -d --privileged -p 80:80 -v /data/nginx/nginx.conf:/etc/nginx/nginx.conf docker.io/nginx
+
+    FROM docker.io/nginx
+    RUN apt-get update
+    RUN apt-get install -y vim
