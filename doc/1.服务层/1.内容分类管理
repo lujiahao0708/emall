@@ -1,0 +1,46 @@
+原来的manager中的
+    网站内容管理
+        内容分类管理
+        内容管理
+
+1.manager管理中管理首页广告轮播图
+    这个跳过了  到时候在看看怎么写的
+    manager中有添加的功能  把这个功能转移到rest层里面  让rest层来充当最核心的东西
+
+    内容列表的增删改查
+        增
+            URL :       http://localhost:8081/rest/content/category/create
+            请求方式 :   POST
+            参数 :
+                        parentId    父节点id
+                        name        节点名称
+        删
+            URL :       http://localhost:8081/rest/content/category/delete
+            请求方式 :   POST
+            参数 :
+                        parentId    父节点id
+                        id          节点id
+        改
+            URL :       http://localhost:8081/rest/content/category/update
+            请求方式 :   POST
+            参数 :
+                        id          节点id
+                        name        节点名称
+        查
+            URL :       http://localhost:8081/rest/content/category/list
+            请求方式 :   POST
+            参数 :
+                        parentId    父节点id(默认值是0)
+
+
+2.获取首页广告轮播图
+    http://localhost:8081/rest/content/list/{contentCategoryId}
+    contentCategoryId  为分类id(TbContent表) eg : contentCategoryId = 89
+
+    {
+        "status": 404,
+        "msg": "无数据",
+        "data": null
+    }
+3.redis中的缓存同步
+    http://localhost:8081/rest/cache/sync/content/{contentCategoryId}

@@ -74,5 +74,17 @@
     </bean>
 
 
+    <!--添加这个的目的是为了让controller中可以使用@Value-->
+    <!--http://www.cnblogs.com/xianan87/p/3942010.html-->
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:/resource/resource.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="configProperties" />
+    </bean>
 	
 </beans>
