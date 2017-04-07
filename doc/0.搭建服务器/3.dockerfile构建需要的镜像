@@ -52,21 +52,47 @@
     docker run -d --name redis_master -p 6370:6379 docker.io/redis
                                                 容器名称 : 容器别名                                             容器别名
     docker run -d --name redis_slave1 --link redis_master:redis_master docker.io/redis redis-server --slaveof redis_master 6379
-
-6.Docker监控工具shipyard
-
-7.Docker监控工具DockerUI
-    http://dockone.io/article/225
-    dockerUI 仓库
-    docker run -d -p 9000:9000 --privileged -v /var/run/docker.sock:/var/run/docker.sock uifd/ui-for-docker
-
-8.Docker监控工具
-
-    docker run -d -p 9000:9000 --privileged -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
-9.Nginx
+    这种方式创建的貌似不是集群  clusterenable没启用啥的
+6.Docker监控工具
+    shipyard
+        安装失败了
+    DockerUI
+        http://dockone.io/article/225
+        dockerUI 仓库
+        docker run -d -p 9000:9000 --privileged -v /var/run/docker.sock:/var/run/docker.sock uifd/ui-for-docker
+    DockerUI改版了
+        docker run -d -p 9000:9000 --privileged -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+7.Nginx
     docker run --name taotao_nginx -d --privileged -p 80:80 docker.io/nginx
-    docker run --name taotao_nginx -d --privileged -p 80:80 -v /data/nginx/nginx.conf:/etc/nginx/nginx.conf docker.io/nginx
+    //docker run --name taotao_nginx -d --privileged -p 80:80 -v /data/nginx/nginx.conf:/etc/nginx/nginx.conf docker.io/nginx
+    nginx相关目录
+                配置文件    /etc/nginx/nginx.conf
+                执行文件    /usr/sbin/nginx
+8.Nginx+FTP图片服务器
+    docker run --name taotao_imgserver -d --privileged -p 80:80 -p 21:21 docker.io/nginx
+        自定图片服务器Dockerfile
+        FROM docker.io/nginx
+        RUN apt-get update
+        RUN apt-get install -y vsftpd vim
+        useradd ftpuser
+        passwd ftpuser
+    用官方默认的不能成功  就用自己编译的镜像
 
-    FROM docker.io/nginx
-    RUN apt-get update
-    RUN apt-get install -y vim
+    docker run --name taotao_imgserver -it --privileged -p 80:80 -p 21:21 -p 20:20 lujiahao/nginx /bin/bash
+        vsftpd
+            执行文件    /usr/sbin           ./vsftpd
+            配置文件    /etc/vsftpd/vsftpd.conf
+    自己的也没法用
+
+    docker run -d -p 21:21 -p 80:80 -p 20:20 --privileged --name taotao_imageserver fauria/vsftpd
+    docker run -d -p 21:21 -p 80:80 -p 20:20 -e FTP_USER=ftpuser -e FTP_PASS=ftpuser --privileged --name taotao_imageserver fauria/vsftpd
+
+    docker run -d -p 80:80 \
+    -p 20:20 -p 21:21 -p 21100-21110:21100-21110 \
+    -e FTP_USER=ftpuser -e FTP_PASS=ftpuser \
+    -e PASV_ADDRESS=127.0.0.1 -e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 \
+    --name taotao_imageserver --restart=always fauria/vsftpd
+
+    docker exec -it taotao_imageserver /bin/bash
+
+    https://github.com/fauria/docker-vsftpd  沿用的是这个  但是还是没有成功  麻烦死了

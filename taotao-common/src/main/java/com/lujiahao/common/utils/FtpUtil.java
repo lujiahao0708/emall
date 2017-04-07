@@ -24,7 +24,7 @@ import java.io.OutputStream;
  */
 public class FtpUtil {
 
-	/** 
+	/**
 	 * Description: 向FTP服务器上传文件 
 	 * @param host FTP服务器hostname 
 	 * @param port FTP服务器端口 
@@ -35,9 +35,9 @@ public class FtpUtil {
 	 * @param filename 上传到FTP服务器上的文件名 
 	 * @param input 输入流 
 	 * @return 成功返回true，否则返回false 
-	 */  
+	 */
 	public static boolean uploadFile(String host, int port, String username, String password, String basePath,
-			String filePath, String filename, InputStream input) {
+									 String filePath, String filename, InputStream input) {
 		boolean result = false;
 		FTPClient ftp = new FTPClient();
 		try {
@@ -50,8 +50,6 @@ public class FtpUtil {
 				ftp.disconnect();
 				return result;
 			}
-			// 设置编码
-			ftp.setControlEncoding("UTF-8");
 			//切换到上传目录
 			if (!ftp.changeWorkingDirectory(basePath+filePath)) {
 				//如果目录不存在创建目录
@@ -61,7 +59,7 @@ public class FtpUtil {
 					if (null == dir || "".equals(dir)) continue;
 					tempPath += "/" + dir;
 					if (!ftp.changeWorkingDirectory(tempPath)) {
-						if (!ftp.makeDirectory(new String(tempPath.getBytes("ISO-8859-1"),"UTF-8"))) {
+						if (!ftp.makeDirectory(tempPath)) {
 							return result;
 						} else {
 							ftp.changeWorkingDirectory(tempPath);
@@ -71,11 +69,8 @@ public class FtpUtil {
 			}
 			//设置上传文件的类型为二进制类型
 			ftp.setFileType(FTP.BINARY_FILE_TYPE);
-			ftp.enterLocalActiveMode();
-			ftp.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
 			//上传文件
-            boolean flag = ftp.storeFile(new String(filename.getBytes("ISO-8859-1"),"UTF-8"), input);
-			if (!flag) {
+			if (!ftp.storeFile(filename, input)) {
 				return result;
 			}
 			input.close();
@@ -93,8 +88,8 @@ public class FtpUtil {
 		}
 		return result;
 	}
-	
-	/** 
+
+	/**
 	 * Description: 从FTP服务器下载文件 
 	 * @param host FTP服务器hostname 
 	 * @param port FTP服务器端口 
@@ -103,10 +98,10 @@ public class FtpUtil {
 	 * @param remotePath FTP服务器上的相对路径 
 	 * @param fileName 要下载的文件名 
 	 * @param localPath 下载后保存到本地的路径 
-	 * @return 
-	 */  
+	 * @return
+	 */
 	public static boolean downloadFile(String host, int port, String username, String password, String remotePath,
-			String fileName, String localPath) {
+									   String fileName, String localPath) {
 		boolean result = false;
 		FTPClient ftp = new FTPClient();
 		try {
@@ -148,8 +143,8 @@ public class FtpUtil {
 	
 	public static void main(String[] args) {
 		try {  
-	        FileInputStream in=new FileInputStream(new File("D:\\temp\\image\\gaigeming.jpg"));
-	        boolean flag = uploadFile("192.168.25.133", 21, "ftpuser", "ftpuser", "/home/ftpuser/www/images","/2015/01/21", "gaigeming.jpg", in);
+	        FileInputStream in=new FileInputStream(new File("C:\\Users\\lujiahao\\Desktop\\QQ截图20170407124101.jpg"));
+	        boolean flag = uploadFile("192.168.2.30", 21, "ftpuser", "ftpuser", "/home/ftpuser/www/images","/2015/01/21", "gaigeming.jpg", in);
 	        System.out.println(flag);  
 	    } catch (FileNotFoundException e) {  
 	        e.printStackTrace();  
