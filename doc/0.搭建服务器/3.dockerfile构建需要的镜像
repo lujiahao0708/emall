@@ -96,3 +96,5 @@
     docker exec -it taotao_imageserver /bin/bash
 
     https://github.com/fauria/docker-vsftpd  沿用的是这个  但是还是没有成功  麻烦死了
+
+    最总决定使用宿主机来弄
