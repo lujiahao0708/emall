@@ -13,6 +13,7 @@
         <module>taotao-mapping</module>
         <module>taotao-rest</module>
         <module>taotao-portal</module>
+        <module>taotao-sso</module>
     </modules>
     <packaging>pom</packaging>
 

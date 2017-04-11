@@ -10,6 +10,7 @@
     taotao-manager  淘淘商城管理后台      8080        /
     taotao-rest     服务层               8081        /rest
     taotao-portal   门户系统             8082
+    taotao-sso      单点登录系统          8084
 
 
 

@@ -15,7 +15,7 @@
 		<constructor-arg name="poolConfig" ref="jedisPoolConfig"></constructor-arg>
 	</bean>
     <!--单机版的dao实现类-->
-    <bean id="jedisClient" class="com.lujiahao.rest.dao.impl.JedisSingleDaoImpl"></bean>
+    <bean id="jedisClient" class="com.lujiahao.sso.dao.impl.JedisSingleDaoImpl"></bean>
 
     <!--&lt;!&ndash;jedis客户端集群版&ndash;&gt;-->
     <!--<bean id="redisCluster" class="redis.clients.jedis.JedisCluster">-->

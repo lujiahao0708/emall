@@ -17,15 +17,6 @@ public class TbUser {
 
     private Date updated;
 
-    public TbUser(Long id, String username, String password, String phone, String email, Date created, Date updated) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.phone = phone;
-        this.email = email;
-        this.created = created;
-        this.updated = updated;
-    }
 
     public Long getId() {
         return id;
@@ -53,5 +44,33 @@ public class TbUser {
 
     public Date getUpdated() {
         return updated;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }

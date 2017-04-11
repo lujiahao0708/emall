@@ -4,14 +4,14 @@
 
 2017年2月4日19:04:20
 ssm框架整合
-    dao:mybatis   创建SqlMapConfig.xml
+    com.lujiahao.sso.dao:mybatis   创建SqlMapConfig.xml
     service:
     表现层:
 
 spring和springmvc父子容器关系  笔记里面有个图
 
 测试整合结果
-    dao
+    com.lujiahao.sso.dao
     service
     controller
 
