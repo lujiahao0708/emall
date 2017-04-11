@@ -8,6 +8,7 @@ import com.lujiahao.mapping.mapper.TbUserMapper;
 import com.lujiahao.mapping.pojo.TbUser;
 import com.lujiahao.mapping.pojo.TbUserExample;
 import com.lujiahao.sso.dao.JedisClientDao;
+import com.lujiahao.sso.domain.EDataType;
 import com.lujiahao.sso.service.UserService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 用户的Service
+ * 用户管理Service
  * Created by lujiahao on 2016/10/31.
  */
 @Service
@@ -46,7 +47,6 @@ public class UserServiceImpl implements UserService {
      *
      * @param content 数据内容
      * @param type    数据类型
-     * @return
      */
     @Override
     public TaotaoResult checkData(String content, Integer type) {
@@ -55,11 +55,11 @@ public class UserServiceImpl implements UserService {
         TbUserExample.Criteria criteria = example.createCriteria();
         // 对数据进行校验 1/2/3分别代表username/phone/email
         // 用户名校验
-        if (1 == type) {
+        if (EDataType.USERNAME.getValue() == type) {
             criteria.andUsernameEqualTo(content);
-        } else if (2 == type) {
+        } else if (EDataType.PHONE.getValue() == type) {
             criteria.andPhoneEqualTo(content);// 手机号校验
-        } else {
+        } else if (EDataType.EMAIL.getValue() == type) {
             criteria.andEmailEqualTo(content);// email校验
         }
         // 执行查询
@@ -74,12 +74,12 @@ public class UserServiceImpl implements UserService {
      * 创建用户
      *
      * @param tbUser 用户信息
-     * @return
      */
     @Override
     public TaotaoResult createUser(TbUser tbUser) {
-        tbUser.setUpdated(new Date());
-        tbUser.setCreated(new Date());
+        Date nowDate = new Date();
+        tbUser.setUpdated(nowDate);
+        tbUser.setCreated(nowDate);
         // spring框架中的工具类  md5加密  这个加密是用来防止内部人员的,为了不能直接看出密码来
         tbUser.setPassword(DigestUtils.md5DigestAsHex(tbUser.getPassword().getBytes()));
         tbUserMapper.insert(tbUser);
@@ -91,8 +91,7 @@ public class UserServiceImpl implements UserService {
      *
      * @param username 用户名
      * @param password 密码
-     * @param request
-     *@param response @return
+     * @param response @return
      */
     @Override
     public TaotaoResult userLogin(String username, String password, HttpServletRequest request, HttpServletResponse response) {
@@ -118,26 +117,24 @@ public class UserServiceImpl implements UserService {
         // 设置session过期时间
         jedisClientDao.expire(REDIS_USER_SESSION_KEY + ":" + token, SSO_SESSION_EXPIRE);
         // 添加写cookie的逻辑  cookie有效期是关闭浏览器失效
-        CookieUtils.setCookie(request,response,COOKIE_TOKEN,token);
+        CookieUtils.setCookie(request, response, COOKIE_TOKEN, token);
         // 返回token
         return TaotaoResult.ok(token);
     }
 
     /**
      * 根据token查询用户信息
-     * @param token
-     * @return
      */
     @Override
     public TaotaoResult getUserByToken(String token) {
         // 根据token从redis中查询用户信息
         String json = jedisClientDao.get(REDIS_USER_SESSION_KEY + ":" + token);
         if (StringUtils.isBlank(json)) {
-            return TaotaoResult.build(400,"此Session已经过期,请重新登录");
+            return TaotaoResult.build(400, "此Session已经过期,请重新登录");
         }
         // 更新过期时间
-        jedisClientDao.expire(REDIS_USER_SESSION_KEY + ":" + token,SSO_SESSION_EXPIRE);
+        jedisClientDao.expire(REDIS_USER_SESSION_KEY + ":" + token, SSO_SESSION_EXPIRE);
         // 返回用户信息
-        return TaotaoResult.ok(JsonUtils.jsonToPojo(json,TbUser.class));
+        return TaotaoResult.ok(JsonUtils.jsonToPojo(json, TbUser.class));
     }
 }

@@ -3,6 +3,7 @@ package com.lujiahao.sso.controller;
 import com.lujiahao.common.pojo.TaotaoResult;
 import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.mapping.pojo.TbUser;
+import com.lujiahao.sso.domain.EDataType;
 import com.lujiahao.sso.service.UserService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -37,7 +38,7 @@ public class UserController {
      */
     @RequestMapping(value = "/check/{param}/{type}")
     @ResponseBody
-    public Object checkData(@PathVariable String param, @PathVariable Integer type,HttpServletRequest request) {
+    public Object checkData(HttpServletRequest request, @PathVariable String param, @PathVariable Integer type) {
         String callback = request.getParameter("callback");
         TaotaoResult result = null;
         // 参数有效性校验
@@ -47,25 +48,30 @@ public class UserController {
         if (type == null) {
             result = TaotaoResult.build(400, "校验内容类型不能为空");
         }
-        if (type != 1 && type != 2 && type != 3) {
+        if (type != EDataType.USERNAME.getValue() && type != EDataType.PHONE.getValue() && type != EDataType.EMAIL.getValue()) {
             result = TaotaoResult.build(400, "校验内容类型错误");
         }
         // 校验出错
         if (result != null) {
-            if (callback != null) {
-                MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
-                mappingJacksonValue.setJsonpFunction(callback);
-                return mappingJacksonValue;
-            } else {
-                return result;
-            }
+            return checkCallBack(callback, result);
         }
         try {
             // 调用服务
             result = userService.checkData(param, type);
         } catch (Exception e) {
             result = TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+            e.printStackTrace();
         }
+        return checkCallBack(callback, result);
+    }
+
+    /**
+     * 解决JSONP跨域请求
+     * @param callback 回调地址
+     * @param result 返回的JavaBean
+     * @return
+     */
+    private Object checkCallBack(String callback, TaotaoResult result) {
         if (callback != null) {
             MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
             mappingJacksonValue.setJsonpFunction(callback);
@@ -77,7 +83,7 @@ public class UserController {
 
     /**
      * 创建用户
-     *
+     * TODO 更好的用户体验是登录之后能把用户名带过去,这个以前的那个管理后台可以做到  仿照一下看看
      * @param user
      * @return
      */
@@ -88,6 +94,7 @@ public class UserController {
             TaotaoResult taotaoResult = userService.createUser(user);
             return taotaoResult;
         } catch (Exception e) {
+            e.printStackTrace();
             return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
         }
     }
