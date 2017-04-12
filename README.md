@@ -1,11 +1,6 @@
 # TaoTaoShop
 电商类项目,仿写京东商城
 
-## 在线版
-[点击进入](http://42.159.235.37:8080/taotao-manager/)
-
-目前仅后台管理系统上线,其他还未上线
-
 ## 效果预览
 
 ![前台系统](./gif/前台系统.gif)
@@ -41,16 +36,12 @@
 |—— doc 文档
 |—— gif GIF图
 |—— taotao-common 基础工程
-| |—— src 源码
-| |__ pom.xml pom文件
-|
-|——taotao-manager 后台管理工程
-| |—— src 源码
-| |__ pom.xml pom文件
-|
-|——taotao-mapping MyBatis逆向工程
-| |—— src 源码
-| |__ pom.xml pom文件
+|—— taotao-manager 后台管理工程
+|—— taotao-mapping MyBatis逆向工程
+|—— taotao-portal 前台工程
+|—— taotao-rest	服务层
+|—— taotao-sso	单点登录
+
 
 ```
 ## 系统架构图
