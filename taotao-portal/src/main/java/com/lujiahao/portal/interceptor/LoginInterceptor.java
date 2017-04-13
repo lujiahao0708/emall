@@ -41,7 +41,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        // handler执行之后,返回ModelAndView之后
+        // handler执行之后,返回ModelAndView之前
     }
 
     @Override

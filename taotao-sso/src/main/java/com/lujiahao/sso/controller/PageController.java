@@ -3,6 +3,7 @@ package com.lujiahao.sso.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 页面跳转Controller
@@ -29,5 +30,12 @@ public class PageController {
     public String showLogin(String redirect, Model model){
         model.addAttribute("redirect",redirect);// 把回调的url传递给登录页面的jsp
         return "login";
+    }
+
+    //http://localhost:8084/page/haha?carNumbers=444&carNumbers=222&carNumbers=333
+    @RequestMapping(value = "haha")
+    @ResponseBody
+    public void haha(String... carNumbers){
+        System.out.println(carNumbers.length);
     }
 }
