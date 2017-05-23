@@ -25,4 +25,8 @@
 		<property name="suffix" value=".html" />
 	</bean>
 
+	<!--swagger的配置相关的东西-->
+	<!--<context:component-scan base-package="com.lujiahao.rest.swagger"/>-->
+	<bean class="com.lujiahao.rest.swagger.SwaggerConfig"/>
+	<mvc:resources location="/WEB-INF/swagger/" mapping="/swagger/**" />
 </beans>

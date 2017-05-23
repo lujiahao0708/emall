@@ -49,10 +49,14 @@
     容器互联
     主节点关掉之后所有的节点都需要重新连接一下   这个好像不太好  查一下看看
 
-    docker run -d --name redis_master -p 6370:6379 docker.io/redis
-                                                容器名称 : 容器别名                                             容器别名
-    docker run -d --name redis_slave1 --link redis_master:redis_master docker.io/redis redis-server --slaveof redis_master 6379
-    这种方式创建的貌似不是集群  clusterenable没启用啥的
+    docker run -d --name redis_master -p 32780:6379 docker.io/redis
+                                                       容器名称 : 容器别名                                             容器别名
+    eg : docker run -d --name redis_slave1 --link redis_master:redis_master docker.io/redis redis-server --slaveof redis_master 6379
+
+    docker run -d --name taotao_redis_slave1 --link taotao_redis_master:taotao_redis_master -p 32781:6379 docker.io/redis redis-server --slaveof taotao_redis_master 6379
+    docker run -d --name taotao_redis_slave2 --link taotao_redis_master:taotao_redis_master -p 32782:6379 docker.io/redis redis-server --slaveof taotao_redis_master 6379
+
+
 6.Docker监控工具
     shipyard
         安装失败了
