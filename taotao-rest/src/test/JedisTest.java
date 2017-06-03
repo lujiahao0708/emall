@@ -37,7 +37,7 @@ public class JedisTest {
         jedisPool.close();
     }
 
-//    @Test
+//    @ComRespon
 //    public void testJedisCluster(){
 //        HashSet<HostAndPort> nodes = new HashSet<>();
 //        nodes.add(new HostAndPort(ipCluster,portCluster));
