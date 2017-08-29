@@ -1,2 +1,12 @@
-/mmall/.idea
-/mmall/target
+/.idea
+/*/target
+/taotao-manage/*/target
+/*/*.iml
+/taotao-sso/*.iml
+/taotao-search/*.iml
+/taotao-rest/*.iml
+/taotao-portal/*.iml
+/taotao-manage/taotao-manage-web/*.iml
+/taotao-manage/taotao-manage-service/*.iml
+/taotao-manage/taotao-manage-mapper/*.iml
+/*.iml
