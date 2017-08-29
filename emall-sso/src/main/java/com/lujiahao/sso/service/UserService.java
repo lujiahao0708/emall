@@ -24,7 +24,7 @@ public interface UserService {
      * @param tbUser 用户信息
      * @return
      */
-    TaotaoResult createUser(TbUser tbUser);
+    int createUser(TbUser tbUser);
 
     /**
      * 用户登录

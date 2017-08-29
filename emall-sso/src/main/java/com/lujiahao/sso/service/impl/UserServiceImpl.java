@@ -12,6 +12,8 @@ import com.lujiahao.sso.domain.EDataType;
 import com.lujiahao.sso.service.UserService;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Service
 public class UserServiceImpl implements UserService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private TbUserMapper tbUserMapper;
     @Autowired
@@ -72,18 +76,23 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 创建用户
-     *
-     * @param tbUser 用户信息
+     * Service中的操作应该提供最原始的  具体的返回值的判定应该放到controller中
      */
     @Override
-    public TaotaoResult createUser(TbUser tbUser) {
-        Date nowDate = new Date();
-        tbUser.setUpdated(nowDate);
-        tbUser.setCreated(nowDate);
-        // spring框架中的工具类  md5加密  这个加密是用来防止内部人员的,为了不能直接看出密码来
-        tbUser.setPassword(DigestUtils.md5DigestAsHex(tbUser.getPassword().getBytes()));
-        tbUserMapper.insert(tbUser);
-        return TaotaoResult.ok();
+    public int createUser(TbUser tbUser) {
+        try {
+            Date nowDate = new Date();
+            tbUser.setUpdated(nowDate);
+            tbUser.setCreated(nowDate);
+            // spring框架中的工具类  md5加密  这个加密是用来防止内部人员的,为了不能直接看出密码来
+            tbUser.setPassword(DigestUtils.md5DigestAsHex(tbUser.getPassword().getBytes()));
+            int resultCount = tbUserMapper.insert(tbUser);
+            LOGGER.debug("========== 创建用户 成功 ==========" , tbUser.toString());
+            return resultCount;
+        } catch (Exception e) {
+            LOGGER.error("========== 创建用户 异常 ==========", e);
+            return -1;
+        }
     }
 
     /**

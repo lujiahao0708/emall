@@ -32,8 +32,8 @@ public class UserController {
      * 校验数据是否可用
      *
      * @param param 需要校验的数据内容
-     * @param type 数据类型
-     * callback    是个回调地址,就是这个进入这个页面之前访问的地址
+     * @param type  数据类型
+     *              callback    是个回调地址,就是这个进入这个页面之前访问的地址
      * @return
      */
     @RequestMapping(value = "/check/{param}/{type}")
@@ -67,8 +67,9 @@ public class UserController {
 
     /**
      * 解决JSONP跨域请求
+     *
      * @param callback 回调地址
-     * @param result 返回的JavaBean
+     * @param result   返回的JavaBean
      * @return
      */
     private Object checkCallBack(String callback, TaotaoResult result) {
@@ -84,33 +85,29 @@ public class UserController {
     /**
      * 创建用户
      * TODO 更好的用户体验是登录之后能把用户名带过去,这个以前的那个管理后台可以做到  仿照一下看看
+     *
      * @param user
      * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public TaotaoResult createUser(TbUser user) {
-        try {
-            TaotaoResult taotaoResult = userService.createUser(user);
-            return taotaoResult;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+        int resultCount = userService.createUser(user);
+        if (resultCount > 0) {
+            return TaotaoResult.ok();
+        } else {
+            return TaotaoResult.build(500, "用户注册失败");
         }
     }
 
     /**
      * 用户登录
-     *
-     * @param username
-     * @param password
-     * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public TaotaoResult userLogin(String username, String password, HttpServletRequest request, HttpServletResponse response) {
         try {
-            TaotaoResult taotaoResult = userService.userLogin(username, password,request,response);
+            TaotaoResult taotaoResult = userService.userLogin(username, password, request, response);
             return taotaoResult;
         } catch (Exception e) {
             e.printStackTrace();
