@@ -2,22 +2,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <artifactId>taotao</artifactId>
+        <artifactId>emall</artifactId>
         <groupId>com.lujiahao</groupId>
         <version>0.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>taotao-sso</artifactId>
+    <artifactId>emall-rest</artifactId>
     <packaging>war</packaging>
     <dependencies>
         <dependency>
             <groupId>com.lujiahao</groupId>
-            <artifactId>taotao-common</artifactId>
+            <artifactId>emall-common</artifactId>
             <version>0.0.2</version>
         </dependency>
         <dependency>
             <groupId>com.lujiahao</groupId>
-            <artifactId>taotao-mapping</artifactId>
+            <artifactId>emall-mapping</artifactId>
             <version>0.0.2</version>
         </dependency>
         <!-- 单元测试 -->
@@ -57,20 +57,53 @@
             <artifactId>jsp-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- Jackson Json处理工具包 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-
         <!-- Redis客户端 -->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
         </dependency>
+
+        <!-- solr客户端 -->
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+        </dependency>
+
+        <!-- Swagger api文档生成工具依赖包 -->
+        <dependency>
+            <groupId>com.mangofactory</groupId>
+            <artifactId>swagger-springmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <!-- Jackson Json处理工具包 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <!-- Swagger end -->
+
+        <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>0.8</version>
+        </dependency>
+
+
     </dependencies>
     <build>
-        <finalName>taotao-sso</finalName>
+        <finalName>emall-rest</finalName>
         <plugins>
             <!-- 配置Tomcat插件 -->
             <plugin>
@@ -78,7 +111,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <port>8084</port>
+                    <port>8081</port>
                     <path>/</path>
                 </configuration>
             </plugin>

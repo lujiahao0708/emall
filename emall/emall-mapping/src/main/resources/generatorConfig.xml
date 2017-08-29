@@ -6,7 +6,7 @@
     <!-- !!!! Driver Class Path !!!! -->
     <classPathEntry location="D:\develop\javaee\m2_ipms\repository\mysql\mysql-connector-java\5.1.32\mysql-connector-java-5.1.32.jar"/>
     <!--<classPathEntry location="C:\Users\lujiahao\Desktop\mysql-connector-java-5.1.22-bin.jar"/>-->
-    <context id="testTables" targetRuntime="MyBatis3">
+    <context id="testTables" targetRuntime="MyBatis3Simple">
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="true"/>

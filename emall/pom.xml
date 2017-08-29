@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lujiahao</groupId>
-    <artifactId>taotao</artifactId>
+    <artifactId>emall</artifactId>
     <version>0.0.2</version>
     <modules>
-        <module>taotao-common</module>
-        <module>taotao-manager</module>
-        <module>taotao-mapping</module>
-        <module>taotao-rest</module>
-        <module>taotao-portal</module>
-        <module>taotao-sso</module>
+        <module>emall-common</module>
+        <module>emall-manager</module>
+        <module>emall-mapping</module>
+        <module>emall-rest</module>
+        <module>emall-portal</module>
+        <module>emall-sso</module>
     </modules>
     <packaging>pom</packaging>
 
