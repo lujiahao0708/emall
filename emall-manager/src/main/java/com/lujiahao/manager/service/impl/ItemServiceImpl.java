@@ -31,7 +31,23 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private TbItemDescMapper itemDescMapper;
-	
+
+    /**
+     * 获取所有的商品信息
+     * pagehelper对逆向工程生成的代码支持不好,不能对有查询条件的查询分页,会抛异常
+     * @param page 页码
+     * @param rows 每页显示行数
+     * @return
+     */
+    @Override
+    public List<TbItem> getAllItem(int page, int rows) {
+        TbItemExample example = new TbItemExample();
+        PageHelper.startPage(page,rows);
+        List<TbItem> tbItemList = itemMapper.selectByExample(example);
+        PageInfo<TbItem> pageInfo = new PageInfo<TbItem>(tbItemList);
+        return tbItemList;
+    }
+
 	@Override
 	public TbItem getItemById(long itemId) {
 //		TbItem item = itemMapper.selectByPrimaryKey(itemId);
@@ -46,21 +62,6 @@ public class ItemServiceImpl implements ItemService {
 			return tbItem;
 		}
 		return null;
-	}
-
-	/**
-	 * 获取所有的商品信息
-	 * @param page 页码
-	 * @param rows 每页显示行数
-	 * @return
-	 */
-	@Override
-	public List<TbItem> getAllItem(int page, int rows) {
-	    TbItemExample example = new TbItemExample();
-	    PageHelper.startPage(page,rows);
-        List<TbItem> tbItemList = itemMapper.selectByExample(example);
-        PageInfo<TbItem> pageInfo = new PageInfo<TbItem>(tbItemList);
-        return tbItemList;
 	}
 
 	/**

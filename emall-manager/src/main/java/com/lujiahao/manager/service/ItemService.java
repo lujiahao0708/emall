@@ -14,15 +14,15 @@ import java.util.List;
  */
 public interface ItemService {
 	/**
+	 * 获取所有的商品信息
+	 */
+	List<TbItem> getAllItem(int page,int rows);
+
+	/**
 	 * 通过商品id查询商品
 	 */
 	TbItem getItemById(long itemId);
 
-    /**
-     * 获取所有的商品信息
-     */
-	List<TbItem> getAllItem(int page,int rows);
-	
 	/**
 	 * 返回商品列表-带分页的
 	 */
