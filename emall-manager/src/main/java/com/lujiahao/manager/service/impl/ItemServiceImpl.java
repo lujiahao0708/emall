@@ -40,12 +40,12 @@ public class ItemServiceImpl implements ItemService {
      * @return
      */
     @Override
-    public List<TbItem> getAllItem(int page, int rows) {
+    public PageInfo<TbItem> getAllItem(int page, int rows) {
         TbItemExample example = new TbItemExample();
         PageHelper.startPage(page,rows);
         List<TbItem> tbItemList = itemMapper.selectByExample(example);
         PageInfo<TbItem> pageInfo = new PageInfo<TbItem>(tbItemList);
-        return tbItemList;
+        return pageInfo;
     }
 
 	@Override

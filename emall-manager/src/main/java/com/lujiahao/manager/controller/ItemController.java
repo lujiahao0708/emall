@@ -1,5 +1,6 @@
 package com.lujiahao.manager.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.lujiahao.common.pojo.EUDataGridResult;
 import com.lujiahao.common.pojo.TaotaoResult;
 import com.lujiahao.manager.service.ItemService;
@@ -32,22 +33,23 @@ public class ItemController {
      */
     @RequestMapping(value = "/showItemList")
     public String showItemList(ModelMap modelMap) {
-        List<TbItem> allItem = itemService.getAllItem(1, 15);
-        modelMap.put("allItem", allItem);
+        PageInfo<TbItem> pageInfo = itemService.getAllItem(1, 15);
+        modelMap.put("pageInfo", pageInfo);
+        modelMap.put("allItem", pageInfo.getList());
         return "/manager/itemlist";
     }
 
-    /**
-     * 获取商品列表
-     * 接口提供
-     */
-    @RequestMapping(value = "/itemlist")
-    @ResponseBody
-    public TaotaoResult itemList(@RequestParam(defaultValue = "1") Integer page,
-                                 @RequestParam(defaultValue = "15") Integer rows, ModelMap modelMap) {
-        List<TbItem> allItem = itemService.getAllItem(page, rows);
-        return TaotaoResult.ok(allItem);
-    }
+//    /**
+//     * 获取商品列表
+//     * 接口提供
+//     */
+//    @RequestMapping(value = "/itemlist")
+//    @ResponseBody
+//    public TaotaoResult itemList(@RequestParam(defaultValue = "1") Integer page,
+//                                 @RequestParam(defaultValue = "15") Integer rows, ModelMap modelMap) {
+//        List<TbItem> allItem = itemService.getAllItem(page, rows);
+//        return TaotaoResult.ok(allItem);
+//    }
 
     /**
      * 废弃了  上面是新的html界面显示的
