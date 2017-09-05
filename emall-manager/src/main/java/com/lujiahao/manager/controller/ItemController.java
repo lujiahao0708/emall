@@ -28,16 +28,15 @@ public class ItemController {
     private ItemService itemService;
 
     /**
-     * 获取商品列表页面
-     * 页面跳转
+     * 查询商品-商品列表页面
      */
     @RequestMapping(value = "/showItemList")
-    public String showItemList(@RequestParam(defaultValue = "1") Integer page,
-                               @RequestParam(defaultValue = "15") Integer rows, ModelMap modelMap) {
-        List<TbItem> allItem = itemService.getAllItem(page, rows);
+    public String showItemList(ModelMap modelMap) {
+        List<TbItem> allItem = itemService.getAllItem(1, 15);
         modelMap.put("allItem", allItem);
-        return "itemlist";
+        return "/manager/itemlist";
     }
+
     /**
      * 获取商品列表
      * 接口提供
@@ -45,7 +44,7 @@ public class ItemController {
     @RequestMapping(value = "/itemlist")
     @ResponseBody
     public TaotaoResult itemList(@RequestParam(defaultValue = "1") Integer page,
-                               @RequestParam(defaultValue = "15") Integer rows, ModelMap modelMap) {
+                                 @RequestParam(defaultValue = "15") Integer rows, ModelMap modelMap) {
         List<TbItem> allItem = itemService.getAllItem(page, rows);
         return TaotaoResult.ok(allItem);
     }

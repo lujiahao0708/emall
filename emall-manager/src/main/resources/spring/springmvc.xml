@@ -14,20 +14,16 @@
 	
 	<!-- 视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="prefix" value="/WEB-INF/pages/" />
 		<property name="suffix" value=".jsp" />
-	</bean>
-
-    <!--TODO 添加html的视图解析器  这一步操作不知道对不对-->
-	<!-- 视图解析器 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/html/" />
-		<property name="suffix" value=".html" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 	</bean>
 
     <!-- 只有当web.xml中配置为/的时候才会拦截静态资源, 资源映射 加载静态资源 -->
-    <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
-    <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
+    <!--<mvc:resources location="/resources/js/" mapping="/resources/js/**"/>-->
+    <!--<mvc:resources location="/resources/css/" mapping="/resources/css/**"/>-->
+    <!--<mvc:resources location="/resources/images/" mapping="/resources/images/**"/>-->
+    <!--<mvc:resources location="/resources/fonts/" mapping="/resources/fonts/**"/>-->
 
     <!-- Freemarker配置 -->
     <bean id="freemarkerConfig"
@@ -54,6 +50,14 @@
         <property name="templateLoaderPath" value="/WEB-INF/html/" />
         <property name="defaultEncoding" value="UTF-8" />
     </bean>
+
+    <!--&lt;!&ndash;TODO 添加html的视图解析器  这一步操作不知道对不对&ndash;&gt;-->
+    <!--&lt;!&ndash; 视图解析器 &ndash;&gt;-->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--<property name="prefix" value="/WEB-INF/html/" />-->
+    <!--<property name="suffix" value=".html" />-->
+    <!--</bean>-->
+
     <!--视图解释器 -->
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
