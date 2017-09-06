@@ -92,6 +92,7 @@
                                                 </c:forEach>
                                                 </tbody>
                                             </table>
+                                            <div><tags:pagination paginationSize="10" page="${page}"/></div>
                                         </div>
                                     </div>
                                     <div class="row">

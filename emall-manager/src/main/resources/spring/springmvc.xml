@@ -20,6 +20,12 @@
         <property name="order" value="1"/>
     </bean>
 
+    <!-- 只有当web.xml中配置为/的时候才会拦截静态资源, 资源映射 加载静态资源 -->
+    <mvc:resources location="/resources/js/" mapping="/resources/js/**"/>
+    <mvc:resources location="/resources/css/" mapping="/resources/css/**"/>
+    <mvc:resources location="/resources/images/" mapping="/resources/images/**"/>
+    <mvc:resources location="/resources/fonts/" mapping="/resources/fonts/**"/>
+
     <!--&lt;!&ndash; Freemarker配置 &ndash;&gt;-->
     <!--<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">-->
         <!--&lt;!&ndash;<property name="configLocation" value="classpath:ftl.properties" />&ndash;&gt;-->

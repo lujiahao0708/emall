@@ -32,35 +32,14 @@ public class ItemController {
      * 查询商品-商品列表页面
      */
     @RequestMapping(value = "/showItemList")
-    public String showItemList(ModelMap modelMap) {
-        PageInfo<TbItem> pageInfo = itemService.getAllItem(1, 15);
+    public String showItemList(@RequestParam(defaultValue = "1") Integer pageNum,
+                               @RequestParam(defaultValue = "15") Integer pageSize,
+                               ModelMap modelMap) {
+        PageInfo<TbItem> pageInfo = itemService.getAllItem(pageNum, pageSize);
         modelMap.put("pageInfo", pageInfo);
-        modelMap.put("allItem", pageInfo.getList());
         return "/manager/itemlist";
     }
 
-//    /**
-//     * 获取商品列表
-//     * 接口提供
-//     */
-//    @RequestMapping(value = "/itemlist")
-//    @ResponseBody
-//    public TaotaoResult itemList(@RequestParam(defaultValue = "1") Integer page,
-//                                 @RequestParam(defaultValue = "15") Integer rows, ModelMap modelMap) {
-//        List<TbItem> allItem = itemService.getAllItem(page, rows);
-//        return TaotaoResult.ok(allItem);
-//    }
-
-    /**
-     * 废弃了  上面是新的html界面显示的
-     * EasyUI获得商品列表
-     */
-    @RequestMapping(value = "/item/list")
-    @ResponseBody
-    public EUDataGridResult getItemList(Integer page, Integer rows) {
-        EUDataGridResult result = itemService.getItemList(page, rows);
-        return result;
-    }
 
     /**
      * 添加商品条目
