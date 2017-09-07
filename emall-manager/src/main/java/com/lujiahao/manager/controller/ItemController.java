@@ -1,7 +1,6 @@
 package com.lujiahao.manager.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.lujiahao.common.pojo.EUDataGridResult;
 import com.lujiahao.common.pojo.TaotaoResult;
 import com.lujiahao.manager.service.ItemService;
 import com.lujiahao.mapping.pojo.TbItem;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * 后台管理系统
@@ -33,11 +30,11 @@ public class ItemController {
      */
     @RequestMapping(value = "/showItemList")
     public String showItemList(@RequestParam(defaultValue = "1") Integer pageNum,
-                               @RequestParam(defaultValue = "15") Integer pageSize,
+                               @RequestParam(defaultValue = "10") Integer pageSize,
                                ModelMap modelMap) {
         PageInfo<TbItem> pageInfo = itemService.getAllItem(pageNum, pageSize);
         modelMap.put("pageInfo", pageInfo);
-        return "/manager/itemlist";
+        return "manager/itemlist";
     }
 
 
