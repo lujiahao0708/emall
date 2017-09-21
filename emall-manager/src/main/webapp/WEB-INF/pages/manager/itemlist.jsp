@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,56 +69,7 @@
                                                 </c:forEach>
                                                 </tbody>
                                             </table>
-                                        </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-5">
-                                            <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">
-                                                第 ${pageInfo.pageNum} 页,共 ${pageInfo.pages} 页,共${pageInfo.total}条数据
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-                                                <ul class="pagination">
-                                                    <c:if test="${pageInfo.hasPreviousPage}">
-                                                        <li><a href="?pageNum=1&pageSize=${pageInfo.pageSize}">首页</a></li>
-                                                        <li class="paginate_button previous" id="datatable_previous">
-                                                            <a href="?pageNum=${pageInfo.pageNum - 1}&pageSize=${pageInfo.pageSize}" aria-controls="datatable" data-dt-idx="0" tabindex="0">上一页</a>
-                                                        </li>
-                                                    </c:if>
-                                                    <c:if test="${!pageInfo.hasPreviousPage}">
-                                                        <li class="disabled"><a href="#">首页</a></li>
-                                                        <li class="disabled"><a href="#">上一页</a></li>
-                                                    </c:if>
-
-                                                    <c:forEach var="i" begin="${pageInfo.firstPage}" end="${pageInfo.lastPage}">
-                                                        <c:choose>
-                                                            <c:when test="${i == pageInfo.pageNum}">
-                                                                <li class="paginate_button active">
-                                                                    <a href="?pageNum=${i}&pageSize=${pageInfo.pageSize}" aria-controls="datatable" data-dt-idx="${i}" tabindex="0">${i}</a>
-                                                                </li>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <li class="paginate_button">
-                                                                    <a href="?pageNum=${i}&pageSize=${pageInfo.pageSize}" aria-controls="datatable" data-dt-idx="${i}" tabindex="0">${i}</a>
-                                                                </li>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:forEach>
-
-                                                    <c:if test="${pageInfo.hasNextPage}">
-                                                        <li class="paginate_button next" id="datatable_next">
-                                                            <a href="?pageNum=${pageInfo.pageNum + 1}&pageSize=${pageInfo.pageSize}" aria-controls="datatable" data-dt-idx="${pageInfo.pages}" tabindex="0">下一页</a>
-                                                        </li>
-                                                        <li><a href="?pageNum=${pageInfo.pages}&pageSize=${pageInfo.pageSize}">尾页</a></li>
-                                                    </c:if>
-                                                    <c:if test="${!pageInfo.hasNextPage}">
-                                                        <li class="disabled"><a href="#">下一页</a></li>
-                                                        <li class="disabled"><a href="#">尾页</a></li>
-                                                    </c:if>
-                                                </ul>
-                                            </div>
+                                        </div><tags:pagination paginationSize="10" pageInfo="${pageInfo}"/>
                                         </div>
                                     </div>
                                 </div>
