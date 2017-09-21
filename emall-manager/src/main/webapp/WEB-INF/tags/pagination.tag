@@ -13,7 +13,7 @@
     int begin = Math.max(1, current - paginationSize/2);
     int end = Math.min(begin + (paginationSize - 1), pageInfo.getPages());
     long pageTotalElements = pageInfo.getTotal();
-    int pageSizes = pageInfo.getPageSize();
+    int pageSizes = pageInfo.getPages();
     request.setAttribute("current", current);
     request.setAttribute("begin", begin);
     request.setAttribute("end", end);
