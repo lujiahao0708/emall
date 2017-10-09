@@ -1,7 +1,7 @@
 package com.lujiahao.manager.controller;
 
-import com.github.pagehelper.PageInfo;
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.pojo.EUDataGridResult;
+import com.lujiahao.common.pojo.TaotaoResult;
 import com.lujiahao.manager.service.ItemService;
 import com.lujiahao.mapping.pojo.TbItem;
 
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * 后台管理系统
@@ -26,25 +28,46 @@ public class ItemController {
     private ItemService itemService;
 
     /**
-     * 查询商品-商品列表页面
+     * 获取商品列表页面
+     * 页面跳转
      */
     @RequestMapping(value = "/showItemList")
-    public String showItemList(@RequestParam(defaultValue = "1") Integer pageNum,
-                               @RequestParam(defaultValue = "10") Integer pageSize,
-                               ModelMap modelMap) {
-        PageInfo<TbItem> pageInfo = itemService.getAllItem(pageNum, pageSize);
-        modelMap.put("pageInfo", pageInfo);
-        return "manager/itemlist";
+    public String showItemList(@RequestParam(defaultValue = "1") Integer page,
+                               @RequestParam(defaultValue = "15") Integer rows, ModelMap modelMap) {
+        List<TbItem> allItem = itemService.getAllItem(page, rows);
+        modelMap.put("allItem", allItem);
+        return "itemlist";
+    }
+    /**
+     * 获取商品列表
+     * 接口提供
+     */
+    @RequestMapping(value = "/itemlist")
+    @ResponseBody
+    public TaotaoResult itemList(@RequestParam(defaultValue = "1") Integer page,
+                               @RequestParam(defaultValue = "15") Integer rows, ModelMap modelMap) {
+        List<TbItem> allItem = itemService.getAllItem(page, rows);
+        return TaotaoResult.ok(allItem);
     }
 
+    /**
+     * 废弃了  上面是新的html界面显示的
+     * EasyUI获得商品列表
+     */
+    @RequestMapping(value = "/item/list")
+    @ResponseBody
+    public EUDataGridResult getItemList(Integer page, Integer rows) {
+        EUDataGridResult result = itemService.getItemList(page, rows);
+        return result;
+    }
 
     /**
      * 添加商品条目
      */
     @RequestMapping(value = "/item/save", method = RequestMethod.POST)
     @ResponseBody
-    private CommonResult createItem(TbItem item, String desc) throws Exception {
-        CommonResult result = itemService.createItem(item, desc);
+    private TaotaoResult createItem(TbItem item, String desc) throws Exception {
+        TaotaoResult result = itemService.createItem(item, desc);
         return result;
     }
 

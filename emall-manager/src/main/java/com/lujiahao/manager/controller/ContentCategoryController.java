@@ -1,7 +1,7 @@
 package com.lujiahao.manager.controller;
 
-import com.lujiahao.common.pojo.ContentNode;
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.pojo.EasyUITreeNode;
+import com.lujiahao.common.pojo.TaotaoResult;
 import com.lujiahao.common.utils.HttpClientUtil;
 import com.lujiahao.common.utils.JsonUtils;
 
@@ -47,46 +47,46 @@ public class ContentCategoryController {
      */
     @RequestMapping(value = "/list")
     @ResponseBody
-    public List<ContentNode> getContentCategoryList(
+    public List<EasyUITreeNode> getContentCategoryList(
             @RequestParam(value = "id",defaultValue = "0") long parentId){
         Map<String,String> param = new HashMap<>();
         param.put("parentId",String.valueOf(parentId));
 
         String s = HttpClientUtil.doGet(REST_BASE_URL + REST_CONTENT_CATEGORY_LIST, param);
-        List<ContentNode> list = JsonUtils.jsonToList(s, ContentNode.class);
+        List<EasyUITreeNode> list = JsonUtils.jsonToList(s, EasyUITreeNode.class);
         return list;
     }
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult createContentCategory(long parentId, String name){
+    public TaotaoResult createContentCategory(long parentId, String name){
         Map<String,String> param = new HashMap<>();
         param.put("parentId",String.valueOf(parentId));
         param.put("name",name);
         String s = HttpClientUtil.doPost(REST_BASE_URL + REST_CONTENT_CATEGORY_CREATE, param);
-        CommonResult commonResult = JsonUtils.jsonToPojo(s, CommonResult.class);
-        return commonResult;
+        TaotaoResult taotaoResult = JsonUtils.jsonToPojo(s, TaotaoResult.class);
+        return taotaoResult;
     }
 
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult deleteContentCategory(long parentId, long id){
+    public TaotaoResult deleteContentCategory(long parentId,long id){
         Map<String,String> param = new HashMap<>();
         param.put("parentId",String.valueOf(parentId));
         param.put("id",String.valueOf(id));
         String s = HttpClientUtil.doPost(REST_BASE_URL + REST_CONTENT_CATEGORY_DELETE, param);
-        CommonResult commonResult = JsonUtils.jsonToPojo(s, CommonResult.class);
-        return commonResult;
+        TaotaoResult taotaoResult = JsonUtils.jsonToPojo(s, TaotaoResult.class);
+        return taotaoResult;
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updateContentCategory(long id, String name){
+    public TaotaoResult updateContentCategory(long id,String name){
         Map<String,String> param = new HashMap<>();
         param.put("id",String.valueOf(id));
         param.put("name",name);
         String s = HttpClientUtil.doPost(REST_BASE_URL + REST_CONTENT_CATEGORY_UPDATE, param);
-        CommonResult commonResult = JsonUtils.jsonToPojo(s, CommonResult.class);
-        return commonResult;
+        TaotaoResult taotaoResult = JsonUtils.jsonToPojo(s, TaotaoResult.class);
+        return taotaoResult;
     }
 }

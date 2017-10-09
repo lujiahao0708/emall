@@ -1,10 +1,11 @@
 package com.lujiahao.manager.service;
 
 
-import com.github.pagehelper.PageInfo;
 import com.lujiahao.common.pojo.EUDataGridResult;
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.pojo.TaotaoResult;
 import com.lujiahao.mapping.pojo.TbItem;
+
+import java.util.List;
 
 /**
  * 
@@ -15,7 +16,7 @@ public interface ItemService {
 	/**
 	 * 获取所有的商品信息
 	 */
-	PageInfo<TbItem> getAllItem(int page, int rows);
+	List<TbItem> getAllItem(int page,int rows);
 
 	/**
 	 * 通过商品id查询商品
@@ -30,5 +31,5 @@ public interface ItemService {
     /**
      * 添加商品
      */
-	CommonResult createItem(TbItem item, String desc) throws Exception;
+	TaotaoResult createItem(TbItem item, String desc) throws Exception;
 }
