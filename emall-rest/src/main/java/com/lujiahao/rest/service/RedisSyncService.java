@@ -1,7 +1,7 @@
 package com.lujiahao.rest.service;
 
 
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 
 /**
  * 操作Redis缓存的服务
@@ -13,5 +13,5 @@ public interface RedisSyncService {
      * @param contentCategoryId
      * @return
      */
-    TaotaoResult syncContent(long contentCategoryId);
+    CommonResult syncContent(long contentCategoryId);
 }

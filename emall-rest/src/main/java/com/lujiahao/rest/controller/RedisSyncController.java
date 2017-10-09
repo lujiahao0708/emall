@@ -1,6 +1,6 @@
 package com.lujiahao.rest.controller;
 
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.rest.service.RedisSyncService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,8 @@ public class RedisSyncController {
      */
     @RequestMapping("/content/{contentCategoryId}")
     @ResponseBody
-    public TaotaoResult contentCacheSync(@PathVariable Long contentCategoryId){
-        TaotaoResult result = redisSyncService.syncContent(contentCategoryId);
+    public CommonResult contentCacheSync(@PathVariable Long contentCategoryId){
+        CommonResult result = redisSyncService.syncContent(contentCategoryId);
         return result;
     }
 }

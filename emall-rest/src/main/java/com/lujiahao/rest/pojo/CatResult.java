@@ -7,7 +7,6 @@ import java.util.List;
  *
  * @author lujiahao
  * @version V1.0
- * @email jiahao.lu@qtparking.com
  * @create 2016-09-06 17:38
  */
 public class CatResult {

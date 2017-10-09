@@ -1,7 +1,7 @@
 package com.lujiahao.sso.service;
 
 
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.mapping.pojo.TbUser;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ public interface UserService {
      * @param type 数据类型
      * @return
      */
-    TaotaoResult checkData(String content, Integer type);
+    CommonResult checkData(String content, Integer type);
 
     /**
      * 创建用户
@@ -33,12 +33,12 @@ public interface UserService {
      * @param request
      *@param response
      */
-    TaotaoResult userLogin(String username, String password, HttpServletRequest request, HttpServletResponse response);
+    CommonResult userLogin(String username, String password, HttpServletRequest request, HttpServletResponse response);
 
     /**
      * 根据token查询用户信息
      * @param token
      * @return
      */
-    TaotaoResult getUserByToken(String token);
+    CommonResult getUserByToken(String token);
 }

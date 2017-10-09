@@ -8,7 +8,6 @@ import com.lujiahao.rest.pojo.CatResult;
  *
  * @author lujiahao
  * @version V1.0
- * @email jiahao.lu@qtparking.com
  * @create 2016-09-06 17:39
  */
 public interface ItemCatService {

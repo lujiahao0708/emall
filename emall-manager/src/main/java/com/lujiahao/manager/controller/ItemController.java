@@ -1,7 +1,7 @@
 package com.lujiahao.manager.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.manager.service.ItemService;
 import com.lujiahao.mapping.pojo.TbItem;
 
@@ -43,8 +43,8 @@ public class ItemController {
      */
     @RequestMapping(value = "/item/save", method = RequestMethod.POST)
     @ResponseBody
-    private TaotaoResult createItem(TbItem item, String desc) throws Exception {
-        TaotaoResult result = itemService.createItem(item, desc);
+    private CommonResult createItem(TbItem item, String desc) throws Exception {
+        CommonResult result = itemService.createItem(item, desc);
         return result;
     }
 

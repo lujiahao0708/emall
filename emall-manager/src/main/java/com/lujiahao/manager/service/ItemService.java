@@ -3,10 +3,8 @@ package com.lujiahao.manager.service;
 
 import com.github.pagehelper.PageInfo;
 import com.lujiahao.common.pojo.EUDataGridResult;
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.mapping.pojo.TbItem;
-
-import java.util.List;
 
 /**
  * 
@@ -32,5 +30,5 @@ public interface ItemService {
     /**
      * 添加商品
      */
-	TaotaoResult createItem(TbItem item, String desc) throws Exception;
+	CommonResult createItem(TbItem item, String desc) throws Exception;
 }

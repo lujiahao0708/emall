@@ -1,8 +1,8 @@
 package com.lujiahao.rest.service;
 
 
-import com.lujiahao.common.pojo.EasyUITreeNode;
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.ContentNode;
+import com.lujiahao.common.pojo.CommonResult;
 
 import java.util.List;
 
@@ -14,20 +14,20 @@ public interface ContentCategoryService {
     /**
      * 根据父节点id查询分类列表
      */
-    List<EasyUITreeNode> getContentCategoryList(long parentId);
+    List<ContentNode> getContentCategoryList(long parentId);
 
     /**
      * 添加内容分类节点
      */
-    TaotaoResult insertContentCategory(long parentId, String name);
+    CommonResult insertContentCategory(long parentId, String name);
 
     /**
      * 删除内容分类节点
      */
-    TaotaoResult deleteContentCategory(long parentId, long id);
+    CommonResult deleteContentCategory(long parentId, long id);
 
     /**
      * 更新内容分类节点的名称
      */
-    TaotaoResult updateContentCategory(long id, String name);
+    CommonResult updateContentCategory(long id, String name);
 }

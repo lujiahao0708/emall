@@ -1,7 +1,7 @@
 package com.lujiahao.rest.service.impl;
 
-import com.lujiahao.common.pojo.EasyUITreeNode;
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.ContentNode;
+import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.mapping.mapper.TbContentCategoryMapper;
 import com.lujiahao.mapping.pojo.TbContentCategory;
 import com.lujiahao.mapping.pojo.TbContentCategoryExample;
@@ -28,15 +28,15 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
     private TbContentCategoryMapper contentCategoryMapper;
 
     @Override
-    public List<EasyUITreeNode> getContentCategoryList(long parentId) {
+    public List<ContentNode> getContentCategoryList(long parentId) {
         TbContentCategoryExample example = new TbContentCategoryExample();
         TbContentCategoryExample.Criteria criteria = example.createCriteria();
         criteria.andParentIdEqualTo(parentId);
         List<TbContentCategory> list = contentCategoryMapper.selectByExample(example);
         // 创建结果集合
-        List<EasyUITreeNode> resultList = new ArrayList<>();
+        List<ContentNode> resultList = new ArrayList<>();
         for (TbContentCategory tbContentCategory : list) {
-            EasyUITreeNode node = new EasyUITreeNode();
+            ContentNode node = new ContentNode();
             node.setId(tbContentCategory.getId());
             node.setParentId(tbContentCategory.getParentId());
             node.setText(tbContentCategory.getName());
@@ -48,17 +48,20 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
     }
 
     @Override
-    public TaotaoResult insertContentCategory(long parentId, String name) {
+    public CommonResult insertContentCategory(long parentId, String name) {
         TbContentCategory category = new TbContentCategory();
         category.setParentId(parentId);
         category.setName(name);
+        // 状态。可选值:1(正常),2(删除)
         category.setStatus(1);
         category.setSortOrder(1);
         category.setIsParent(false);
         category.setCreated(new Date());
         category.setUpdated(new Date());
+        // 插入新节点。需要返回主键
         contentCategoryMapper.insert(category);
 
+        // 判断如果父节点的isparent不是true修改为true
         TbContentCategory parentCat = contentCategoryMapper.selectByPrimaryKey(parentId);
         if (!parentCat.getIsParent()) {
             // 不是父节点,更改为父节点
@@ -66,11 +69,11 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
             contentCategoryMapper.updateByPrimaryKey(parentCat);
         }
         // 返回结果
-        return TaotaoResult.ok(category);
+        return CommonResult.ok(category);
     }
 
     @Override
-    public TaotaoResult deleteContentCategory(long parentId, long id) {
+    public CommonResult deleteContentCategory(long parentId, long id) {
         // 先根据id查找对应记录
         TbContentCategory tbContentCategory = contentCategoryMapper.selectByPrimaryKey(id);
         if (tbContentCategory.getIsParent()) {
@@ -99,18 +102,18 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
                 contentCategoryMapper.updateByPrimaryKeySelective(parentCat);
             }
         }
-        return TaotaoResult.ok();
+        return CommonResult.ok();
     }
 
     @Override
-    public TaotaoResult updateContentCategory(long id, String name) {
+    public CommonResult updateContentCategory(long id, String name) {
         TbContentCategory tbContentCategory = contentCategoryMapper.selectByPrimaryKey(id);
         if (tbContentCategory != null) {
             tbContentCategory.setName(name);
             contentCategoryMapper.updateByPrimaryKey(tbContentCategory);
-            return TaotaoResult.ok();
+            return CommonResult.ok();
         } else {
-            return TaotaoResult.build(400,"更新失败");
+            return CommonResult.build(400,"更新失败");
         }
     }
 }

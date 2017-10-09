@@ -1,7 +1,7 @@
 package com.lujiahao.rest.service;
 
 
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 
 /**
  * 查询商品信息
@@ -13,19 +13,19 @@ public interface ItemService {
      * @param itemId 商品id
      * @return
      */
-    TaotaoResult getItemBaseInfo(long itemId);
+    CommonResult getItemBaseInfo(long itemId);
 
     /**
      * 根据商品id获取商品描述信息
      * @param itemId 商品id
      * @return
      */
-    TaotaoResult getItemDesc(long itemId);
+    CommonResult getItemDesc(long itemId);
 
     /**
      * 根据商品id获取商品的规格参数
      * @param itemId 商品id
      * @return
      */
-    TaotaoResult getItemParam(long itemId);
+    CommonResult getItemParam(long itemId);
 }

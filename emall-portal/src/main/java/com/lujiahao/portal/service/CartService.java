@@ -1,7 +1,7 @@
 package com.lujiahao.portal.service;
 
 
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.portal.pojo.CartItem;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface CartService {
      * @param num
      * @return
      */
-    TaotaoResult addCartItem(HttpServletRequest request, HttpServletResponse response, long itemId, int num);
+    CommonResult addCartItem(HttpServletRequest request, HttpServletResponse response, long itemId, int num);
 
     /**
      * 获取购物车列表
@@ -39,5 +39,5 @@ public interface CartService {
      * @param itemId
      * @return
      */
-    TaotaoResult deleteCartItem(HttpServletRequest request, HttpServletResponse response, long itemId);
+    CommonResult deleteCartItem(HttpServletRequest request, HttpServletResponse response, long itemId);
 }

@@ -3,13 +3,16 @@ package com.lujiahao.common.pojo;
 /**
  * @author lujiahao
  * @version V1.0
- * @email jiahao.lu@qtparking.com
  * @create 2016-09-11 16:09
  */
-public class EasyUITreeNode {
+public class ContentNode {
+    // 节点id
     private long id;
+    // 父节点id
     private long parentId;
+    // 节点名称
     private String text;
+    // 节点状态 1正常 2删除
     private String state;
 
     public long getParentId() {

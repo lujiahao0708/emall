@@ -1,6 +1,6 @@
 package com.lujiahao.rest.service.impl;
 
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.rest.dao.JedisClientDao;
 import com.lujiahao.rest.service.RedisSyncService;
@@ -28,12 +28,12 @@ public class RedisSyncServiceImpl implements RedisSyncService {
      * @return
      */
     @Override
-    public TaotaoResult syncContent(long contentCategoryId) {
+    public CommonResult syncContent(long contentCategoryId) {
         try {
             jedisClientDao.hdel(INDEX_CONTENT_REDIS_KEY, contentCategoryId + "");
         } catch (Exception e) {
-            return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+            return CommonResult.build(500, ExceptionUtil.getStackTrace(e));
         }
-        return TaotaoResult.ok();
+        return CommonResult.ok();
     }
 }

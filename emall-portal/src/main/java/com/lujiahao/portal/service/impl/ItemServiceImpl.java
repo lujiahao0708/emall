@@ -1,7 +1,7 @@
 package com.lujiahao.portal.service.impl;
 
 
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.common.utils.HttpClientUtil;
 import com.lujiahao.common.utils.JsonUtils;
@@ -44,9 +44,9 @@ public class ItemServiceImpl implements ItemService {
             // 调用rest服务
             String json = HttpClientUtil.doGet(REST_BASE_URL + ITEM_INFO_URL + itemId);
             if (!StringUtils.isBlank(json)) {
-                TaotaoResult taotaoResult = TaotaoResult.formatToPojo(json, ItemInfo.class);
-                if (taotaoResult.getStatus() == 200) {
-                    ItemInfo item = (ItemInfo) taotaoResult.getData();
+                CommonResult commonResult = CommonResult.formatToPojo(json, ItemInfo.class);
+                if (commonResult.getStatus() == 200) {
+                    ItemInfo item = (ItemInfo) commonResult.getData();
                     return item;
                 }
             }
@@ -69,9 +69,9 @@ public class ItemServiceImpl implements ItemService {
             // 查询商品描述
             String json = HttpClientUtil.doGet(REST_BASE_URL + ITEM_DESC_URL + itemId);
             // 转换成java对象
-            TaotaoResult taotaoResult = TaotaoResult.formatToPojo(json, TbItemDesc.class);
-            if (taotaoResult.getStatus() == 200) {
-                TbItemDesc tbItemDesc = (TbItemDesc) taotaoResult.getData();
+            CommonResult commonResult = CommonResult.formatToPojo(json, TbItemDesc.class);
+            if (commonResult.getStatus() == 200) {
+                TbItemDesc tbItemDesc = (TbItemDesc) commonResult.getData();
                 // 取出商品描述信息
                 String itemDesc = tbItemDesc.getItemDesc();
                 return itemDesc;
@@ -92,9 +92,9 @@ public class ItemServiceImpl implements ItemService {
     public String getItemParamById(Long itemId) {
         try {
             String json = HttpClientUtil.doGet(REST_BASE_URL + ITEM_PARAM_URL + itemId);
-            TaotaoResult taotaoResult = TaotaoResult.formatToPojo(json, TbItemParamItem.class);
-            if (taotaoResult.getStatus() == 200) {
-                TbItemParamItem itemParamItem = (TbItemParamItem) taotaoResult.getData();
+            CommonResult commonResult = CommonResult.formatToPojo(json, TbItemParamItem.class);
+            if (commonResult.getStatus() == 200) {
+                TbItemParamItem itemParamItem = (TbItemParamItem) commonResult.getData();
                 String paramData = itemParamItem.getParamData();
                 //生成html
                 // 把规格参数json数据转换成java对象

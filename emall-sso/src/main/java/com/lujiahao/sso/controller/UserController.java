@@ -1,6 +1,6 @@
 package com.lujiahao.sso.controller;
 
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.mapping.pojo.TbUser;
 import com.lujiahao.sso.domain.EDataType;
@@ -40,16 +40,16 @@ public class UserController {
     @ResponseBody
     public Object checkData(HttpServletRequest request, @PathVariable String param, @PathVariable Integer type) {
         String callback = request.getParameter("callback");
-        TaotaoResult result = null;
+        CommonResult result = null;
         // 参数有效性校验
         if (StringUtils.isBlank(param)) {
-            result = TaotaoResult.build(400, "校验内容不能为空");
+            result = CommonResult.build(400, "校验内容不能为空");
         }
         if (type == null) {
-            result = TaotaoResult.build(400, "校验内容类型不能为空");
+            result = CommonResult.build(400, "校验内容类型不能为空");
         }
         if (type != EDataType.USERNAME.getValue() && type != EDataType.PHONE.getValue() && type != EDataType.EMAIL.getValue()) {
-            result = TaotaoResult.build(400, "校验内容类型错误");
+            result = CommonResult.build(400, "校验内容类型错误");
         }
         // 校验出错
         if (result != null) {
@@ -59,7 +59,7 @@ public class UserController {
             // 调用服务
             result = userService.checkData(param, type);
         } catch (Exception e) {
-            result = TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+            result = CommonResult.build(500, ExceptionUtil.getStackTrace(e));
             e.printStackTrace();
         }
         return checkCallBack(callback, result);
@@ -72,7 +72,7 @@ public class UserController {
      * @param result   返回的JavaBean
      * @return
      */
-    private Object checkCallBack(String callback, TaotaoResult result) {
+    private Object checkCallBack(String callback, CommonResult result) {
         if (callback != null) {
             MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
             mappingJacksonValue.setJsonpFunction(callback);
@@ -91,12 +91,12 @@ public class UserController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public TaotaoResult createUser(TbUser user) {
+    public CommonResult createUser(TbUser user) {
         int resultCount = userService.createUser(user);
         if (resultCount > 0) {
-            return TaotaoResult.ok();
+            return CommonResult.ok();
         } else {
-            return TaotaoResult.build(500, "用户注册失败");
+            return CommonResult.build(500, "用户注册失败");
         }
     }
 
@@ -105,13 +105,13 @@ public class UserController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public TaotaoResult userLogin(String username, String password, HttpServletRequest request, HttpServletResponse response) {
+    public CommonResult userLogin(String username, String password, HttpServletRequest request, HttpServletResponse response) {
         try {
-            TaotaoResult taotaoResult = userService.userLogin(username, password, request, response);
-            return taotaoResult;
+            CommonResult commonResult = userService.userLogin(username, password, request, response);
+            return commonResult;
         } catch (Exception e) {
             e.printStackTrace();
-            return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+            return CommonResult.build(500, ExceptionUtil.getStackTrace(e));
         }
     }
 
@@ -124,12 +124,12 @@ public class UserController {
     @RequestMapping(value = "/token/{token}")
     @ResponseBody
     public Object getUserByToken(@PathVariable String token, String callback) {
-        TaotaoResult result = null;
+        CommonResult result = null;
         try {
             result = userService.getUserByToken(token);
         } catch (Exception e) {
             e.printStackTrace();
-            result = TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+            result = CommonResult.build(500, ExceptionUtil.getStackTrace(e));
         }
         // 判断是否为jsonp调用
         if (StringUtils.isBlank(callback)) {

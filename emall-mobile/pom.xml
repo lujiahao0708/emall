@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>emall-mobile</artifactId>
     <packaging>war</packaging>
-    <name>emall-mobile Maven Webapp</name>
+    <name>emall-mobile</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
