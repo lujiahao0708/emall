@@ -1,7 +1,7 @@
 package com.lujiahao.manager.service.impl;
 
 
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.common.utils.HttpClientUtil;
 import com.lujiahao.manager.service.ContentService;
 import com.lujiahao.mapping.mapper.TbContentMapper;
@@ -36,7 +36,7 @@ public class ContentServiceImpl implements ContentService {
      * @return
      */
     @Override
-    public TaotaoResult insertContent(TbContent tbContent) {
+    public CommonResult insertContent(TbContent tbContent) {
         tbContent.setCreated(new Date());
         tbContent.setUpdated(new Date());
         tbContentMapper.insert(tbContent);
@@ -48,6 +48,6 @@ public class ContentServiceImpl implements ContentService {
             e.printStackTrace();
             // 通知管理员 缓存同步失败  发短信or发邮件
         }
-        return TaotaoResult.ok();
+        return CommonResult.ok();
     }
 }

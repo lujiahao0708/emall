@@ -18,13 +18,6 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-    <!--TODO 添加html的视图解析器  这一步操作不知道对不对-->
-	<!-- 视图解析器 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/html/" />
-		<property name="suffix" value=".html" />
-	</bean>
-
     <!-- 只有当web.xml中配置为/的时候才会拦截静态资源, 资源映射 加载静态资源 -->
     <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
     <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>

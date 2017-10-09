@@ -3,7 +3,7 @@ package com.lujiahao.manager.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lujiahao.common.pojo.EUDataGridResult;
-import com.lujiahao.common.pojo.TaotaoResult;
+import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.common.utils.IDUtils;
 import com.lujiahao.manager.service.ItemService;
 import com.lujiahao.mapping.mapper.TbItemDescMapper;
@@ -87,7 +87,7 @@ public class ItemServiceImpl implements ItemService {
      * 添加商品条目
      */
 	@Override
-	public TaotaoResult createItem(TbItem item, String desc) throws Exception{
+	public CommonResult createItem(TbItem item, String desc) throws Exception{
 		// item补全
 		// 生成商品id
 		Long itemId = IDUtils.genItemId();
@@ -98,23 +98,23 @@ public class ItemServiceImpl implements ItemService {
 		// 插入数据库
 		itemMapper.insert(item);
         // 添加商品描述
-        TaotaoResult taotaoResult = insertItemDesc(itemId, desc);
+        CommonResult taotaoResult = insertItemDesc(itemId, desc);
         if (taotaoResult.getStatus() != 200) {
             throw new Exception();// 这里跑出异常是为了让spring自动回滚事务
         }
-        return TaotaoResult.ok();
+        return CommonResult.ok();
 	}
     /**
      * 添加商品描述
      */
-    private TaotaoResult insertItemDesc(Long itemId,String desc){
+    private CommonResult insertItemDesc(Long itemId,String desc){
         TbItemDesc itemDesc = new TbItemDesc();
         itemDesc.setItemId(itemId);
         itemDesc.setItemDesc(desc);
         itemDesc.setCreated(new Date());
         itemDesc.setUpdated(new Date());
         itemDescMapper.insert(itemDesc);
-        return TaotaoResult.ok();
+        return CommonResult.ok();
     }
 
 }
