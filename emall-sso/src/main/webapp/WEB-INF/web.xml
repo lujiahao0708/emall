@@ -3,8 +3,8 @@
          xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         id="taotao" version="2.5">
-  <display-name>taotao-sso</display-name>
+         id="emall" version="2.5">
+  <display-name>emall-sso</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -17,7 +17,7 @@
   <!-- 加载spring容器 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring/applicationContext-*.xml</param-value>
+    <param-value>classpath:applicationContext.xml</param-value>
   </context-param>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -41,7 +41,7 @@
 
   <!-- springmvc的前端控制器 -->
   <servlet>
-    <servlet-name>taotao-sso</servlet-name>
+    <servlet-name>emall-sso</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <!-- contextConfigLocation不是必须的， 如果不配置contextConfigLocation，
     springmvc的配置文件默认在：WEB-INF/servlet的name+"-servlet.xml" -->
@@ -52,7 +52,7 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>taotao-sso</servlet-name>
+    <servlet-name>emall-sso</servlet-name>
     <!-- / 会拦截所有的静态资源,需要在springmvc.xml中添加静态资源的映射 -->
     <url-pattern>/</url-pattern>
   </servlet-mapping>

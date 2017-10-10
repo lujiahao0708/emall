@@ -1,5 +1,4 @@
-package com.lujiahao.sso.service.impl;
-
+package com.lujiahao.rest.service.impl;
 
 import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.common.utils.CookieUtils;
@@ -7,10 +6,10 @@ import com.lujiahao.common.utils.JsonUtils;
 import com.lujiahao.mapping.mapper.TbUserMapper;
 import com.lujiahao.mapping.pojo.TbUser;
 import com.lujiahao.mapping.pojo.TbUserExample;
-import com.lujiahao.sso.dao.JedisClientDao;
-import com.lujiahao.sso.domain.EDataType;
-import com.lujiahao.sso.service.UserService;
-
+import com.lujiahao.rest.dao.JedisClientDao;
+import com.lujiahao.rest.domain.EDataType;
+import com.lujiahao.rest.domain.UserVO;
+import com.lujiahao.rest.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +18,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 用户管理Service
@@ -79,13 +77,17 @@ public class UserServiceImpl implements UserService {
      * Service中的操作应该提供最原始的  具体的返回值的判定应该放到controller中
      */
     @Override
-    public int createUser(TbUser tbUser) {
+    public int createUser(UserVO userVO) {
         try {
             Date nowDate = new Date();
+            TbUser tbUser = new TbUser();
+            tbUser.setUsername(userVO.getUserName());
+            // spring框架中的工具类  md5加密  这个加密是用来防止内部人员的,为了不能直接看出密码来
+            tbUser.setPassword(DigestUtils.md5DigestAsHex(userVO.getPassword().getBytes()));
+            tbUser.setPhone(userVO.getPhone());
+            tbUser.setEmail(userVO.getEmail());
             tbUser.setUpdated(nowDate);
             tbUser.setCreated(nowDate);
-            // spring框架中的工具类  md5加密  这个加密是用来防止内部人员的,为了不能直接看出密码来
-            tbUser.setPassword(DigestUtils.md5DigestAsHex(tbUser.getPassword().getBytes()));
             int resultCount = tbUserMapper.insert(tbUser);
             LOGGER.debug("========== 创建用户 成功 ==========" , tbUser.toString());
             return resultCount;
@@ -97,18 +99,16 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 用户登录
-     *
-     * @param username 用户名
-     * @param password 密码
-     * @param response @return
      */
     @Override
-    public CommonResult userLogin(String username, String password, HttpServletRequest request, HttpServletResponse response) {
+    public CommonResult userLogin(UserVO userVO, HttpServletRequest request, HttpServletResponse response) {
+        String username = userVO.getUserName();
+        String password = userVO.getPassword();
         TbUserExample example = new TbUserExample();
         TbUserExample.Criteria criteria = example.createCriteria();
         criteria.andUsernameEqualTo(username);
         List<TbUser> list = tbUserMapper.selectByExample(example);
-        // 如果没有此用户名
+        // 如果没有此用户名  没用用户名也返回这个信息是因为防止猜测用户名
         if (list == null || list.size() == 0) {
             return CommonResult.build(400, "用户名或密码错误");
         }
@@ -121,14 +121,22 @@ public class UserServiceImpl implements UserService {
         String token = UUID.randomUUID().toString();
         // 保存用户信息前先把密码清除,为了安全起见
         tbUser.setPassword(null);
+
+        //saveUserInfoToRedis(tbUser, token);
+
+        // 添加写cookie的逻辑  cookie有效期是关闭浏览器失效
+        CookieUtils.setCookie(request, response, COOKIE_TOKEN, token);
+        return CommonResult.ok(token);
+    }
+
+    /**
+     * 保存token到redis
+     */
+    private void saveUserInfoToRedis(TbUser tbUser, String token) {
         // 把用户信息写入redis
         jedisClientDao.set(REDIS_USER_SESSION_KEY + ":" + token, JsonUtils.objectToJson(tbUser));
         // 设置session过期时间
         jedisClientDao.expire(REDIS_USER_SESSION_KEY + ":" + token, SSO_SESSION_EXPIRE);
-        // 添加写cookie的逻辑  cookie有效期是关闭浏览器失效
-        CookieUtils.setCookie(request, response, COOKIE_TOKEN, token);
-        // 返回token
-        return CommonResult.ok(token);
     }
 
     /**

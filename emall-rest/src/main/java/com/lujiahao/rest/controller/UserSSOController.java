@@ -1,11 +1,11 @@
-package com.lujiahao.sso.controller;
+package com.lujiahao.rest.controller;
 
 import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.mapping.pojo.TbUser;
-import com.lujiahao.sso.domain.EDataType;
-import com.lujiahao.sso.service.UserService;
-
+import com.lujiahao.rest.domain.EDataType;
+import com.lujiahao.rest.domain.UserVO;
+import com.lujiahao.rest.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -19,12 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 用户的Controller
- * Created by lujiahao on 2016/10/31.
+ * 内容分类
+ * Created by lujiahao on 2017/10/10.
  */
 @Controller
 @RequestMapping(value = "/user")
-public class UserController {
+public class UserSSOController {
     @Autowired
     private UserService userService;
 
@@ -85,14 +85,11 @@ public class UserController {
     /**
      * 创建用户
      * TODO 更好的用户体验是登录之后能把用户名带过去,这个以前的那个管理后台可以做到  仿照一下看看
-     *
-     * @param user
-     * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult createUser(TbUser user) {
-        int resultCount = userService.createUser(user);
+    public CommonResult createUser(UserVO userVO) {
+        int resultCount = userService.createUser(userVO);
         if (resultCount > 0) {
             return CommonResult.ok();
         } else {
@@ -102,13 +99,17 @@ public class UserController {
 
     /**
      * 用户登录
+     * TODO JSONP跨域没有解决
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult userLogin(String username, String password, HttpServletRequest request, HttpServletResponse response) {
+    public Object userLogin(UserVO userVO, HttpServletRequest request, HttpServletResponse response,String callback) {
         try {
-            CommonResult commonResult = userService.userLogin(username, password, request, response);
-            return commonResult;
+            CommonResult commonResult = userService.userLogin(userVO, request, response);
+            // 支持JSONP跨域
+            MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(commonResult);
+            mappingJacksonValue.setJsonpFunction(callback);
+            return mappingJacksonValue;
         } catch (Exception e) {
             e.printStackTrace();
             return CommonResult.build(500, ExceptionUtil.getStackTrace(e));

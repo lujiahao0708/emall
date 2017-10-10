@@ -1,4 +1,4 @@
-package com.lujiahao.sso.domain;
+package com.lujiahao.rest.domain;
 
 /**
  * 数据校验的枚举

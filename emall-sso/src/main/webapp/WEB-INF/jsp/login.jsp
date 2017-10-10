@@ -61,6 +61,10 @@
 <script type="text/javascript">
 	var redirectUrl = "${redirect}";
 	var LOGIN = {
+        param:{
+            //单点登录系统的url
+            surl:"http://localhost:8081/rest"
+        },
 			checkInput:function() {
 				if ($("#loginname").val() == "") {
 					alert("用户名不能为空");
@@ -75,7 +79,7 @@
 				return true;
 			},
 			doLogin:function() {
-				$.post("/user/login", $("#formlogin").serialize(),function(data){
+				$.post(LOGIN.param.surl + "/user/login?callback=userLogin", $("#formlogin").serialize(),function(data){
 					if (data.status == 200) {
 						alert("登录成功！");
 						if (redirectUrl == "") {

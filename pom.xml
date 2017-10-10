@@ -46,6 +46,7 @@
         <freemarker.version>2.3.20</freemarker.version>
         <swagger-springmvc.version>1.0.2</swagger-springmvc.version>
         <guava.version>15.0</guava.version>
+        <lombok.version>1.16.16</lombok.version>
     </properties>
 
     <dependencyManagement>
@@ -233,6 +234,12 @@
                 <version>${jackson.version}</version>
             </dependency>
             <!-- Swagger end -->
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
