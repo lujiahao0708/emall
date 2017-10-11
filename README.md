@@ -1,7 +1,7 @@
 # emall商城
+[![GitHub stars](https://img.shields.io/github/stars/chiahaolu/emall.svg?style=flat)](https://github.com/chiahaolu/emall/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/chiahaolu/emall.svg?style=flat)](https://github.com/chiahaolu/emall/network)
 ![](https://img.shields.io/badge/language-Java-orange.svg)
-[![GitHub stars](https://img.shields.io/github/stars/chiahaolu/emall.svg?style=plastic)](https://github.com/chiahaolu/emall/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/chiahaolu/emall.svg?style=plastic)](https://github.com/chiahaolu/emall/network)
 [![codebeat badge](https://codebeat.co/badges/e6fca7b5-e3b6-4529-af5f-b09eac87d22f)](https://codebeat.co/projects/github-com-chiahaolu-emall-master)
 
 ## 效果预览
