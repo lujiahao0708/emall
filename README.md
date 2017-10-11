@@ -1,4 +1,9 @@
 # TaoTaoShop
+[![GitHub stars](https://img.shields.io/github/stars/chiahaolu/emall.svg?style=flat-square)](https://github.com/chiahaolu/emall/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/chiahaolu/emall.svg?style=flat-square)](https://github.com/chiahaolu/emall/network)
+[![GitHub issues](https://img.shields.io/github/issues/chiahaolu/emall.svg?style=flat-square)](https://github.com/chiahaolu/emall/issues)
+![](https://img.shields.io/badge/language-Java-orange.svg)
+[![codebeat badge](https://codebeat.co/badges/e6fca7b5-e3b6-4529-af5f-b09eac87d22f)](https://codebeat.co/projects/github-com-chiahaolu-emall-master)
 电商类项目,仿写京东商城
 
 ## 效果预览
