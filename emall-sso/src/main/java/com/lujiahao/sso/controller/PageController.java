@@ -32,6 +32,14 @@ public class PageController {
         return "login";
     }
 
+    /**
+     * 忘记密码页面
+     */
+    @RequestMapping(value = "/forgotPassword")
+    public String forgotPassword(){
+        return "forgotPassword";
+    }
+
     //http://localhost:8084/page/haha?carNumbers=444&carNumbers=222&carNumbers=333
     @RequestMapping(value = "haha")
     @ResponseBody

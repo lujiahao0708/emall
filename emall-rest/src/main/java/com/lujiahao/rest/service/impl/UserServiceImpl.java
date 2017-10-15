@@ -8,7 +8,7 @@ import com.lujiahao.mapping.pojo.TbUser;
 import com.lujiahao.mapping.pojo.TbUserExample;
 import com.lujiahao.rest.dao.JedisClientDao;
 import com.lujiahao.rest.domain.EDataType;
-import com.lujiahao.rest.domain.UserVO;
+import com.lujiahao.rest.domain.UserDTO;
 import com.lujiahao.rest.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -77,15 +77,15 @@ public class UserServiceImpl implements UserService {
      * Service中的操作应该提供最原始的  具体的返回值的判定应该放到controller中
      */
     @Override
-    public int createUser(UserVO userVO) {
+    public int createUser(UserDTO userDTO) {
         try {
             Date nowDate = new Date();
             TbUser tbUser = new TbUser();
-            tbUser.setUsername(userVO.getUserName());
+            tbUser.setUsername(userDTO.getUsername());
             // spring框架中的工具类  md5加密  这个加密是用来防止内部人员的,为了不能直接看出密码来
-            tbUser.setPassword(DigestUtils.md5DigestAsHex(userVO.getPassword().getBytes()));
-            tbUser.setPhone(userVO.getPhone());
-            tbUser.setEmail(userVO.getEmail());
+            tbUser.setPassword(DigestUtils.md5DigestAsHex(userDTO.getPassword().getBytes()));
+            tbUser.setPhone(userDTO.getPhone());
+            tbUser.setEmail(userDTO.getEmail());
             tbUser.setUpdated(nowDate);
             tbUser.setCreated(nowDate);
             int resultCount = tbUserMapper.insert(tbUser);
@@ -101,9 +101,10 @@ public class UserServiceImpl implements UserService {
      * 用户登录
      */
     @Override
-    public CommonResult userLogin(UserVO userVO, HttpServletRequest request, HttpServletResponse response) {
-        String username = userVO.getUserName();
-        String password = userVO.getPassword();
+    public CommonResult userLogin(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response) {
+        String username = userDTO.getUsername();
+        String password = userDTO.getPassword();
+
         TbUserExample example = new TbUserExample();
         TbUserExample.Criteria criteria = example.createCriteria();
         criteria.andUsernameEqualTo(username);
@@ -122,7 +123,7 @@ public class UserServiceImpl implements UserService {
         // 保存用户信息前先把密码清除,为了安全起见
         tbUser.setPassword(null);
 
-        //saveUserInfoToRedis(tbUser, token);
+        //TODO 后面把redis搭建起来再搞 saveUserInfoToRedis(tbUser, token);
 
         // 添加写cookie的逻辑  cookie有效期是关闭浏览器失效
         CookieUtils.setCookie(request, response, COOKIE_TOKEN, token);

@@ -2,8 +2,7 @@ package com.lujiahao.rest.service;
 
 
 import com.lujiahao.common.pojo.CommonResult;
-import com.lujiahao.mapping.pojo.TbUser;
-import com.lujiahao.rest.domain.UserVO;
+import com.lujiahao.rest.domain.UserDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,12 +22,12 @@ public interface UserService {
     /**
      * 创建用户
      */
-    int createUser(UserVO userVO);
+    int createUser(UserDTO userDTO);
 
     /**
      * 用户登录
      */
-    CommonResult userLogin(UserVO userVO, HttpServletRequest request, HttpServletResponse response);
+    CommonResult userLogin(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response);
 
     /**
      * 根据token查询用户信息

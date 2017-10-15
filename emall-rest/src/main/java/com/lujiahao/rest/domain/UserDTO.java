@@ -9,11 +9,11 @@ import lombok.Data;
  * @date 2017-10-10 17:00
  */
 @Data
-public class UserVO {
+public class UserDTO {
     private Long id;
 
     // 用户名
-    private String userName;
+    private String username;
     // 密码
     private String password;
     // 手机号

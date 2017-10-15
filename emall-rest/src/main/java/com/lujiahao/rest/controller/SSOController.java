@@ -2,9 +2,8 @@ package com.lujiahao.rest.controller;
 
 import com.lujiahao.common.pojo.CommonResult;
 import com.lujiahao.common.utils.ExceptionUtil;
-import com.lujiahao.mapping.pojo.TbUser;
 import com.lujiahao.rest.domain.EDataType;
-import com.lujiahao.rest.domain.UserVO;
+import com.lujiahao.rest.domain.UserDTO;
 import com.lujiahao.rest.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping(value = "/user")
-public class UserSSOController {
+public class SSOController {
     @Autowired
     private UserService userService;
 
@@ -88,8 +87,8 @@ public class UserSSOController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult createUser(UserVO userVO) {
-        int resultCount = userService.createUser(userVO);
+    public CommonResult createUser(UserDTO userDTO) {
+        int resultCount = userService.createUser(userDTO);
         if (resultCount > 0) {
             return CommonResult.ok();
         } else {
@@ -103,16 +102,22 @@ public class UserSSOController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Object userLogin(UserVO userVO, HttpServletRequest request, HttpServletResponse response,String callback) {
+    public Object userLogin(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response, String callback) {
         try {
-            CommonResult commonResult = userService.userLogin(userVO, request, response);
-            // 支持JSONP跨域
-            MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(commonResult);
-            mappingJacksonValue.setJsonpFunction(callback);
-            return mappingJacksonValue;
+            String userName = userDTO.getUsername();
+            String password = userDTO.getPassword();
+            if (StringUtils.isBlank(userName) || StringUtils.isBlank(password)) {
+                return CommonResult.build(500, "用户名或密码为空");
+            }
+            CommonResult commonResult = userService.userLogin(userDTO, request, response);
+            return commonResult;
+//            // 支持JSONP跨域
+//            MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(commonResult);
+//            mappingJacksonValue.setJsonpFunction(callback);
+//            return mappingJacksonValue;
         } catch (Exception e) {
-            e.printStackTrace();
-            return CommonResult.build(500, ExceptionUtil.getStackTrace(e));
+            ExceptionUtil.getStackTrace(e);
+            return CommonResult.build(500, "发生异常");
         }
     }
 

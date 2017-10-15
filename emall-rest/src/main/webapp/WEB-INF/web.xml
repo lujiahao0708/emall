@@ -23,6 +23,16 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!-- Ajax Access-Control-Allow-Origin 跨域 拦截器解决方案 -->
+    <filter>
+        <filter-name>ACAOFilter</filter-name>
+        <filter-class>com.lujiahao.rest.filter.ACAOFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ACAOFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!-- 解决post乱码 -->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
