@@ -26,7 +26,7 @@
     <!-- Ajax Access-Control-Allow-Origin 跨域 拦截器解决方案 -->
     <filter>
         <filter-name>ACAOFilter</filter-name>
-        <filter-class>com.lujiahao.rest.filter.ACAOFilter</filter-class>
+        <filter-class>com.lujiahao.rest.filter.HeadersCORSFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>ACAOFilter</filter-name>

@@ -9,7 +9,7 @@ import java.io.IOException;
  * @version 1.0
  * @date 2017-10-15 22:20
  */
-public class ACAOFilter implements Filter {
+public class HeadersCORSFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
