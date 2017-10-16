@@ -6,6 +6,8 @@ import com.lujiahao.rest.domain.EDataType;
 import com.lujiahao.rest.domain.UserDTO;
 import com.lujiahao.rest.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping(value = "/user")
 public class SSOController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SSOController.class);
+
     @Autowired
     private UserService userService;
 
@@ -98,11 +103,10 @@ public class SSOController {
 
     /**
      * 用户登录
-     * TODO JSONP跨域没有解决
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Object userLogin(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response, String callback) {
+    public Object userLogin(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response) {
         try {
             String userName = userDTO.getUsername();
             String password = userDTO.getPassword();
@@ -111,12 +115,8 @@ public class SSOController {
             }
             CommonResult commonResult = userService.userLogin(userDTO, request, response);
             return commonResult;
-//            // 支持JSONP跨域
-//            MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(commonResult);
-//            mappingJacksonValue.setJsonpFunction(callback);
-//            return mappingJacksonValue;
         } catch (Exception e) {
-            ExceptionUtil.getStackTrace(e);
+            LOGGER.error("========== " + this.getClass().getSimpleName() + " ==========",ExceptionUtil.getStackTrace(e));
             return CommonResult.build(500, "发生异常");
         }
     }

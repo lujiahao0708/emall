@@ -131,7 +131,7 @@
                     return true;
                 },
                 doLogin:function() {
-                    $.post(LOGIN.param.surl + "/user/login?callback=userLogin", $("#formlogin").serialize(),function(data){
+                    $.post(LOGIN.param.surl + "/user/login", $("#formlogin").serialize(),function(data){
                         if (data.status == 200) {
                             alert("登录成功！");
                             if (redirectUrl == "") {
@@ -150,9 +150,9 @@
                         this.doLogin();
                     }
                 }
-
             };
             $(function(){
+                $("#loginname").select();
                 $("#loginsubmit").click(function(){
                     LOGIN.login();
                 });
