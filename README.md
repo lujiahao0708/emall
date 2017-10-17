@@ -4,9 +4,10 @@
 ![](https://img.shields.io/badge/language-Java-orange.svg)
 [![codebeat badge](https://codebeat.co/badges/e6fca7b5-e3b6-4529-af5f-b09eac87d22f)](https://codebeat.co/projects/github-com-chiahaolu-emall-master)
 
-## 效果预览
+## 预览
+TODO 线上预览地址
 
-![前台系统](./gif/前台系统.gif)
+## [Wiki](doc/README.md)
 
 ## 技术栈
 `SSM` + `Maven`+ `MySQL`
