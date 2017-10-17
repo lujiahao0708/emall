@@ -15,6 +15,7 @@
         <module>emall-portal</module>
         <module>emall-sso</module>
         <module>emall-mobile</module>
+        <module>emall-auth</module>
     </modules>
     <packaging>pom</packaging>
 

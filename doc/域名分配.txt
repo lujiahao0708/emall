@@ -1,0 +1,30 @@
+该文档用于记录项目用到的docker工程
+2017年3月26日10:32:31
+
+虚拟机的信息
+    1.192.168.2.30
+    2.用户名/密码 : root/123
+
+0.emall
+    项目名称            备注              端口      根目录
+    emall-manager   淘淘商城管理后台        8080        /
+    emall-rest      服务层                 8081        /rest
+    emall-portal    门户系统                8082
+    emall-sso       单点登录系统          8084
+    emall-auth      授权中心              8085
+
+
+
+
+1.emall-mysql  mysql数据库服务器
+    主机名 : 192.168.2.30
+    端口 : 3306
+    用户名 : root
+    密码 : 123456
+
+
+
+2.emall-ftp-img    图片服务器
+
+
+3.emall-redis-single   redis单点服务器
