@@ -13,7 +13,7 @@
         <module>emall-mapping</module>
         <module>emall-rest</module>
         <module>emall-portal</module>
-        <module>emall-sso</module>
+        <module>emall-auth</module>
         <module>emall-mobile</module>
     </modules>
     <packaging>pom</packaging>
