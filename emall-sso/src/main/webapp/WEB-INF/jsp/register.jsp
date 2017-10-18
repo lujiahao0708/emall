@@ -19,8 +19,8 @@
                             <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
 
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="/page/login">Already have an account?</a></li>
-                                <li><a href="/page/forgotPassword">Forgot password?</a></li>
+                                <li><a href="/login">Already have an account?</a></li>
+                                <li><a href="/forgotPassword">Forgot password?</a></li>
                             </ul>
                         </div>
                     </div>
@@ -199,7 +199,6 @@
 
                 },
                 doSubmit:function() {
-                    alert($("#personRegForm").serialize());
                     $.post(REGISTER.param.surl + "/user/register",$("#personRegForm").serialize(), function(data){
                         if(data.status == 200){
                             alert('用户注册成功，请登录！');
@@ -210,7 +209,7 @@
                     });
                 },
                 login:function() {
-                    location.href = "/page/login";
+                    location.href = "/login";
                     return false;
                 },
                 reg:function() {

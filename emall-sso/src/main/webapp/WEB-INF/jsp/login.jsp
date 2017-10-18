@@ -19,8 +19,8 @@
                             <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
 
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="/page/register">Create an account</a></li>
-                                <li><a href="/page/forgotPassword">Forgot password?</a></li>
+                                <li><a href="/register">Create an account</a></li>
+                                <li><a href="/forgotPassword">Forgot password?</a></li>
                             </ul>
                         </div>
                     </div>

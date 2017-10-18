@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by lujiahao on 2016/11/1.
  */
 @Controller
-@RequestMapping(value = "/page")
 public class PageController {
 
     /**
