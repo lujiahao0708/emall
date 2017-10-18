@@ -1,5 +1,7 @@
 ## SSO单点登录系统
 
+![](../gif/emall-sso.gif)
+
 ### 实现原理
 > 用户登录后将token信息写入Redis和cookie中.
 
