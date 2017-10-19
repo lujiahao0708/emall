@@ -1,7 +1,7 @@
 package com.lujiahao.manager.service;
 
 
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.mapping.pojo.TbContent;
 
 /**
@@ -14,5 +14,5 @@ public interface ContentService {
      * @param tbContent
      * @return
      */
-    CommonResult insertContent(TbContent tbContent);
+    ServerResponse insertContent(TbContent tbContent);
 }

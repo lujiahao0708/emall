@@ -1,4 +1,4 @@
-package com.lujiahao.common.pojo;
+package com.lujiahao.common.domain;
 
 import java.util.List;
 

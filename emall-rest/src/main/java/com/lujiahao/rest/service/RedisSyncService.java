@@ -1,7 +1,7 @@
 package com.lujiahao.rest.service;
 
 
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ServerResponse;
 
 /**
  * 操作Redis缓存的服务
@@ -13,5 +13,5 @@ public interface RedisSyncService {
      * @param contentCategoryId
      * @return
      */
-    CommonResult syncContent(long contentCategoryId);
+    ServerResponse syncContent(long contentCategoryId);
 }

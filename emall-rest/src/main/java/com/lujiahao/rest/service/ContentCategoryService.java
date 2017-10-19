@@ -1,8 +1,8 @@
 package com.lujiahao.rest.service;
 
 
-import com.lujiahao.common.pojo.ContentNode;
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ContentNode;
+import com.lujiahao.common.domain.ServerResponse;
 
 import java.util.List;
 
@@ -19,15 +19,15 @@ public interface ContentCategoryService {
     /**
      * 添加内容分类节点
      */
-    CommonResult insertContentCategory(long parentId, String name);
+    ServerResponse insertContentCategory(long parentId, String name);
 
     /**
      * 删除内容分类节点
      */
-    CommonResult deleteContentCategory(long parentId, long id);
+    ServerResponse deleteContentCategory(long parentId, long id);
 
     /**
      * 更新内容分类节点的名称
      */
-    CommonResult updateContentCategory(long id, String name);
+    ServerResponse updateContentCategory(long id, String name);
 }

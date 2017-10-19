@@ -1,7 +1,7 @@
 package com.lujiahao.portal.service.impl;
 
 
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.HttpClientUtil;
 import com.lujiahao.mapping.pojo.TbUser;
 import com.lujiahao.portal.service.UserService;
@@ -33,9 +33,9 @@ public class UserServiceImpl implements UserService {
             // 调用sso系统服务,根据token获取用户信息
             String json = HttpClientUtil.doGet(SSO_BASE_URL + SSO_USER_TOKEN + token);
             // 把json转换成TaoTaoResult
-            CommonResult commonResult = CommonResult.formatToPojo(json, TbUser.class);
-            if (commonResult.getStatus() == 200) {
-                TbUser tbUser = (TbUser) commonResult.getData();
+            ServerResponse serverResponse = ServerResponse.formatToPojo(json, TbUser.class);
+            if (serverResponse.getStatus() == 200) {
+                TbUser tbUser = (TbUser) serverResponse.getData();
                 return tbUser;
             }
         } catch (Exception e){

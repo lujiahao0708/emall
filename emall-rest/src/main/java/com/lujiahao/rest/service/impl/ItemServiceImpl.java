@@ -1,6 +1,6 @@
 package com.lujiahao.rest.service.impl;
 
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.common.utils.JsonUtils;
 import com.lujiahao.mapping.mapper.TbItemDescMapper;
@@ -47,7 +47,7 @@ public class ItemServiceImpl implements ItemService {
      * @return
      */
     @Override
-    public CommonResult getItemBaseInfo(long itemId) {
+    public ServerResponse getItemBaseInfo(long itemId) {
         try {
             // 添加缓存读取逻辑
             // 从缓存中取商品信息,商品id对应的信息
@@ -57,7 +57,7 @@ public class ItemServiceImpl implements ItemService {
                 // 把json转换成java对象
                 TbItem tbItem = JsonUtils.jsonToPojo(json, TbItem.class);
                 System.out.println("使用缓存-->"+tbItem.toString());
-                return CommonResult.ok(tbItem);
+                return ServerResponse.success(tbItem);
             }
         } catch (Exception e){
             ExceptionUtil.getStackTrace(e);
@@ -77,7 +77,7 @@ public class ItemServiceImpl implements ItemService {
             ExceptionUtil.getStackTrace(e);
         }
         // 使用TaotaoResult包装一下
-        return CommonResult.ok(tbItem);
+        return ServerResponse.success(tbItem);
     }
 
     /**
@@ -86,13 +86,13 @@ public class ItemServiceImpl implements ItemService {
      * @return
      */
     @Override
-    public CommonResult getItemDesc(long itemId) {
+    public ServerResponse getItemDesc(long itemId) {
         // 读取缓存逻辑
         try {
             String json = jedisClientDao.get(REDIS_ITEM_KEY + ":" + itemId + ":desc");
             if (!StringUtils.isBlank(json)) {
                 TbItemDesc tbItemDesc = JsonUtils.jsonToPojo(json, TbItemDesc.class);
-                return CommonResult.ok(tbItemDesc);
+                return ServerResponse.success(tbItemDesc);
             }
         } catch (Exception e){
             ExceptionUtil.getStackTrace(e);
@@ -108,7 +108,7 @@ public class ItemServiceImpl implements ItemService {
         } catch (Exception e){
             ExceptionUtil.getStackTrace(e);
         }
-        return CommonResult.ok(tbItemDesc);
+        return ServerResponse.success(tbItemDesc);
     }
 
     /**
@@ -117,13 +117,13 @@ public class ItemServiceImpl implements ItemService {
      * @return
      */
     @Override
-    public CommonResult getItemParam(long itemId) {
+    public ServerResponse getItemParam(long itemId) {
         // 读取缓存逻辑
         try {
             String json = jedisClientDao.get(REDIS_ITEM_KEY + ":" + itemId + ":param");
             if (!StringUtils.isBlank(json)) {
                 TbItemParamItem paramItem = JsonUtils.jsonToPojo(json, TbItemParamItem.class);
-                return CommonResult.ok(paramItem);
+                return ServerResponse.success(paramItem);
             }
         } catch (Exception e){
             ExceptionUtil.getStackTrace(e);
@@ -144,8 +144,8 @@ public class ItemServiceImpl implements ItemService {
             } catch (Exception e){
                 ExceptionUtil.getStackTrace(e);
             }
-            return CommonResult.ok(paramItem);
+            return ServerResponse.success(paramItem);
         }
-        return CommonResult.build(400,"该商品没有规格信息");
+        return ServerResponse.build(400,"该商品没有规格信息");
     }
 }

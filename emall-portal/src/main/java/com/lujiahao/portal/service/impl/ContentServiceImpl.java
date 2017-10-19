@@ -1,7 +1,7 @@
 package com.lujiahao.portal.service.impl;
 
 
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.HttpClientUtil;
 import com.lujiahao.common.utils.JsonUtils;
 import com.lujiahao.mapping.pojo.TbContent;
@@ -34,9 +34,9 @@ public class ContentServiceImpl implements ContentService {
         String result = HttpClientUtil.doGet(REST_BASE_URL + REST_INDEX_AD_URL);
         // 把字符串转换成TaotaoResult
         try {
-            CommonResult commonResult = CommonResult.formatToList(result, TbContent.class);
+            ServerResponse serverResponse = ServerResponse.formatToList(result, TbContent.class);
             // 取内容列表
-            List<TbContent> list = (List<TbContent>) commonResult.getData();
+            List<TbContent> list = (List<TbContent>) serverResponse.getData();
             List<Map> resultList = new ArrayList<>();
             // 创建一个jsp页面要求的pojo列表
             for (TbContent tbContent : list) {

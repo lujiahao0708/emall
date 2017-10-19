@@ -1,6 +1,6 @@
 package com.lujiahao.portal.service.impl;
 
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.CookieUtils;
 import com.lujiahao.common.utils.HttpClientUtil;
 import com.lujiahao.common.utils.JsonUtils;
@@ -37,7 +37,7 @@ public class CartServiceImpl implements CartService {
      * @return
      */
     @Override
-    public CommonResult addCartItem(HttpServletRequest request, HttpServletResponse response, long itemId, int num) {
+    public ServerResponse addCartItem(HttpServletRequest request, HttpServletResponse response, long itemId, int num) {
         // 区商品信息
         CartItem cartItem = null;
         // 先从购物车中取一次,这样能省一次网络访问   取购物车商品列表
@@ -57,9 +57,9 @@ public class CartServiceImpl implements CartService {
             // 根据商品id查询商品信息
             String json = HttpClientUtil.doGet(REST_BASE_URL + ITEM_INFO_URL + itemId);
             // 把json转换成java对象
-            CommonResult commonResult = CommonResult.formatToPojo(json, TbItem.class);
-            if (commonResult.getStatus() == 200) {
-                TbItem item = (TbItem) commonResult.getData();
+            ServerResponse serverResponse = ServerResponse.formatToPojo(json, TbItem.class);
+            if (serverResponse.getStatus() == 200) {
+                TbItem item = (TbItem) serverResponse.getData();
                 cartItem.setId(item.getId());
                 cartItem.setTitle(item.getTitle());
                 cartItem.setImage(item.getImage() == null ? "" : item.getImage().split(",")[0]);
@@ -71,7 +71,7 @@ public class CartServiceImpl implements CartService {
         }
         // 把购物车列表写入cookie
         CookieUtils.setCookie(request, response, "TT_CART", JsonUtils.objectToJson(itemList), true);
-        return CommonResult.ok();
+        return ServerResponse.success();
     }
 
     /**
@@ -94,7 +94,7 @@ public class CartServiceImpl implements CartService {
      * @return
      */
     @Override
-    public CommonResult deleteCartItem(HttpServletRequest request, HttpServletResponse response, long itemId) {
+    public ServerResponse deleteCartItem(HttpServletRequest request, HttpServletResponse response, long itemId) {
         // 从cookie中获取购物车商品
         List<CartItem> itemList = getCartItemList(request);
         // 从列表中找到此商品
@@ -106,7 +106,7 @@ public class CartServiceImpl implements CartService {
         }
         // 把购物车中商品信息重新写入cookie中
         CookieUtils.setCookie(request,response,"TT_CART",JsonUtils.objectToJson(itemId),true);
-        return CommonResult.ok();
+        return ServerResponse.success();
     }
 
     /**

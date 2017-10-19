@@ -1,23 +1,21 @@
 package com.lujiahao.sso.service;
 
 
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.sso.domain.UserDTO;
-import com.lujiahao.common.pojo.CommonResult;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by lujiahao on 2016/10/31.
  */
-public interface UserService {
+public interface IUserService {
     /**
      * 校验数据
+     *
      * @param content 数据内容
-     * @param type 数据类型
+     * @param type    数据类型
      * @return
      */
-    CommonResult checkData(String content, Integer type);
+    ServerResponse checkData(String content, Integer type);
 
     /**
      * 创建用户
@@ -27,12 +25,13 @@ public interface UserService {
     /**
      * 用户登录
      */
-    CommonResult userLogin(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response);
+    ServerResponse userLogin(String username, String password);
 
     /**
      * 根据token查询用户信息
+     *
      * @param token
      * @return
      */
-    CommonResult getUserByToken(String token);
+    ServerResponse getUserByToken(String token);
 }

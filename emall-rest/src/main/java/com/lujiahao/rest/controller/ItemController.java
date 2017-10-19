@@ -1,6 +1,6 @@
 package com.lujiahao.rest.controller;
 
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.rest.pojo.CatResult;
 import com.lujiahao.rest.service.ItemCatService;
 import com.lujiahao.rest.service.ItemService;
@@ -53,9 +53,9 @@ public class ItemController {
      */
     @RequestMapping(value = "/info/{itemId}")
     @ResponseBody
-    public CommonResult getItemBaseInfo(@PathVariable Long itemId) {
-        CommonResult commonResult = itemService.getItemBaseInfo(itemId);
-        return commonResult;
+    public ServerResponse getItemBaseInfo(@PathVariable Long itemId) {
+        ServerResponse serverResponse = itemService.getItemBaseInfo(itemId);
+        return serverResponse;
     }
 
     /**
@@ -63,9 +63,9 @@ public class ItemController {
      */
     @RequestMapping(value = "/desc/{itemId}")
     @ResponseBody
-    public CommonResult getItemDesc(@PathVariable Long itemId) {
-        CommonResult commonResult = itemService.getItemDesc(itemId);
-        return commonResult;
+    public ServerResponse getItemDesc(@PathVariable Long itemId) {
+        ServerResponse serverResponse = itemService.getItemDesc(itemId);
+        return serverResponse;
     }
 
     /**
@@ -73,8 +73,8 @@ public class ItemController {
      */
     @RequestMapping(value = "/param/{itemId}")
     @ResponseBody
-    public CommonResult getItemParam(@PathVariable Long itemId) {
-        CommonResult commonResult = itemService.getItemParam(itemId);
-        return commonResult;
+    public ServerResponse getItemParam(@PathVariable Long itemId) {
+        ServerResponse serverResponse = itemService.getItemParam(itemId);
+        return serverResponse;
     }
 }

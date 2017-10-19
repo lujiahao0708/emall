@@ -1,8 +1,8 @@
 package com.lujiahao.rest.controller;
 
 
-import com.lujiahao.common.pojo.ContentNode;
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ContentNode;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.mapping.pojo.TbContent;
 import com.lujiahao.rest.service.ContentCategoryService;
@@ -41,23 +41,23 @@ public class ContentController {
 
     @RequestMapping(value = "/category/create", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult createContentCategory(long parentId, String name) {
-        CommonResult commonResult = contentCategoryService.insertContentCategory(parentId, name);
-        return commonResult;
+    public ServerResponse createContentCategory(long parentId, String name) {
+        ServerResponse serverResponse = contentCategoryService.insertContentCategory(parentId, name);
+        return serverResponse;
     }
 
     @RequestMapping(value = "/category/delete", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult deleteContentCategory(long parentId, long id) {
-        CommonResult commonResult = contentCategoryService.deleteContentCategory(parentId, id);
-        return commonResult;
+    public ServerResponse deleteContentCategory(long parentId, long id) {
+        ServerResponse serverResponse = contentCategoryService.deleteContentCategory(parentId, id);
+        return serverResponse;
     }
 
     @RequestMapping(value = "/category/update", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updateContentCategory(long id, String name) {
-        CommonResult commonResult = contentCategoryService.updateContentCategory(id, name);
-        return commonResult;
+    public ServerResponse updateContentCategory(long id, String name) {
+        ServerResponse serverResponse = contentCategoryService.updateContentCategory(id, name);
+        return serverResponse;
     }
 
     /**
@@ -65,17 +65,17 @@ public class ContentController {
      */
     @RequestMapping(value = "/list/{contentCategoryId}")
     @ResponseBody
-    public CommonResult getContentCategoryList(@PathVariable Long contentCategoryId) {
+    public ServerResponse getContentCategoryList(@PathVariable Long contentCategoryId) {
         try {
             List<TbContent> contentList = contentService.getContentList(contentCategoryId);
             if (contentList != null && contentList.size() > 0) {
-                return CommonResult.ok(contentList);
+                return ServerResponse.success(contentList);
             } else {
-                return CommonResult.build(404, "无数据");
+                return ServerResponse.build(404, "无数据");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return CommonResult.build(500, ExceptionUtil.getStackTrace(e));
+            return ServerResponse.build(500, ExceptionUtil.getStackTrace(e));
         }
     }
 }

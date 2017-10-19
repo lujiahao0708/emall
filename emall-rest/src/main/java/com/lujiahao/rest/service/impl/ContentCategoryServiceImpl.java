@@ -1,7 +1,7 @@
 package com.lujiahao.rest.service.impl;
 
-import com.lujiahao.common.pojo.ContentNode;
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ContentNode;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.mapping.mapper.TbContentCategoryMapper;
 import com.lujiahao.mapping.pojo.TbContentCategory;
 import com.lujiahao.mapping.pojo.TbContentCategoryExample;
@@ -48,7 +48,7 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
     }
 
     @Override
-    public CommonResult insertContentCategory(long parentId, String name) {
+    public ServerResponse insertContentCategory(long parentId, String name) {
         TbContentCategory category = new TbContentCategory();
         category.setParentId(parentId);
         category.setName(name);
@@ -69,11 +69,11 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
             contentCategoryMapper.updateByPrimaryKey(parentCat);
         }
         // 返回结果
-        return CommonResult.ok(category);
+        return ServerResponse.success(category);
     }
 
     @Override
-    public CommonResult deleteContentCategory(long parentId, long id) {
+    public ServerResponse deleteContentCategory(long parentId, long id) {
         // 先根据id查找对应记录
         TbContentCategory tbContentCategory = contentCategoryMapper.selectByPrimaryKey(id);
         if (tbContentCategory.getIsParent()) {
@@ -102,18 +102,18 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
                 contentCategoryMapper.updateByPrimaryKeySelective(parentCat);
             }
         }
-        return CommonResult.ok();
+        return ServerResponse.success();
     }
 
     @Override
-    public CommonResult updateContentCategory(long id, String name) {
+    public ServerResponse updateContentCategory(long id, String name) {
         TbContentCategory tbContentCategory = contentCategoryMapper.selectByPrimaryKey(id);
         if (tbContentCategory != null) {
             tbContentCategory.setName(name);
             contentCategoryMapper.updateByPrimaryKey(tbContentCategory);
-            return CommonResult.ok();
+            return ServerResponse.success();
         } else {
-            return CommonResult.build(400,"更新失败");
+            return ServerResponse.build(400,"更新失败");
         }
     }
 }

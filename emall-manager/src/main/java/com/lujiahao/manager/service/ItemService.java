@@ -1,8 +1,8 @@
 package com.lujiahao.manager.service;
 
 
-import com.lujiahao.common.pojo.EUDataGridResult;
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.EUDataGridResult;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.mapping.pojo.TbItem;
 
 import java.util.List;
@@ -31,5 +31,5 @@ public interface ItemService {
     /**
      * 添加商品
      */
-	CommonResult createItem(TbItem item, String desc) throws Exception;
+	ServerResponse createItem(TbItem item, String desc) throws Exception;
 }

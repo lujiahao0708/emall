@@ -1,7 +1,7 @@
 package com.lujiahao.manager.controller;
 
-import com.lujiahao.common.pojo.EUDataGridResult;
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.EUDataGridResult;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.manager.service.ItemService;
 import com.lujiahao.mapping.pojo.TbItem;
 
@@ -44,10 +44,10 @@ public class ItemController {
      */
     @RequestMapping(value = "/itemlist")
     @ResponseBody
-    public CommonResult itemList(@RequestParam(defaultValue = "1") Integer page,
-                               @RequestParam(defaultValue = "15") Integer rows, ModelMap modelMap) {
+    public ServerResponse itemList(@RequestParam(defaultValue = "1") Integer page,
+                                   @RequestParam(defaultValue = "15") Integer rows, ModelMap modelMap) {
         List<TbItem> allItem = itemService.getAllItem(page, rows);
-        return CommonResult.ok(allItem);
+        return ServerResponse.success(allItem);
     }
 
     /**
@@ -66,8 +66,8 @@ public class ItemController {
      */
     @RequestMapping(value = "/item/save", method = RequestMethod.POST)
     @ResponseBody
-    private CommonResult createItem(TbItem item, String desc) throws Exception {
-        CommonResult result = itemService.createItem(item, desc);
+    private ServerResponse createItem(TbItem item, String desc) throws Exception {
+        ServerResponse result = itemService.createItem(item, desc);
         return result;
     }
 

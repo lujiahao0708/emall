@@ -1,7 +1,7 @@
 package com.lujiahao.portal.service.impl;
 
 
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.common.utils.HttpClientUtil;
 import com.lujiahao.portal.pojo.SearchResult;
@@ -29,9 +29,9 @@ public class SearchServiceImpl implements SearchService {
         try {
             // 调用taotao-search服务
             String json = HttpClientUtil.doGet(SEARCH_BASE_URL, param);
-            CommonResult commonResult = CommonResult.formatToPojo(json, SearchResult.class);
-            if (200 == commonResult.getStatus()) {
-                SearchResult searchResult = (SearchResult) commonResult.getData();
+            ServerResponse serverResponse = ServerResponse.formatToPojo(json, SearchResult.class);
+            if (200 == serverResponse.getStatus()) {
+                SearchResult searchResult = (SearchResult) serverResponse.getData();
                 return searchResult;
             }
         } catch (Exception e){

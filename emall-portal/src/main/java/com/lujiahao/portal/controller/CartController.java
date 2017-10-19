@@ -1,6 +1,6 @@
 package com.lujiahao.portal.controller;
 
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.portal.pojo.CartItem;
 import com.lujiahao.portal.service.CartService;
 
@@ -37,7 +37,7 @@ public class CartController {
     @RequestMapping(value = "/add/{itemId}")
     public String addCartItem(@PathVariable Long itemId, @RequestParam(defaultValue = "1") Integer num,
                               HttpServletRequest request, HttpServletResponse response) {
-        CommonResult commonResult = cartService.addCartItem(request, response, itemId, num);
+        ServerResponse serverResponse = cartService.addCartItem(request, response, itemId, num);
         //return "cartSuccess";  // 不这样直接写的原因是因为如果刷新的话会造成多次添加购物车,造成数量不正确
         return "redirect:/cart/success.html";
     }
@@ -66,7 +66,7 @@ public class CartController {
 
     @RequestMapping(value = "/delete/{itemId}")
     public String deleteCartItem(@PathVariable Long itemId, HttpServletRequest request, HttpServletResponse response){
-        CommonResult commonResult = cartService.deleteCartItem(request, response, itemId);
+        ServerResponse serverResponse = cartService.deleteCartItem(request, response, itemId);
         return "redirect:/cart/cart.html";
     }
 }

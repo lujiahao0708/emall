@@ -1,9 +1,11 @@
 package com.lujiahao.sso.controller;
 
+import com.lujiahao.common.utils.CookieUtils;
+import com.lujiahao.sso.domain.Const;
 import com.lujiahao.sso.domain.EDataType;
 import com.lujiahao.sso.domain.UserDTO;
-import com.lujiahao.sso.service.UserService;
-import com.lujiahao.common.pojo.CommonResult;
+import com.lujiahao.sso.service.IUserService;
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.ExceptionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 登录
+ *
  * @author lujiahao
  * @date 2017/10/17
  */
@@ -31,7 +34,7 @@ public class SsoController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SsoController.class);
 
     @Autowired
-    private UserService userService;
+    private IUserService IUserService;
 
     /**
      * 校验数据是否可用
@@ -45,16 +48,16 @@ public class SsoController {
     @ResponseBody
     public Object checkData(HttpServletRequest request, @PathVariable String param, @PathVariable Integer type) {
         String callback = request.getParameter("callback");
-        CommonResult result = null;
+        ServerResponse result = null;
         // 参数有效性校验
         if (StringUtils.isBlank(param)) {
-            result = CommonResult.build(400, "校验内容不能为空");
+            result = ServerResponse.build(400, "校验内容不能为空");
         }
         if (type == null) {
-            result = CommonResult.build(400, "校验内容类型不能为空");
+            result = ServerResponse.build(400, "校验内容类型不能为空");
         }
         if (type != EDataType.USERNAME.getValue() && type != EDataType.PHONE.getValue() && type != EDataType.EMAIL.getValue()) {
-            result = CommonResult.build(400, "校验内容类型错误");
+            result = ServerResponse.build(400, "校验内容类型错误");
         }
         // 校验出错
         if (result != null) {
@@ -62,9 +65,9 @@ public class SsoController {
         }
         try {
             // 调用服务
-            result = userService.checkData(param, type);
+            result = IUserService.checkData(param, type);
         } catch (Exception e) {
-            result = CommonResult.build(500, ExceptionUtil.getStackTrace(e));
+            result = ServerResponse.build(500, ExceptionUtil.getStackTrace(e));
             e.printStackTrace();
         }
         return checkCallBack(callback, result);
@@ -77,7 +80,7 @@ public class SsoController {
      * @param result   返回的JavaBean
      * @return
      */
-    private Object checkCallBack(String callback, CommonResult result) {
+    private Object checkCallBack(String callback, ServerResponse result) {
         if (callback != null) {
             MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
             mappingJacksonValue.setJsonpFunction(callback);
@@ -93,12 +96,12 @@ public class SsoController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult createUser(UserDTO userDTO) {
-        int resultCount = userService.createUser(userDTO);
+    public ServerResponse createUser(UserDTO userDTO) {
+        int resultCount = IUserService.createUser(userDTO);
         if (resultCount > 0) {
-            return CommonResult.ok();
+            return ServerResponse.success();
         } else {
-            return CommonResult.build(500, "用户注册失败");
+            return ServerResponse.build(500, "用户注册失败");
         }
     }
 
@@ -107,19 +110,18 @@ public class SsoController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Object userLogin(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response) {
-        try {
-            String userName = userDTO.getUsername();
-            String password = userDTO.getPassword();
-            if (StringUtils.isBlank(userName) || StringUtils.isBlank(password)) {
-                return CommonResult.build(500, "用户名或密码为空");
-            }
-            CommonResult commonResult = userService.userLogin(userDTO, request, response);
-            return commonResult;
-        } catch (Exception e) {
-            LOGGER.error("========== " + this.getClass().getSimpleName() + " ==========",ExceptionUtil.getStackTrace(e));
-            return CommonResult.build(500, "发生异常");
+    public ServerResponse userLogin(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response) {
+        String username = userDTO.getUsername();
+        String password = userDTO.getPassword();
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
+            return ServerResponse.error("用户名或密码为空");
         }
+        ServerResponse serverResponse = IUserService.userLogin(username, password);
+        if (serverResponse.isSuccess()) {
+            // 添加写cookie的逻辑  cookie有效期是关闭浏览器失效
+            CookieUtils.setCookie(request, response, Const.COOKIE_TOKEN, serverResponse.getData().toString());
+        }
+        return serverResponse;
     }
 
     /**
@@ -131,12 +133,12 @@ public class SsoController {
     @RequestMapping(value = "/token/{token}")
     @ResponseBody
     public Object getUserByToken(@PathVariable String token, String callback) {
-        CommonResult result = null;
+        ServerResponse result = null;
         try {
-            result = userService.getUserByToken(token);
+            result = IUserService.getUserByToken(token);
         } catch (Exception e) {
             e.printStackTrace();
-            result = CommonResult.build(500, ExceptionUtil.getStackTrace(e));
+            result = ServerResponse.build(500, ExceptionUtil.getStackTrace(e));
         }
         // 判断是否为jsonp调用
         if (StringUtils.isBlank(callback)) {
