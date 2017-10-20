@@ -2,9 +2,6 @@ package com.lujiahao.rest.service.impl;
 
 import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.common.utils.JsonUtils;
-import com.lujiahao.mapping.mapper.TbContentMapper;
-import com.lujiahao.mapping.pojo.TbContent;
-import com.lujiahao.mapping.pojo.TbContentExample;
 import com.lujiahao.rest.dao.JedisClientDao;
 import com.lujiahao.rest.service.ContentService;
 import org.apache.commons.lang3.StringUtils;

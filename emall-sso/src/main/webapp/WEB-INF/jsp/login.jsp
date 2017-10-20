@@ -115,7 +115,7 @@
             var LOGIN = {
                 param:{
                     //单点登录系统的url
-                    surl:"http://localhost:8084/"
+                    surl:"http://localhost:8084"
                 },
                 checkInput:function() {
                     if ($("#loginname").val() == "") {

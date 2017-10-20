@@ -4,7 +4,6 @@ package com.lujiahao.portal.service.impl;
 import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.HttpClientUtil;
 import com.lujiahao.common.utils.JsonUtils;
-import com.lujiahao.mapping.pojo.TbContent;
 import com.lujiahao.portal.service.ContentService;
 
 import org.springframework.beans.factory.annotation.Value;

@@ -1,9 +1,6 @@
 package com.lujiahao.manager.service.impl;
 
 import com.lujiahao.manager.service.ItemCatService;
-import com.lujiahao.mapping.mapper.TbItemCatMapper;
-import com.lujiahao.mapping.pojo.TbItemCat;
-import com.lujiahao.mapping.pojo.TbItemCatExample;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

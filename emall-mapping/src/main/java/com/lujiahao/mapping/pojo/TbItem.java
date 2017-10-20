@@ -25,47 +25,17 @@ public class TbItem {
 
     private Date updated;
 
-    public void setId(Long id) {
+    public TbItem(Long id, String title, String sellPoint, Long price, Integer num, String barcode, String image, Long cid, Byte status, Date created, Date updated) {
         this.id = id;
-    }
-
-    public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setSellPoint(String sellPoint) {
         this.sellPoint = sellPoint;
-    }
-
-    public void setPrice(Long price) {
         this.price = price;
-    }
-
-    public void setNum(Integer num) {
         this.num = num;
-    }
-
-    public void setBarcode(String barcode) {
         this.barcode = barcode;
-    }
-
-    public void setImage(String image) {
         this.image = image;
-    }
-
-    public void setCid(Long cid) {
         this.cid = cid;
-    }
-
-    public void setStatus(Byte status) {
         this.status = status;
-    }
-
-    public void setCreated(Date created) {
         this.created = created;
-    }
-
-    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 

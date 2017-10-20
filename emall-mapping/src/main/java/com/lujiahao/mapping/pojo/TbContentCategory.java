@@ -19,6 +19,16 @@ public class TbContentCategory {
 
     private Date updated;
 
+    public TbContentCategory(Long id, Long parentId, String name, Integer status, Integer sortOrder, Boolean isParent, Date created, Date updated) {
+        this.id = id;
+        this.parentId = parentId;
+        this.name = name;
+        this.status = status;
+        this.sortOrder = sortOrder;
+        this.isParent = isParent;
+        this.created = created;
+        this.updated = updated;
+    }
 
     public Long getId() {
         return id;
@@ -50,37 +60,5 @@ public class TbContentCategory {
 
     public Date getUpdated() {
         return updated;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public void setSortOrder(Integer sortOrder) {
-        this.sortOrder = sortOrder;
-    }
-
-    public void setIsParent(Boolean parent) {
-        isParent = parent;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
     }
 }

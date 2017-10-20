@@ -1,7 +1,6 @@
 package com.lujiahao.portal.interceptor;
 
 import com.lujiahao.common.utils.CookieUtils;
-import com.lujiahao.mapping.pojo.TbUser;
 import com.lujiahao.portal.service.impl.UserServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;

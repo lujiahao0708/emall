@@ -6,12 +6,8 @@ import com.lujiahao.common.domain.EUDataGridResult;
 import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.IDUtils;
 import com.lujiahao.manager.service.ItemService;
-import com.lujiahao.mapping.mapper.TbItemDescMapper;
-import com.lujiahao.mapping.mapper.TbItemMapper;
-import com.lujiahao.mapping.pojo.TbItem;
-import com.lujiahao.mapping.pojo.TbItemDesc;
-import com.lujiahao.mapping.pojo.TbItemExample;
 
+import com.lujiahao.mapping.pojo.TbItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

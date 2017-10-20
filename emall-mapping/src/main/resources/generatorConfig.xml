@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <!-- !!!! Driver Class Path !!!! -->
-    <classPathEntry location="D:\develop\javaee\m2_ipms\repository\mysql\mysql-connector-java\5.1.32\mysql-connector-java-5.1.32.jar"/>
+    <classPathEntry location="D:\develop\.m2\repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar"/>
     <!--<classPathEntry location="C:\Users\lujiahao\Desktop\mysql-connector-java-5.1.22-bin.jar"/>-->
     <context id="testTables" targetRuntime="MyBatis3Simple">
         <commentGenerator>
@@ -15,7 +15,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/taotao"
                         userId="root"
-                        password="1234">
+                        password="123">
         </jdbcConnection>
 
         <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
@@ -32,7 +32,7 @@
         -->
         <javaModelGenerator targetPackage="com.lujiahao.mapping.pojo" targetProject="src/main/java">
             <!-- 是否对model添加 构造函数 -->
-            <property name="constructorBased" value="true"/>
+            <!--<property name="constructorBased" value="true"/>-->
             <!-- enableSubPackages:是否让schema作为包的后缀 是否允许子包，即targetPackage.schemaName.tableName -->
             <property name="enableSubPackages" value="false"/>
             <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
@@ -80,7 +80,8 @@
         <table tableName="tb_order"></table>
         <table tableName="tb_order_item"></table>
         <table tableName="tb_order_shipping"></table>
-        <table tableName="tb_user"></table>
+        <!--<table tableName="tb_user"></table>-->
+        <table tableName="emall_user"></table>
 
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">

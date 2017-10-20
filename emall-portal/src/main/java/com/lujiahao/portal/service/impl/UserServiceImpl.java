@@ -3,7 +3,6 @@ package com.lujiahao.portal.service.impl;
 
 import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.HttpClientUtil;
-import com.lujiahao.mapping.pojo.TbUser;
 import com.lujiahao.portal.service.UserService;
 
 import org.springframework.beans.factory.annotation.Value;

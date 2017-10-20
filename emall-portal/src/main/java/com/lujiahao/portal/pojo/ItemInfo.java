@@ -1,8 +1,6 @@
 package com.lujiahao.portal.pojo;
 
 
-import com.lujiahao.mapping.pojo.TbItem;
-
 /**
  * 商品的pojo
  * 因为item中没有TbItem的getImages方法  这个是个临时补救的方法

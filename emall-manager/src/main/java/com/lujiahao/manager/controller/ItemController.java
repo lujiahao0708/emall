@@ -3,7 +3,6 @@ package com.lujiahao.manager.controller;
 import com.lujiahao.common.domain.EUDataGridResult;
 import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.manager.service.ItemService;
-import com.lujiahao.mapping.pojo.TbItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

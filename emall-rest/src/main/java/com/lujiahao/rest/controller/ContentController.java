@@ -4,7 +4,6 @@ package com.lujiahao.rest.controller;
 import com.lujiahao.common.domain.ContentNode;
 import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.ExceptionUtil;
-import com.lujiahao.mapping.pojo.TbContent;
 import com.lujiahao.rest.service.ContentCategoryService;
 
 import com.lujiahao.rest.service.ContentService;

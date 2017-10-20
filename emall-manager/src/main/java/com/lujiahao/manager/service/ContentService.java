@@ -2,7 +2,6 @@ package com.lujiahao.manager.service;
 
 
 import com.lujiahao.common.domain.ServerResponse;
-import com.lujiahao.mapping.pojo.TbContent;
 
 /**
  * 内容管理服务

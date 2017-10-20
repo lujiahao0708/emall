@@ -1,32 +1,16 @@
 package com.lujiahao.mapping.mapper;
 
 import com.lujiahao.mapping.pojo.TbOrderItem;
-import com.lujiahao.mapping.pojo.TbOrderItemExample;
-
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
 public interface TbOrderItemMapper {
-    int countByExample(TbOrderItemExample example);
-
-    int deleteByExample(TbOrderItemExample example);
-
     int deleteByPrimaryKey(String id);
 
     int insert(TbOrderItem record);
 
-    int insertSelective(TbOrderItem record);
-
-    List<TbOrderItem> selectByExample(TbOrderItemExample example);
-
     TbOrderItem selectByPrimaryKey(String id);
 
-    int updateByExampleSelective(@Param("record") TbOrderItem record, @Param("example") TbOrderItemExample example);
-
-    int updateByExample(@Param("record") TbOrderItem record, @Param("example") TbOrderItemExample example);
-
-    int updateByPrimaryKeySelective(TbOrderItem record);
+    List<TbOrderItem> selectAll();
 
     int updateByPrimaryKey(TbOrderItem record);
 }

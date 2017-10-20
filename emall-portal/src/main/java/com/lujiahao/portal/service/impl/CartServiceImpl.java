@@ -4,7 +4,6 @@ import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.CookieUtils;
 import com.lujiahao.common.utils.HttpClientUtil;
 import com.lujiahao.common.utils.JsonUtils;
-import com.lujiahao.mapping.pojo.TbItem;
 import com.lujiahao.portal.pojo.CartItem;
 import com.lujiahao.portal.service.CartService;
 

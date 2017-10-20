@@ -9,13 +9,13 @@
     <version>0.0.2</version>
     <modules>
         <module>emall-common</module>
-        <module>emall-manager</module>
+        <!--<module>emall-manager</module>-->
         <module>emall-mapping</module>
-        <module>emall-rest</module>
-        <module>emall-portal</module>
+        <!--<module>emall-rest</module>-->
+        <!--<module>emall-portal</module>-->
         <module>emall-sso</module>
-        <module>emall-mobile</module>
-        <module>emall-auth</module>
+        <!--<module>emall-mobile</module>-->
+        <!--<module>emall-auth</module>-->
     </modules>
     <packaging>pom</packaging>
 
@@ -46,8 +46,8 @@
         <solrj.version>4.10.3</solrj.version>
         <freemarker.version>2.3.20</freemarker.version>
         <swagger-springmvc.version>1.0.2</swagger-springmvc.version>
-        <guava.version>15.0</guava.version>
         <lombok.version>1.16.16</lombok.version>
+        <guava.version>15.0</guava.version>
     </properties>
 
     <dependencyManagement>
@@ -213,11 +213,7 @@
                 <artifactId>swagger-springmvc</artifactId>
                 <version>${swagger-springmvc.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
-            </dependency>
+
             <!-- Jackson Json处理工具包 -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -240,6 +236,13 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <!--guava-->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

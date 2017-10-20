@@ -2,9 +2,6 @@ package com.lujiahao.rest.service.impl;
 
 import com.lujiahao.common.domain.ContentNode;
 import com.lujiahao.common.domain.ServerResponse;
-import com.lujiahao.mapping.mapper.TbContentCategoryMapper;
-import com.lujiahao.mapping.pojo.TbContentCategory;
-import com.lujiahao.mapping.pojo.TbContentCategoryExample;
 import com.lujiahao.rest.service.ContentCategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;

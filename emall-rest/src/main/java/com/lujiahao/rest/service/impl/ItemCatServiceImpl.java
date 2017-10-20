@@ -1,8 +1,5 @@
 package com.lujiahao.rest.service.impl;
 
-import com.lujiahao.mapping.mapper.TbItemCatMapper;
-import com.lujiahao.mapping.pojo.TbItemCat;
-import com.lujiahao.mapping.pojo.TbItemCatExample;
 import com.lujiahao.rest.pojo.CatNode;
 import com.lujiahao.rest.pojo.CatResult;
 import com.lujiahao.rest.service.ItemCatService;

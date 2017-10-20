@@ -4,8 +4,6 @@ package com.lujiahao.manager.service.impl;
 import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.HttpClientUtil;
 import com.lujiahao.manager.service.ContentService;
-import com.lujiahao.mapping.mapper.TbContentMapper;
-import com.lujiahao.mapping.pojo.TbContent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

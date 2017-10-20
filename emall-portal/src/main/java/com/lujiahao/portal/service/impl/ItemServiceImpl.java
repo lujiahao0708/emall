@@ -5,8 +5,6 @@ import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.common.utils.HttpClientUtil;
 import com.lujiahao.common.utils.JsonUtils;
-import com.lujiahao.mapping.pojo.TbItemDesc;
-import com.lujiahao.mapping.pojo.TbItemParamItem;
 import com.lujiahao.portal.pojo.ItemInfo;
 import com.lujiahao.portal.service.ItemService;
 
