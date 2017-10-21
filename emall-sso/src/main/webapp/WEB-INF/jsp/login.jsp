@@ -132,7 +132,7 @@
                 },
                 doLogin:function() {
                     $.post(LOGIN.param.surl + "/user/login", $("#formlogin").serialize(),function(data){
-                        if (data.status == 200) {
+                        if (data.status == 1) {
                             alert("登录成功！");
                             if (redirectUrl == "") {
                                 location.href = "http://localhost:8082";

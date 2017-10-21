@@ -7,11 +7,12 @@ package com.lujiahao.common.enums;
  * @date 2017-10-19 21:47
  */
 public enum EResponseCode {
-    SUCCESS(200,"OK"),
-    ERROR(500,"ERROR"),
+    SUCCESS(1,"OK"),
+    ERROR(0,"ERROR"),
 
     NEED_LOGIN(10,"need_login"),
-    ILLEGAL_ARGUMENT(2,"illegal_argument");
+    ILLEGAL_ARGUMENT(2,"illegal_argument"),
+    SERVER_ERROR(500,"SERVER_ERROR");
 
     private final int code;
     private final String msg;

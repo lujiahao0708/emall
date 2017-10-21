@@ -32,7 +32,13 @@ public class ServerResponse<T> implements Serializable {
     // 响应中的数据
     private T data;
 
-    private ServerResponse() {
+    private ServerResponse(Integer status) {
+        this.status = status;
+    }
+
+    private ServerResponse(Integer status, T data) {
+        this.status = status;
+        this.data = data;
     }
 
     private ServerResponse(Integer status, String msg, T data) {
@@ -41,33 +47,27 @@ public class ServerResponse<T> implements Serializable {
         this.data = data;
     }
 
-    private ServerResponse(T data) {
-        this.status = EResponseCode.SUCCESS.getCode();
-        this.msg = EResponseCode.SUCCESS.getMsg();
-        this.data = data;
+    private ServerResponse(Integer status, String msg) {
+        this.status = status;
+        this.msg = msg;
     }
 
     // 加入这个注解后不会显示在json中
     @JsonIgnore
     public boolean isSuccess() {
-        return this.status == 200;
-    }
-
-
-    public static <T> ServerResponse<T> build(Integer status, String msg, T data) {
-        return new ServerResponse(status, msg, data);
-    }
-
-    public static <T> ServerResponse<T> build(Integer status, String msg) {
-        return new ServerResponse<T>(status, msg, null);
+        return this.status == EResponseCode.SUCCESS.getCode();
     }
 
     public static <T> ServerResponse<T> success(T data) {
-        return new ServerResponse<T>(data);
+        return new ServerResponse<T>(EResponseCode.SUCCESS.getCode(), EResponseCode.SUCCESS.getMsg(), data);
     }
 
     public static <T> ServerResponse<T> success() {
         return new ServerResponse<T>(null);
+    }
+
+    public static <T> ServerResponse<T> success(String msg, T data) {
+        return new ServerResponse<T>(EResponseCode.SUCCESS.getCode(), msg, data);
     }
 
     public static <T> ServerResponse<T> error(int status, String msg) {
@@ -80,6 +80,15 @@ public class ServerResponse<T> implements Serializable {
 
     public static <T> ServerResponse<T> error() {
         return new ServerResponse<T>(EResponseCode.ERROR.getCode(), EResponseCode.ERROR.getMsg(), null);
+    }
+
+
+    public static <T> ServerResponse<T> build(Integer status, String msg, T data) {
+        return new ServerResponse(status, msg, data);
+    }
+
+    public static <T> ServerResponse<T> build(Integer status, String msg) {
+        return new ServerResponse<T>(status, msg, null);
     }
 
     //==================================================================================================================

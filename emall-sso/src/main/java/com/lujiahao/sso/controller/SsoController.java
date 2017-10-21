@@ -40,7 +40,7 @@ public class SsoController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse userLogin(@RequestBody UserDTO userDTO, HttpServletRequest request, HttpServletResponse response) {
+    public ServerResponse userLogin(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response) {
         String username = userDTO.getUsername();
         String password = userDTO.getPassword();
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
@@ -77,12 +77,7 @@ public class SsoController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse createUser(UserDTO userDTO) {
-        int resultCount = iUserService.createUser(userDTO);
-        if (resultCount > 0) {
-            return ServerResponse.success();
-        } else {
-            return ServerResponse.build(500, "用户注册失败");
-        }
+        return iUserService.createUser(userDTO);
     }
 
     /**
@@ -155,7 +150,7 @@ public class SsoController {
     /**
      * 2.校验找回密码答案是否正确
      */
-    @RequestMapping(value = "/validPwdAnswer",method = RequestMethod.POST)
+    @RequestMapping(value = "/validPwdAnswer", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> validPwdAnswer(String username, String question, String answer) {
         if (StringUtils.isNoneBlank(username) && StringUtils.isNoneBlank(question) && StringUtils.isNoneBlank(answer)) {
@@ -167,7 +162,7 @@ public class SsoController {
     /**
      * 3.修改密码
      */
-    @RequestMapping(value = "/resetPassword",method = RequestMethod.POST)
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> resetPwd(String username, String passwordNew, String forgetToken) {
         if (StringUtils.isNoneBlank(username) && StringUtils.isNoneBlank(passwordNew) && StringUtils.isNoneBlank(forgetToken)) {

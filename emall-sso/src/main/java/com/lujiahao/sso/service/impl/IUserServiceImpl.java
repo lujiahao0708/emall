@@ -1,6 +1,7 @@
 package com.lujiahao.sso.service.impl;
 
 import com.lujiahao.common.domain.ServerResponse;
+import com.lujiahao.common.enums.EResponseCode;
 import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.mapping.mapper.EmallUserMapper;
 import com.lujiahao.mapping.pojo.EmallUser;
@@ -77,27 +78,24 @@ public class IUserServiceImpl implements IUserService {
     }
 
     /**
-     * 创建用户
-     * Service中的操作应该提供最原始的
-     * 具体的返回值的判定应该放到controller中
+     * 注册
      */
     @Override
-    public int createUser(UserDTO userDTO) {
+    public ServerResponse<String> createUser(UserDTO userDTO) {
         try {
             ServerResponse validResponse = this.checkData(userDTO.getUsername(), EDataType.USERNAME.getValue());
             if (!validResponse.isSuccess()) {
-                return -1;
+                return validResponse;
             }
             validResponse = this.checkData(userDTO.getPhone(), EDataType.PHONE.getValue());
             if (!validResponse.isSuccess()) {
-                return -1;
+                return validResponse;
             }
             validResponse = this.checkData(userDTO.getEmail(), EDataType.EMAIL.getValue());
             if (!validResponse.isSuccess()) {
-                return -1;
+                return validResponse;
             }
             EmallUser emallUser = new EmallUser();
-            emallUser.setId(userDTO.getId());
             emallUser.setUsername(userDTO.getUsername());
             // spring框架中的工具类  md5加密  这个加密是用来防止内部人员的,为了不能直接看出密码来
             emallUser.setPassword(DigestUtils.md5DigestAsHex(userDTO.getPassword().getBytes()));
@@ -105,11 +103,15 @@ public class IUserServiceImpl implements IUserService {
             emallUser.setEmail(userDTO.getEmail());
             emallUser.setQuestion(userDTO.getQuestion());
             emallUser.setAnswer(userDTO.getAnswer());
-            emallUser.setRoleId(userDTO.getRoleId());
-            int resultCount = emallUserMapper.insert(emallUser);
-            return resultCount;
+            int resultCount = emallUserMapper.insertSelective(emallUser);
+            if (resultCount > 0) {
+                return ServerResponse.success("注册成功");
+            } else {
+                return ServerResponse.error("注册失败");
+            }
         } catch (Exception e) {
-            return -1;
+            LOGGER.error("用户注册 异常:",e);
+            return ServerResponse.error(EResponseCode.SERVER_ERROR.getCode(), "注册失败");
         }
     }
 

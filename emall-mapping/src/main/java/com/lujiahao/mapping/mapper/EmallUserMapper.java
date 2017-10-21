@@ -10,11 +10,15 @@ public interface EmallUserMapper {
 
     int insert(EmallUser record);
 
+    int insertSelective(EmallUser record);
+
     EmallUser selectByPrimaryKey(Integer id);
 
     List<EmallUser> selectAll();
 
     int updateByPrimaryKey(EmallUser record);
+
+    int updateByPrimaryKeySelective(EmallUser record);
 
     int checkUsername(String username);
 

@@ -33,9 +33,9 @@ public interface IUserService {
     ServerResponse checkData(String content, Integer type);
 
     /**
-     * 创建用户
+     * 注册
      */
-    int createUser(UserDTO userDTO);
+    ServerResponse<String> createUser(UserDTO userDTO);
 
     /**
      * 根据token查询用户信息

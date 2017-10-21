@@ -60,6 +60,17 @@
                             <label id="pwdRepeat_error"></label>
                         </div>
 
+                        <div class="form-group form-group--float form-group--centered">
+                            <input type="text" class="form-control" id="regQuestion" name="question" autoComplete="off">
+                            <label>Question</label>
+                            <i class="form-group__bar"></i>
+                        </div>
+                        <div class="form-group form-group--float form-group--centered">
+                            <input type="text" class="form-control" id="regAnswer" name="answer" autoComplete="off">
+                            <label>Answer</label>
+                            <i class="form-group__bar"></i>
+                        </div>
+
                         <div class="input-centered">
                             <div class="checkbox">
                                 <label>
@@ -157,54 +168,33 @@
                         alert("邮箱不能为空");
                         $("#regEmail").focus();
                         return false;
-                    }
-                    if ($("#pwd").val() == "") {
+                    }if ($("#pwd").val() == "") {
                         alert("密码不能为空");
                         $("#pwd").focus();
                         return false;
-                    }
-                    //密码检查
-                    if ($("#pwd").val() != $("#pwdRepeat").val()) {
+                    }if ($("#pwd").val() != $("#pwdRepeat").val()) {
                         alert("确认密码和密码不一致，请重新输入！");
                         $("#pwdRepeat").select();
                         $("#pwdRepeat").focus();
                         return false;
+                    }if ($("#regQuestion").val() == "") {
+                        alert("密保问题不能为空");
+                        $("#regQuestion").focus();
+                        return false;
+                    }if ($("#regAnswer").val() == "") {
+                        alert("密保答案不能为空");
+                        $("#regAnswer").focus();
+                        return false;
                     }
                     return true;
                 },
-                beforeSubmit:function() {
-                    //检查用户是否已经被占用
-                    $.ajax({
-                        url : REGISTER.param.surl + "/user/check/"+escape($("#regName").val())+"/1?r=" + Math.random(),
-                        success : function(data) {
-                            if (data.data) {
-                                //检查手机号是否存在
-                                $.ajax({
-                                    url : REGISTER.param.surl + "/user/check/"+$("#regPhone").val()+"/2?r=" + Math.random(),
-                                    success : function(data) {
-                                        if (data.data) {
-                                            REGISTER.doSubmit();
-                                        } else {
-                                            alert("此手机号已经被注册！");
-                                            $("#regPhone").select();
-                                        }
-                                    }
-                                });
-                            } else {
-                                alert("此用户名已经被占用，请选择其他用户名");
-                                $("#regName").select();
-                            }
-                        }
-                    });
-
-                },
                 doSubmit:function() {
                     $.post(REGISTER.param.surl + "/user/register",$("#personRegForm").serialize(), function(data){
-                        if(data.status == 200){
+                        if(data.status == 1){
                             alert('用户注册成功，请登录！');
                             REGISTER.login();
                         } else {
-                            alert("注册失败！");
+                            alert(data.msg);
                         }
                     });
                 },
@@ -214,7 +204,8 @@
                 },
                 reg:function() {
                     if (this.inputcheck()) {
-                        this.beforeSubmit();
+                        //this.beforeSubmit();
+                        this.doSubmit();
                     }
                 }
             };
