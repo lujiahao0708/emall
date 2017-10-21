@@ -8,7 +8,7 @@ import com.lujiahao.sso.domain.Const;
 import com.lujiahao.sso.domain.EDataType;
 import com.lujiahao.sso.domain.UserDTO;
 import com.lujiahao.sso.service.IUserService;
-import com.lujiahao.sso.utils.ILocalCache;
+import com.lujiahao.sso.utils.cache.ILocalCache;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -146,13 +146,19 @@ public class IUserServiceImpl implements IUserService {
     }
 
     /**
-     * TODO 根据token查询用户信息
+     * 根据token查询用户信息
      */
     @Override
     public ServerResponse getUserByToken(String token) {
-        Object cache = iLocalCache.getCache(token);
-
-        return null;
+        try {
+            EmallUser user = (EmallUser) iLocalCache.getCache(token);
+            if (user == null) {
+                return ServerResponse.error("用户信息已过期,请重新登录!");
+            }
+            return ServerResponse.success(user);
+        } catch (Exception e) {
+            return ServerResponse.error("用户信息异常,请重新登录!");
+        }
     }
 
     // 找回密码流程 start
@@ -186,11 +192,42 @@ public class IUserServiceImpl implements IUserService {
         if (result > 0) {
             // 答案正确
             String forgetToken = UUID.randomUUID().toString();
-            iLocalCache.setCache(Const.CACHE_TOKEN, forgetToken);
+            iLocalCache.setCache(Const.CACHE_TOKEN + username, forgetToken);
             return ServerResponse.success(forgetToken);
         }
         return ServerResponse.error("答案错误");
     }
 
-    // 找回密码流程 start
+    /**
+     * 3.修改密码
+     */
+    @Override
+    public ServerResponse resetPwd(String username, String passwordNew, String forgetToken) {
+        try {
+            ServerResponse validResponse = this.checkData(username, EDataType.USERNAME.getValue());
+            if (validResponse.isSuccess()) {
+                return ServerResponse.error("用户名不存在");
+            }
+            String token = (String) iLocalCache.getCache(Const.CACHE_TOKEN + username);
+            if (StringUtils.isBlank(token)) {
+                return ServerResponse.error("token无效或过期");
+            }
+            if (StringUtils.equals(forgetToken, token)) {
+                String md5Pwd = DigestUtils.md5DigestAsHex(passwordNew.getBytes());
+                int result = emallUserMapper.updatePwdByUsername(username, md5Pwd);
+                if (result > 0) {
+                    return ServerResponse.success("密码修改成功");
+                } else {
+                    return ServerResponse.error("密码修改失败");
+                }
+            } else {
+                return ServerResponse.error("token信息不匹配,请重新获取重置密码token");
+            }
+        } catch (Exception e) {
+            LOGGER.error("========== 修改密码 异常 ==========username:" + username, e);
+            return ServerResponse.error("密码修改失败,请重试!");
+        }
+    }
+
+    // 找回密码流程 end
 }

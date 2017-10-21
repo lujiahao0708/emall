@@ -27,4 +27,6 @@ public interface EmallUserMapper {
     String selectQuestionByUsername(String username);
 
     int validPwdAnswer(@Param("username") String username, @Param("question") String question, @Param("answer") String answer);
+
+    int updatePwdByUsername(@Param("username") String username, @Param("password") String passwordNew);
 }

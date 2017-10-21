@@ -79,7 +79,8 @@
     <!--用户登录-->
     <select id="userLogin" parameterType="map" resultType="com.lujiahao.mapping.pojo.EmallUser">
         SELECT
-        <include refid="Base_Column_List"/>
+        id,username,password,email,phone,question,answer,
+        role_id AS roleId,create_date AS createDate,update_date AS updateDate
         FROM emall_user u
         WHERE u.username = #{username}
         AND u.password = #{password}
@@ -102,4 +103,10 @@
         and u.question = #{question}
         and u.answer = #{answer}
     </select>
+
+    <!--修改密码-->
+    <update id="updatePwdByUsername" parameterType="map">
+        UPDATE emall_user u SET u.password = #{password},u.update_date = now()
+        WHERE u.username = #{username}
+    </update>
 </mapper>

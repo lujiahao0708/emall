@@ -13,14 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 
 /**
  * 登录
@@ -42,7 +40,7 @@ public class SsoController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse userLogin(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response) {
+    public ServerResponse userLogin(@RequestBody UserDTO userDTO, HttpServletRequest request, HttpServletResponse response) {
         String username = userDTO.getUsername();
         String password = userDTO.getPassword();
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
@@ -74,7 +72,7 @@ public class SsoController {
     }
 
     /**
-     * 创建用户
+     * 注册
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
@@ -157,12 +155,24 @@ public class SsoController {
     /**
      * 2.校验找回密码答案是否正确
      */
-    @RequestMapping("/validPwdAnswer")
+    @RequestMapping(value = "/validPwdAnswer",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> validPwdAnswer(String username, String question, String answer) {
         if (StringUtils.isNoneBlank(username) && StringUtils.isNoneBlank(question) && StringUtils.isNoneBlank(answer)) {
             return iUserService.validPwdAnswer(username, question, answer);
         }
         return ServerResponse.error("参数不正确");
+    }
+
+    /**
+     * 3.修改密码
+     */
+    @RequestMapping(value = "/resetPassword",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<String> resetPwd(String username, String passwordNew, String forgetToken) {
+        if (StringUtils.isNoneBlank(username) && StringUtils.isNoneBlank(passwordNew) && StringUtils.isNoneBlank(forgetToken)) {
+            return iUserService.resetPwd(username, passwordNew, forgetToken);
+        }
+        return ServerResponse.error("参数传递错误");
     }
 }

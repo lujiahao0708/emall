@@ -60,4 +60,13 @@ public interface IUserService {
      * @return
      */
     ServerResponse validPwdAnswer(String username, String question, String answer);
+
+    /**
+     * 修改密码
+     * @param username
+     * @param passwordNew
+     * @param forgetToken
+     * @return
+     */
+    ServerResponse resetPwd(String username, String passwordNew, String forgetToken);
 }

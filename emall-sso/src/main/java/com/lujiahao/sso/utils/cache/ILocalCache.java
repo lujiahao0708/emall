@@ -1,4 +1,4 @@
-package com.lujiahao.sso.utils;
+package com.lujiahao.sso.utils.cache;
 
 /**
  * 本地缓存
@@ -28,7 +28,7 @@ public interface ILocalCache<T> {
      * @param key
      * @return
      */
-    T getCache(String key);
+    Object getCache(String key);
 
 
 //=============V1.0==================

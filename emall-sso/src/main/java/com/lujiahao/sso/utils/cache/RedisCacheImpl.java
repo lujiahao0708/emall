@@ -4,7 +4,6 @@ import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.JsonUtils;
 import com.lujiahao.mapping.pojo.EmallUser;
 import com.lujiahao.sso.dao.JedisClientDao;
-import com.lujiahao.sso.utils.ILocalCache;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +54,7 @@ public class RedisCacheImpl<T> implements ILocalCache<T> {
     }
 
     @Override
-    public T getCache(String key) {
+    public Object getCache(String key) {
         try {
             // 根据token从redis中查询用户信息
             String json = jedisClientDao.get(REDIS_USER_SESSION_KEY + ":" + key);
