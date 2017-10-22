@@ -31,18 +31,22 @@ public class GuavaCacheImpl<T> implements ILocalCache<T> {
 
     @Override
     public boolean setCache(String key, T value) {
-        localCache.put(key, value);
+        try {
+            localCache.put(key, value);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public boolean cleanCache(String key) {
         try {
-
-            return true;
+            localCache.invalidate(key);
         } catch (Exception e) {
             return false;
         }
+        return true;
     }
 
     @Override
