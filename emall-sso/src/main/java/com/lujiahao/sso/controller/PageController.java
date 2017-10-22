@@ -14,20 +14,23 @@ public class PageController {
 
     /**
      * 跳转到注册页面
+     *
      * @return
      */
     @RequestMapping(value = "/register")
-    public String showRegister(){
+    public String showRegister() {
         return "register";
     }
 
     /**
      * 跳转到登录页面
+     *
      * @return
      */
     @RequestMapping(value = "/login")
-    public String showLogin(String redirect, Model model){
-        model.addAttribute("redirect",redirect);// 把回调的url传递给登录页面的jsp
+    public String showLogin(String redirect, Model model) {
+        // 把回调的url传递给登录页面的jsp
+        model.addAttribute("redirect", redirect);
         return "login";
     }
 
@@ -35,14 +38,14 @@ public class PageController {
      * 忘记密码页面
      */
     @RequestMapping(value = "/forgotPassword")
-    public String forgotPassword(){
+    public String forgotPassword() {
         return "forgotPassword";
     }
 
     //http://localhost:8084/page/haha?carNumbers=444&carNumbers=222&carNumbers=333
     @RequestMapping(value = "haha")
     @ResponseBody
-    public void haha(String... carNumbers){
+    public void haha(String... carNumbers) {
         System.out.println(carNumbers.length);
     }
 }
