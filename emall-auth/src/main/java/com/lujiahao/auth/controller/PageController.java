@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2017-10-17 18:26
  */
 @Controller
+@RequestMapping("/")
 public class PageController {
     private static final Logger LOGGER = LoggerFactory.getLogger(PageController.class);
 
     @RequestMapping("/")
-    public String index(){
+    public String index() {
         return "index";
     }
 
