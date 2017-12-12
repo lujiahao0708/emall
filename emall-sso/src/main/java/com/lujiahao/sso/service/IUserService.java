@@ -3,6 +3,7 @@ package com.lujiahao.sso.service;
 
 import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.sso.domain.UserDTO;
+import org.springframework.stereotype.Component;
 
 /**
  * 用户操作Service接口
@@ -14,7 +15,7 @@ public interface IUserService {
     /**
      * 用户登录
      */
-    ServerResponse userLogin(String username, String password);
+    ServerResponse userLogin(UserDTO userDTO);
 
     /**
      * 注销登录
@@ -45,28 +46,5 @@ public interface IUserService {
      */
     ServerResponse getUserByToken(String token);
 
-    /**
-     * 根据用户名获取找回密码问题
-     * @param username 用户名
-     * @return 找回密码问题
-     */
-    ServerResponse selectQuestionByUsername(String username);
 
-    /**
-     * 校验找回密码答案是否正确
-     * @param username
-     * @param question
-     * @param answer
-     * @return
-     */
-    ServerResponse validPwdAnswer(String username, String question, String answer);
-
-    /**
-     * 修改密码
-     * @param username
-     * @param passwordNew
-     * @param forgetToken
-     * @return
-     */
-    ServerResponse resetPwd(String username, String passwordNew, String forgetToken);
 }

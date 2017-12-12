@@ -1,24 +1,22 @@
 package com.lujiahao.sso.controller;
 
+import com.lujiahao.common.domain.ServerResponse;
 import com.lujiahao.common.utils.CookieUtils;
+import com.lujiahao.common.utils.ExceptionUtil;
 import com.lujiahao.sso.domain.Const;
 import com.lujiahao.sso.domain.EDataType;
 import com.lujiahao.sso.domain.UserDTO;
+import com.lujiahao.sso.service.IUserPwdService;
 import com.lujiahao.sso.service.IUserService;
-import com.lujiahao.common.domain.ServerResponse;
-import com.lujiahao.common.utils.ExceptionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
 
 /**
  * 登录
@@ -26,27 +24,22 @@ import java.util.Enumeration;
  * @author lujiahao
  * @date 2017/10/17
  */
-@Controller
-@RequestMapping(value = "/user")
+@RestController
 public class SsoController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SsoController.class);
 
     @Autowired
-    private IUserService iUserService;
+    private IUserService userService;
+    @Autowired
+    private IUserPwdService userPwdService;
 
     /**
      * 用户登录
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
+    @PostMapping("/user/login")
     public ServerResponse userLogin(UserDTO userDTO, HttpServletRequest request, HttpServletResponse response) {
-        String username = userDTO.getUsername();
-        String password = userDTO.getPassword();
-        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
-            return ServerResponse.error("用户名或密码为空");
-        }
-        ServerResponse serverResponse = iUserService.userLogin(username, password);
+        ServerResponse serverResponse = userService.userLogin(userDTO);
         if (serverResponse.isSuccess()) {
             // 添加写cookie的逻辑  cookie有效期是关闭浏览器失效
             CookieUtils.setCookie(request, response, Const.COOKIE_TOKEN, serverResponse.getData().toString());
@@ -57,14 +50,10 @@ public class SsoController {
     /**
      * 注销登录
      */
-    @RequestMapping(value = "/logout")
-    @ResponseBody
+    @PostMapping("/user/logout")
     public ServerResponse userLogout(HttpServletRequest request, HttpServletResponse response) {
         String token = CookieUtils.getCookieValue(request, Const.COOKIE_TOKEN);
-        if (StringUtils.isBlank(token)) {
-            return ServerResponse.error("用户信息不存在");
-        }
-        ServerResponse serverResponse = iUserService.userLogout(token);
+        ServerResponse serverResponse = userService.userLogout(token);
         if (serverResponse.isSuccess()) {
             CookieUtils.deleteCookie(request, response, Const.COOKIE_TOKEN);
         }
@@ -74,10 +63,9 @@ public class SsoController {
     /**
      * 注册
      */
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
+    @PostMapping("/user/register")
     public ServerResponse createUser(UserDTO userDTO) {
-        return iUserService.createUser(userDTO);
+        return userService.createUser(userDTO);
     }
 
     /**
@@ -88,7 +76,7 @@ public class SsoController {
     public Object getUserByToken(@PathVariable String token, String callback) {
         ServerResponse result = null;
         try {
-            result = iUserService.getUserByToken(token);
+            result = userService.getUserByToken(token);
         } catch (Exception e) {
             e.printStackTrace();
             result = ServerResponse.build(500, ExceptionUtil.getStackTrace(e));
@@ -118,7 +106,7 @@ public class SsoController {
         if (type != EDataType.USERNAME.getValue() && type != EDataType.PHONE.getValue() && type != EDataType.EMAIL.getValue()) {
             return jsonpCallback(callback, ServerResponse.error(400, "校验内容类型错误"));
         }
-        result = iUserService.checkData(param, type);
+        result = userService.checkData(param, type);
         return jsonpCallback(callback, result);
     }
 
@@ -142,7 +130,7 @@ public class SsoController {
     @ResponseBody
     public ServerResponse<String> getPwdQuestion(String username) {
         if (StringUtils.isNoneBlank(username)) {
-            return iUserService.selectQuestionByUsername(username);
+            return userPwdService.selectQuestionByUsername(username);
         }
         return ServerResponse.error("用户名未空");
     }
@@ -154,7 +142,7 @@ public class SsoController {
     @ResponseBody
     public ServerResponse<String> validPwdAnswer(String username, String question, String answer) {
         if (StringUtils.isNoneBlank(username) && StringUtils.isNoneBlank(question) && StringUtils.isNoneBlank(answer)) {
-            return iUserService.validPwdAnswer(username, question, answer);
+            return userPwdService.validPwdAnswer(username, question, answer);
         }
         return ServerResponse.error("参数不正确");
     }
@@ -166,7 +154,7 @@ public class SsoController {
     @ResponseBody
     public ServerResponse<String> resetPwd(String username, String passwordNew, String forgetToken) {
         if (StringUtils.isNoneBlank(username) && StringUtils.isNoneBlank(passwordNew) && StringUtils.isNoneBlank(forgetToken)) {
-            return iUserService.resetPwd(username, passwordNew, forgetToken);
+            return userPwdService.resetPwd(username, passwordNew, forgetToken);
         }
         return ServerResponse.error("参数传递错误");
     }
