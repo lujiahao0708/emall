@@ -9,13 +9,13 @@
     <version>0.0.2</version>
     <modules>
         <module>emall-common</module>
-        <!--<module>emall-manager</module>-->
+        <module>manager</module>
         <module>emall-mapping</module>
         <!--<module>emall-rest</module>-->
         <!--<module>emall-portal</module>-->
         <module>emall-sso</module>
         <!--<module>emall-mobile</module>-->
-        <module>emall-auth</module>
+        <!--<module>emall-auth</module>-->
     </modules>
     <packaging>pom</packaging>
 

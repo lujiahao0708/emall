@@ -1,0 +1,29 @@
+spring:
+  thymeleaf:
+    # Enable template caching.
+    cache: true
+    # Check that the templates location exists.
+    check-template-location: true
+    # Content-Type value.
+    content-type: text/html
+    # Enable MVC Thymeleaf view resolution.
+    enabled: true
+    # Template encoding.
+    encoding: UTF-8
+    # Comma-separated list of view names that should be excluded from resolution.
+    excluded-view-names:
+    # Template mode to be applied to templates. See also StandardTemplateModeHandlers.
+    mode: HTML5
+    # Prefix that gets prepended to view names when building a URL.
+    prefix: classpath:/templates/
+    # Suffix that gets appended to view names when building a URL.
+    suffix: .html
+    # Order of the template resolver in the chain.
+    template-resolver-order:
+    # Comma-separated list of view names that can be resolved.
+    # view-names:
+
+# sso
+sso:
+  server: http://sso.emall.com:8084
+  loginUrl: /user/login

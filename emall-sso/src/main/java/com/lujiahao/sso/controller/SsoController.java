@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2017/10/17
  */
 @RestController
+@CrossOrigin
 public class SsoController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SsoController.class);

@@ -19,12 +19,12 @@
     </sql>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from emall_user
+    delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
     <insert id="insert" parameterType="com.lujiahao.sso.domain.pojo.User">
-    insert into emall_user (username, password,
+    insert into user (username, password,
       email, phone, question, 
       answer, role_id, create_date, 
       update_date)
@@ -33,7 +33,7 @@
       #{answer,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, now(), now())
   </insert>
     <insert id="insertSelective" parameterType="com.lujiahao.sso.domain.pojo.User">
-        insert into emall_user
+        insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -100,7 +100,7 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.lujiahao.sso.domain.pojo.User">
-        update emall_user
+        update user
         <set>
             <if test="username != null">
                 username = #{username,jdbcType=VARCHAR},
@@ -135,7 +135,7 @@
 
 
     <update id="updateByPrimaryKey" parameterType="com.lujiahao.sso.domain.pojo.User">
-    update emall_user
+    update user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
@@ -151,29 +151,29 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="userResultMap">
     select id, username, password, email, phone, question, answer, role_id, create_date, 
     update_date
-    from emall_user
+    from user
     where id = #{id,jdbcType=INTEGER}
   </select>
 
     <select id="selectAll" resultMap="userResultMap">
     select id, username, password, email, phone, question, answer, role_id, create_date, 
     update_date
-    from emall_user
+    from user
   </select>
 
     <!--校验用户名是否存在-->
     <select id="checkUsername" parameterType="string" resultType="int">
-        SELECT COUNT(1) FROM emall_user u
+        SELECT COUNT(1) FROM user u
         WHERE u.username=#{username}
     </select>
     <!--校验phone是否存在-->
     <select id="checkPhone" parameterType="string" resultType="int">
-        SELECT COUNT(1) FROM emall_user u
+        SELECT COUNT(1) FROM user u
         WHERE u.phone=#{phone}
     </select>
     <!--校验email是否存在-->
     <select id="checkEmail" parameterType="string" resultType="int">
-        SELECT COUNT(1) FROM emall_user u
+        SELECT COUNT(1) FROM user u
         WHERE u.email=#{email}
     </select>
 
@@ -182,32 +182,8 @@
         SELECT
         id,username,password,email,phone,question,answer,
         role_id AS roleId,create_date AS createDate,update_date AS updateDate
-        FROM emall_user u
+        FROM user u
         WHERE u.username = #{username}
         AND u.password = #{password}
     </select>
-
-    <!--根据用户名获取找回密码问题-->
-    <select id="selectQuestionByUsername" parameterType="string" resultType="string">
-        SELECT
-          u.question
-        FROM emall_user u
-        WHERE u.username = #{username}
-    </select>
-
-    <!--根据用户名获取找回密码问题-->
-    <select id="validPwdAnswer" parameterType="map" resultType="int">
-        SELECT
-          count(1)
-        FROM emall_user u
-        WHERE u.username = #{username}
-        and u.question = #{question}
-        and u.answer = #{answer}
-    </select>
-
-    <!--修改密码-->
-    <update id="updatePwdByUsername" parameterType="map">
-        UPDATE emall_user u SET u.password = #{password},u.update_date = now()
-        WHERE u.username = #{username}
-    </update>
 </mapper>
