@@ -59,12 +59,8 @@
             <if test="roleId != null">
                 role_id,
             </if>
-            <if test="createDate != null">
                 create_date,
-            </if>
-            <if test="updateDate != null">
                 update_Date,
-            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -91,12 +87,8 @@
             <if test="roleId != null">
                 #{roleId,jdbcType=INTEGER},
             </if>
-            <if test="createDate != null">
                 now(),
-            </if>
-            <if test="updateDate != null">
                 now(),
-            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.lujiahao.sso.domain.pojo.User">

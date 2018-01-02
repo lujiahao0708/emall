@@ -44,7 +44,9 @@
       updated = #{updated,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+
+
+  <select id="selectItemById" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select id, title, sell_point, price, num, barcode, image, cid, status, created, updated
     from tb_item
     where id = #{id,jdbcType=BIGINT}

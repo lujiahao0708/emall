@@ -8,7 +8,7 @@ public interface TbItemMapper {
 
     int insert(TbItem record);
 
-    TbItem selectByPrimaryKey(Long id);
+    TbItem selectItemById(Long id);
 
     List<TbItem> selectAll();
 

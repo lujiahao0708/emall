@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.lujiahao</groupId>
-    <artifactId>emall-common</artifactId>
+    <artifactId>common</artifactId>
     <version>0.0.2</version>
     <packaging>jar</packaging>
 
@@ -38,10 +38,10 @@
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
         </dependency>
-        <!-- Jackson Json处理工具包 -->
+        <!-- fastjson -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
         </dependency>
         <!-- httpclient -->
         <dependency>
@@ -54,18 +54,22 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--&lt;!&ndash; 日志处理 &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.slf4j</groupId>-->
-            <!--<artifactId>slf4j-log4j12</artifactId>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash;logback&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>ch.qos.logback</groupId>-->
-            <!--<artifactId>logback-classic</artifactId>-->
-            <!--<version>${logback.version}</version>-->
-        <!--</dependency>-->
-        <!--jsp相关-->
+        <!-- 日志处理 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <!--logback-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
+        <!-- JSP相关 -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -81,6 +85,15 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
         </dependency>
     </dependencies>
 

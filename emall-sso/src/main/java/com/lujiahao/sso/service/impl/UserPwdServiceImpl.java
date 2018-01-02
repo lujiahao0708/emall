@@ -39,6 +39,10 @@ public class UserPwdServiceImpl implements IUserPwdService {
     @Override
     public ServerResponse selectQuestionByUsername(String username) {
         try {
+            if (StringUtils.isBlank(username)) {
+                LOGGER.warn("获取找回密码问题 用户名为空");
+                return ServerResponse.error("用户名为空");
+            }
             ServerResponse validResponse = userService.checkData(username, EDataType.USERNAME.getValue());
             if (validResponse.isSuccess()) {
                 return ServerResponse.error("用户不存在");

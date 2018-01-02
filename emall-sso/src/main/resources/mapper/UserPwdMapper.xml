@@ -22,7 +22,7 @@
     <select id="selectQuestionByUsername" parameterType="string" resultType="string">
         SELECT
           u.question
-        FROM emall_user u
+        FROM user u
         WHERE u.username = #{username}
     </select>
 
@@ -30,7 +30,7 @@
     <select id="validPwdAnswer" parameterType="map" resultType="int">
         SELECT
           count(1)
-        FROM emall_user u
+        FROM user u
         WHERE u.username = #{username}
         and u.question = #{question}
         and u.answer = #{answer}
@@ -38,7 +38,7 @@
 
     <!--修改密码-->
     <update id="updatePwdByUsername" parameterType="map">
-        UPDATE emall_user u SET u.password = #{password},u.update_date = now()
+        UPDATE user u SET u.password = #{password},u.update_date = now()
         WHERE u.username = #{username}
     </update>
 </mapper>

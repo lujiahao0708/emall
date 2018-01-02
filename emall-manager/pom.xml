@@ -59,6 +59,17 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.lujiahao</groupId>
+			<artifactId>emall-common</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+        <dependency>
+            <groupId>com.lujiahao</groupId>
+            <artifactId>emall-mapping</artifactId>
+            <version>0.0.2</version>
+        </dependency>
+
 	</dependencies>
 
 	<build>

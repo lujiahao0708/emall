@@ -9,13 +9,12 @@
     <version>0.0.2</version>
     <modules>
         <module>emall-common</module>
-        <module>manager</module>
-        <module>emall-mapping</module>
-        <!--<module>emall-rest</module>-->
-        <!--<module>emall-portal</module>-->
         <module>emall-sso</module>
-        <!--<module>emall-mobile</module>-->
-        <!--<module>emall-auth</module>-->
+        <module>emall-manager</module>
+        <module>emall-mapping</module>
+        <module>emall-rest</module>
+        <module>emall-portal</module>
+        <module>emall-auth</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -30,6 +29,7 @@
         <slf4j.version>1.6.4</slf4j.version>
         <logback.version>1.1.7</logback.version>
         <jackson.version>2.4.2</jackson.version>
+        <fastjson.version>1.2.7</fastjson.version>
         <druid.version>1.0.9</druid.version>
         <httpclient.version>4.3.5</httpclient.version>
         <jstl.version>1.2</jstl.version>
@@ -207,11 +207,11 @@
                 <version>${freemarker.version}</version>
             </dependency>
 
-            <!-- Swagger api文档生成工具依赖包 -->
+            <!-- fastjson -->
             <dependency>
-                <groupId>com.mangofactory</groupId>
-                <artifactId>swagger-springmvc</artifactId>
-                <version>${swagger-springmvc.version}</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
 
             <!-- Jackson Json处理工具包 -->

@@ -72,7 +72,7 @@ public class SsoController {
     /**
      * 通过token查询用户信息
      */
-    @RequestMapping(value = "/token/{token}")
+    @RequestMapping(value = "/user/token/{token}")
     @ResponseBody
     public Object getUserByToken(@PathVariable String token, String callback) {
         ServerResponse result = null;
@@ -92,7 +92,7 @@ public class SsoController {
      * @param type  数据类型 详见枚举:EDataType
      *              callback    是个回调地址,就是这个进入这个页面之前访问的地址
      */
-    @RequestMapping(value = "/check/{param}/{type}")
+    @RequestMapping(value = "/user/check/{param}/{type}")
     @ResponseBody
     public Object checkData(HttpServletRequest request, @PathVariable String param, @PathVariable Integer type) {
         String callback = request.getParameter("callback");
@@ -127,20 +127,15 @@ public class SsoController {
     /**
      * 1.获取找回密码问题
      */
-    @RequestMapping("/getPwdQuestion")
-    @ResponseBody
+    @GetMapping("/user/getPwdQuestion")
     public ServerResponse<String> getPwdQuestion(String username) {
-        if (StringUtils.isNoneBlank(username)) {
-            return userPwdService.selectQuestionByUsername(username);
-        }
-        return ServerResponse.error("用户名未空");
+        return userPwdService.selectQuestionByUsername(username);
     }
 
     /**
      * 2.校验找回密码答案是否正确
      */
-    @RequestMapping(value = "/validPwdAnswer", method = RequestMethod.POST)
-    @ResponseBody
+    @PostMapping("/user/validPwdAnswer")
     public ServerResponse<String> validPwdAnswer(String username, String question, String answer) {
         if (StringUtils.isNoneBlank(username) && StringUtils.isNoneBlank(question) && StringUtils.isNoneBlank(answer)) {
             return userPwdService.validPwdAnswer(username, question, answer);
@@ -151,8 +146,7 @@ public class SsoController {
     /**
      * 3.修改密码
      */
-    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
-    @ResponseBody
+    @PostMapping("/user/resetPassword")
     public ServerResponse<String> resetPwd(String username, String passwordNew, String forgetToken) {
         if (StringUtils.isNoneBlank(username) && StringUtils.isNoneBlank(passwordNew) && StringUtils.isNoneBlank(forgetToken)) {
             return userPwdService.resetPwd(username, passwordNew, forgetToken);

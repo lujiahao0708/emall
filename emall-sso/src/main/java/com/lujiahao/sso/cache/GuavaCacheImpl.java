@@ -34,6 +34,7 @@ public class GuavaCacheImpl<T> implements ILocalCache<T> {
     @Override
     public boolean setCache(String key, T value) {
         try {
+            LOGGER.info("Guava本地缓存 存储 key:{} value:{}", key, value);
             localCache.put(key, value);
         } catch (Exception e) {
             return false;
@@ -45,6 +46,7 @@ public class GuavaCacheImpl<T> implements ILocalCache<T> {
     public boolean cleanCache(String key) {
         try {
             localCache.invalidate(key);
+            LOGGER.info("Guava本地缓存 清除 key:{}", key);
         } catch (Exception e) {
             return false;
         }
@@ -54,7 +56,9 @@ public class GuavaCacheImpl<T> implements ILocalCache<T> {
     @Override
     public Object getCache(String key) {
         try {
-            return localCache.get(key);
+            Object value = localCache.get(key);
+            LOGGER.info("Guava本地缓存 获取 key:{} value:{}", key, value);
+            return value;
         } catch (Exception e) {
             LOGGER.error("========== localCache get error ==========", e);
         }

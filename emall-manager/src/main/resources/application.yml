@@ -27,3 +27,31 @@ spring:
 sso:
   server: http://sso.emall.com:8084
   loginUrl: /user/login
+
+
+## ----------------原有配置---------start
+#FTP相关配置
+#ftp服务器地址
+FTP_ADDRESS: 192.168.2.30
+#ftp服务器端口号
+FTP_PORT: 21
+#ftp用户名
+FTP_USERNAME: ftpuser
+#ftp密码
+FTP_PASSWORD: ftpuser
+#ftp服务器根路径
+FTP_BASE_PATH: /images
+#图片服务器的相关配置
+IMAGE_BASE_URL: http://192.168.2.30/images
+# 服务层基础url
+REST_BASE_URL: http://localhost:8081/rest
+#内容分类管理
+REST_CONTENT_CATEGORY_LIST: /content/category/list
+#内容分类管理-创建节点
+REST_CONTENT_CATEGORY_CREATE: /content/category/create
+REST_CONTENT_CATEGORY_DELETE: /content/category/delete
+REST_CONTENT_CATEGORY_UPDATE: /content/category/update
+
+#首页广告位轮播图同步接口
+REST_CONTENT_SYNC_URL: /cache/sync/content/
+## ----------------原有配置---------end
